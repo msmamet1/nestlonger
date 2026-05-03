@@ -1,4 +1,4 @@
-/* NestLonger — consolidated stylesheet
+/* NestLonger - consolidated stylesheet
    Merged from: colors_and_type.css (design tokens + base type),
                 styles.css (marketing UI kit),
                 site.css (multi-page extensions). */
@@ -758,7 +758,7 @@ img { display: block; max-width: 100%; }
   font-size: 15px; color: var(--nl-charcoal); line-height: 1.6;
 }
 .nl-privacy-list li::before {
-  content: "—"; position: absolute; left: 0;
+  content: "-"; position: absolute; left: 0;
   color: var(--nl-sage); font-family: var(--nl-font-serif);
 }
 .nl-privacy-strong { color: var(--nl-charcoal); }
