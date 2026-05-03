@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NestLonger Brand Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --linen: #F5F0E8;
+    --cream: #FDFAF5;
+    --sage: #4A6741;
+    --sage-light: #EAF0E8;
+    --charcoal: #2C2C2A;
+    --mid: #6B6860;
+    --light: #B0AA9E;
+    --border: #DDD8CE;
+    --terracotta: #C4763A;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--linen);
+    color: var(--charcoal);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* LAYOUT */
+  .page { max-width: 900px; margin: 0 auto; padding: 60px 40px; }
+
+  /* HEADER */
+  .brand-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .brand-wordmark {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 28px;
+    color: var(--charcoal);
+    letter-spacing: -0.02em;
+  }
+
+  .brand-wordmark span { color: var(--sage); }
+
+  .brand-version {
+    font-size: 12px;
+    color: var(--light);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* SECTION */
+  .section { margin-bottom: 52px; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  /* POSITIONING */
+  .positioning-block {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px 32px;
+    margin-bottom: 16px;
+  }
+
+  .positioning-block h3 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 13px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--mid);
+    margin-bottom: 10px;
+  }
+
+  .positioning-block p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--charcoal);
+  }
+
+  .tagline-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .tagline-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+  }
+
+  .tagline-use {
+    font-size: 11px;
+    color: var(--mid);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .tagline-text {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 18px;
+    color: var(--charcoal);
+    font-style: italic;
+  }
+
+  /* COLORS */
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+  }
+
+  .color-swatch {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .swatch-block {
+    height: 72px;
+  }
+
+  .swatch-info {
+    background: white;
+    padding: 10px 12px;
+  }
+
+  .swatch-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 2px;
+  }
+
+  .swatch-hex {
+    font-size: 11px;
+    color: var(--mid);
+    font-family: monospace;
+  }
+
+  .swatch-role {
+    font-size: 10px;
+    color: var(--light);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  /* TYPOGRAPHY */
+  .type-row {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-bottom: 12px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .type-meta { }
+
+  .type-meta-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 4px;
+  }
+
+  .type-meta-use {
+    font-size: 11px;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+
+  .type-sample-serif {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 26px;
+    color: var(--charcoal);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .type-sample-serif em {
+    font-style: italic;
+    color: var(--sage);
+  }
+
+  .type-sample-sans {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--mid);
+    line-height: 1.65;
+  }
+
+  /* VOICE */
+  .voice-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .voice-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+  }
+
+  .voice-card.do { border-top: 3px solid var(--sage); }
+  .voice-card.dont { border-top: 3px solid var(--terracotta); }
+
+  .voice-card h4 {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .voice-card.do h4 { color: var(--sage); }
+  .voice-card.dont h4 { color: var(--terracotta); }
+
+  .voice-item {
+    font-size: 13px;
+    color: var(--mid);
+    padding: 5px 0;
+    border-bottom: 0.5px solid var(--border);
+    line-height: 1.5;
+  }
+
+  .voice-item:last-child { border-bottom: none; }
+
+  /* COMPONENTS */
+  .component-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .btn-primary {
+    background: var(--sage);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 5px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--sage);
+    padding: 11px 23px;
+    border-radius: 5px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1.5px solid var(--sage);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-text {
+    background: transparent;
+    color: var(--sage);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    display: inline-block;
+  }
+
+  .sample-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    max-width: 320px;
+  }
+
+  .sample-card-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 8px;
+  }
+
+  .sample-card-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 17px;
+    color: var(--charcoal);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .sample-card-body {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .stat-example {
+    background: var(--sage-light);
+    border-radius: 6px;
+    padding: 12px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .stat-example-num {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--sage);
+  }
+
+  .stat-example-label {
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.4;
+  }
+
+  .tag {
+    display: inline-block;
+    background: var(--sage-light);
+    color: var(--sage);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-right: 6px;
+  }
+
+  .tag.terracotta {
+    background: #FBF0E6;
+    color: var(--terracotta);
+  }
+
+  /* PHOTO DIRECTION */
+  .photo-rule {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .photo-rule:last-child { border-bottom: none; }
+
+  .photo-rule-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--sage);
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .photo-rule-text {
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+
+  .photo-rule-text strong {
+    color: var(--charcoal);
+    font-weight: 500;
+  }
+
+  /* PRINT NOTE */
+  .print-note {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--light);
+    text-align: center;
+  }
+
+  @media (max-width: 600px) {
+    .page { padding: 40px 20px; }
+    .color-grid { grid-template-columns: repeat(3, 1fr); }
+    .tagline-row { grid-template-columns: 1fr; }
+    .voice-grid { grid-template-columns: 1fr; }
+    .type-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="brand-header">
+    <div class="brand-wordmark">Nest<span>Longer</span></div>
+    <div class="brand-version">Brand Reference - v1.0 - May 2026</div>
+  </div>
+
+  <!-- POSITIONING -->
+  <div class="section">
+    <div class="section-label">Positioning</div>
+
+    <div class="positioning-block">
+      <h3>Core positioning statement</h3>
+      <p>For adult children with aging parents who want to stay in their homes, NestLonger is the trusted guide that helps families get ahead of the problem - connecting them with certified professionals for the practical steps that make aging at home safe, affordable, and doable before the crisis forces their hand.</p>
+    </div>
+
+    <div class="tagline-row">
+      <div class="tagline-card">
+        <div class="tagline-use">Functional brand / nav</div>
+        <div class="tagline-text">Stay home, safely.</div>
+      </div>
+      <div class="tagline-card">
+        <div class="tagline-use">Hero copy / emotional</div>
+        <div class="tagline-text">The home you love, for as long as possible.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLORS -->
+  <div class="section">
+    <div class="section-label">Color Palette</div>
+    <div class="color-grid">
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#F5F0E8;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Warm Linen</div>
+          <div class="swatch-hex">#F5F0E8</div>
+          <div class="swatch-role">Page background</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#4A6741;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Deep Sage</div>
+          <div class="swatch-hex">#4A6741</div>
+          <div class="swatch-role">Buttons, links, accents</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#2C2C2A;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Warm Charcoal</div>
+          <div class="swatch-hex">#2C2C2A</div>
+          <div class="swatch-role">All body text, headlines</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#C4763A;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Terracotta</div>
+          <div class="swatch-hex">#C4763A</div>
+          <div class="swatch-role">Stats, pull quotes, highlights</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#FDFAF5; border-bottom:1px solid #DDD8CE;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Soft Cream</div>
+          <div class="swatch-hex">#FDFAF5</div>
+          <div class="swatch-role">Cards, form fields</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TYPOGRAPHY -->
+  <div class="section">
+    <div class="section-label">Typography</div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="type-meta-name">Libre Baskerville</div>
+        <div class="type-meta-use">All headlines, hero copy, H1 - H3, pull quotes, taglines. Conveys authority and warmth.</div>
+      </div>
+      <div class="type-sample-serif">The home you love,<br><em>for as long as possible.</em></div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="type-meta-name">DM Sans</div>
+        <div class="type-meta-use">All body copy, navigation, buttons, labels, captions, form fields. Highly readable, modern without being cold.</div>
+      </div>
+      <div class="type-sample-sans">NestLonger helps adult children get ahead of the problem - connecting families with certified professionals for the practical steps that make aging at home safe, affordable, and doable.</div>
+    </div>
+  </div>
+
+  <!-- VOICE -->
+  <div class="section">
+    <div class="section-label">Voice and Tone</div>
+    <p style="font-size:14px;color:var(--mid);margin-bottom:20px;">Three words: <strong style="color:var(--charcoal)">Clear. Warm. Practical.</strong> Write for the adult child, not the aging parent. Short sentences. No jargon. Lead with the outcome, not the problem.</p>
+
+    <div class="voice-grid">
+      <div class="voice-card do">
+        <h4>Do say</h4>
+        <div class="voice-item">Your mom, your dad, your parent</div>
+        <div class="voice-item">Aging at home / aging in place</div>
+        <div class="voice-item">Certified installer / certified professional</div>
+        <div class="voice-item">Before something happens</div>
+        <div class="voice-item">Here's what to do next</div>
+        <div class="voice-item">Safe, doable, affordable</div>
+        <div class="voice-item">Get ahead of it</div>
+      </div>
+      <div class="voice-card dont">
+        <h4>Never say</h4>
+        <div class="voice-item">Loved one</div>
+        <div class="voice-item">Senior / elderly / aging adult</div>
+        <div class="voice-item">End of life / final chapter</div>
+        <div class="voice-item">When the worst happens</div>
+        <div class="voice-item">Comprehensive solution</div>
+        <div class="voice-item">Holistic / seamless / robust</div>
+        <div class="voice-item">Empowering families to...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHOTO DIRECTION -->
+  <div class="section">
+    <div class="section-label">Photography Direction</div>
+    <div style="background:white;border:1px solid var(--border);border-radius:8px;padding:20px 24px;">
+      <div class="photo-rule">
+        <div class="photo-rule-dot"></div>
+        <div class="photo-rule-text"><strong>Real homes, not staged homes.</strong> Not Pottery Barn aging-in-place. Real kitchens, real bathrooms, real grab bars. Authenticity builds trust in this category.</div>
+      </div>
+      <div class="photo-rule">
+        <div class="photo-rule-dot"></div>
+        <div class="photo-rule-text"><strong>Show adult children, not just seniors.</strong> The buyer is the adult child. Show them helping, on the phone, walking through a home with a parent. Not just an elderly person sitting in a chair.</div>
+      </div>
+      <div class="photo-rule">
+        <div class="photo-rule-dot"></div>
+        <div class="photo-rule-text"><strong>Light and warmth, not clinical or alarming.</strong> No hospital imagery, no emergency rooms, no fallen person imagery. The emotional register is preparation and confidence, not fear.</div>
+      </div>
+      <div class="photo-rule">
+        <div class="photo-rule-dot"></div>
+        <div class="photo-rule-text"><strong>Sources:</strong> Unsplash (search: aging, family home, parent), Getty authentic aging collection. Illustrations acceptable if photographic budget is zero.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPONENTS -->
+  <div class="section">
+    <div class="section-label">UI Components</div>
+
+    <p style="font-size:12px;color:var(--mid);margin-bottom:16px;letter-spacing:0.04em;text-transform:uppercase;">Buttons</p>
+    <div class="component-row">
+      <a class="btn-primary">Find an installer</a>
+      <a class="btn-secondary">Learn more</a>
+      <a class="btn-text">See how it works &rarr;</a>
+    </div>
+
+    <p style="font-size:12px;color:var(--mid);margin-bottom:16px;margin-top:24px;letter-spacing:0.04em;text-transform:uppercase;">Tags / Labels</p>
+    <div style="margin-bottom:24px;">
+      <span class="tag">Grab Bars</span>
+      <span class="tag">ADU</span>
+      <span class="tag">Home Safety</span>
+      <span class="tag terracotta">Free to families</span>
+    </div>
+
+    <p style="font-size:12px;color:var(--mid);margin-bottom:16px;letter-spacing:0.04em;text-transform:uppercase;">Sample Content Card</p>
+    <div class="sample-card">
+      <div class="sample-card-eyebrow">Grab Bar Installation</div>
+      <div class="sample-card-title">The simplest thing you can do to keep a parent safe at home</div>
+      <div class="sample-card-body">A properly installed grab bar costs less than $500 and reduces fall risk by up to 80%. We connect families with certified installers and help you figure out what insurance covers.</div>
+      <div class="stat-example">
+        <div class="stat-example-num">80%</div>
+        <div class="stat-example-label">reduction in falls<br>with proper installation</div>
+      </div>
+      <a class="btn-primary" style="font-size:13px;padding:10px 18px;">Find an installer &rarr;</a>
+    </div>
+  </div>
+
+  <div class="print-note">
+    NestLonger Brand Guide v1.0 - May 2026 - For internal use and partner/developer reference
+  </div>
+
+</div>
+</body>
+</html>
