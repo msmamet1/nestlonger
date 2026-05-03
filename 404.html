@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Page not found — NestLonger</title>
+  <meta name="description" content="The page you're looking for doesn't exist." />
+  <meta name="robots" content="noindex" />
+
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <link rel="stylesheet" href="/assets/styles.css" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D2CB1LRG5P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-D2CB1LRG5P');
+  </script>
+
+  <script async src="https://tally.so/widgets/embed.js"></script>
+</head>
+<body id="top">
+
+  <header class="nl-nav">
+    <div class="nl-nav-inner">
+      <a href="/" class="nl-wordmark" aria-label="NestLonger">Nest<span>Longer</span></a>
+      <nav class="nl-nav-links">
+        <a href="/grab-bars.html">Grab bars</a>
+        <a href="/adus.html">ADUs</a>
+        <a href="/partners.html">For partners</a>
+        <button type="button" class="nl-btn nl-btn-primary nl-btn-sm" data-tally-cta data-source="404">Get matched</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="nl-404">
+    <div class="nl-404-inner">
+      <div class="nl-404-num">404</div>
+      <h1 class="nl-404-h">This page <em>doesn't exist.</em></h1>
+      <p class="nl-404-body">
+        The link may be broken, or the page may have moved. Try one of the paths below — or jump straight to what you came for.
+      </p>
+      <div class="nl-404-actions">
+        <a href="/" class="nl-btn nl-btn-primary">Back to home</a>
+        <a href="/grab-bars.html" class="nl-btn nl-btn-primary nl-btn-ghost">Grab bars</a>
+        <a href="/adus.html" class="nl-btn nl-btn-primary nl-btn-ghost">ADUs</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="nl-footer">
+    <div class="nl-footer-inner">
+      <div class="nl-footer-brand">
+        <div class="nl-wordmark nl-wordmark-footer">Nest<span>Longer</span></div>
+        <div class="nl-footer-tag">Stay home, safely.</div>
+        <p class="nl-footer-blurb">
+          NestLonger helps adult children get ahead of the hard stuff — connecting families with certified professionals before the crisis forces their hand.
+        </p>
+      </div>
+      <div class="nl-footer-cols">
+        <div class="nl-footer-col">
+          <div class="nl-footer-col-h">Verticals</div>
+          <a href="/grab-bars.html">Grab bars</a>
+          <a href="/adus.html">ADUs</a>
+        </div>
+        <div class="nl-footer-col">
+          <div class="nl-footer-col-h">Company</div>
+          <a href="/partners.html">For partners</a>
+          <a href="/about.html">About</a>
+        </div>
+        <div class="nl-footer-col">
+          <div class="nl-footer-col-h">Legal</div>
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+    </div>
+    <div class="nl-footer-fine">© 2026 NestLonger. The home you love, for as long as possible.</div>
+  </footer>
+
+  <script>
+    (function() {
+      function openTally(source) {
+        if (window.Tally && typeof window.Tally.openPopup === 'function') {
+          window.Tally.openPopup('7R49EL', {
+            layout: 'modal',
+            width: 600,
+            hiddenFields: { source: source }
+          });
+        } else {
+          window.location.href = 'https://tally.so/r/7R49EL?source=' + encodeURIComponent(source);
+        }
+      }
+      document.addEventListener('click', function(e) {
+        var trigger = e.target.closest('[data-tally-cta]');
+        if (!trigger) return;
+        e.preventDefault();
+        openTally(trigger.getAttribute('data-source') || 'unknown');
+      });
+    })();
+  </script>
+</body>
+</html>

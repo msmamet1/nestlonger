@@ -1,256 +1,266 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D2CB1LRG5P"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-D2CB1LRG5P');
-    </script>
-    
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>NestLonger</title>
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    
-    <style>
-      :root {
-        --ivory: #F7F3EE;
-        --linen-gray: #D8D2C9;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NestLonger — Stay home, safely.</title>
+  <meta name="description" content="NestLonger connects families with certified professionals for the home modifications that keep aging parents safe and independent. Get ahead of it, not after." />
+  <link rel="canonical" href="https://www.nestlonger.com/" />
 
-        --olive: #55643A;
-        --sage: #AEBDA7;
-        --terracotta: #A85F3D;
-        --warm-tan: #CDA170;
-        --charcoal-green: #2F3A34;
-        --dusty-rose: #DAB8B6;
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.nestlonger.com/" />
+  <meta property="og:title" content="NestLonger — Stay home, safely." />
+  <meta property="og:description" content="NestLonger connects families with certified professionals for the home modifications that keep aging parents safe and independent." />
+  <meta property="og:image" content="https://www.nestlonger.com/assets/images/grab-bars.webp" />
+  <meta property="og:site_name" content="NestLonger" />
 
-        --text-primary: var(--charcoal-green);
-        --text-secondary: var(--olive);
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="NestLonger — Stay home, safely." />
+  <meta name="twitter:description" content="NestLonger connects families with certified professionals for the home modifications that keep aging parents safe and independent." />
+  <meta name="twitter:image" content="https://www.nestlonger.com/assets/images/grab-bars.webp" />
 
-        --space-xs: 4px;
-        --space-s: 8px;
-        --space-m: 16px;
-        --space-l: 32px;
-        --space-xl: 64px;
-      }
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="stylesheet" href="assets/styles.css" />
 
-      body {
-        margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        color: var(--text-primary);
-        background: var(--ivory);
-        line-height: 1.6;
-      }
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D2CB1LRG5P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-D2CB1LRG5P');
+  </script>
 
-      header {
-        padding: var(--space-m) 0;
-        display: flex;
-        justify-content: center;
-        border-bottom: 1px solid var(--linen-gray);
-      }
+  <script async src="https://tally.so/widgets/embed.js"></script>
+</head>
+<body id="top">
 
-      .brand-block {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 6px;
-        text-align: center;
-      }
-
-      header img {
-        height: 100px;
-        max-width: 100%;
-        object-fit: contain;
-      }
-
-      @media (max-width: 900px) {
-        header img {
-          height: 70px;
-        }
-      }
-
-      @media (max-width: 480px) {
-        header img {
-          height: 40px;
-        }
-        .brand-block .tagline {
-          font-size: 14px;
-        }
-      }
-
-      .brand-block .tagline {
-        margin: 0;
-        font-size: 15px;
-        color: var(--text-secondary);
-        line-height: 1.4;
-        padding: 0 var(--space-m);
-      }
-
-      .container {
-        max-width: 720px;
-        margin: 0 auto;
-        padding: var(--space-l) var(--space-m);
-      }
-
-      h1, h2 {
-        margin-top: 0;
-        color: var(--text-primary);
-        text-align: center;
-      }
-
-      .hero {
-        text-align: center;
-        padding: var(--space-l) var(--space-m);
-      }
-
-      .hero p {
-        max-width: 580px;
-        margin: 0 auto;
-      }
-
-      .image-full {
-        width: 100%;
-        border-radius: 10px;
-        margin: var(--space-l) 0;
-      }
-
-      .image-stagger {
-        width: 70%;
-        border-radius: 10px;
-        margin: var(--space-l) auto;
-        display: block;
-      }
-
-      @media (max-width: 720px) {
-        .image-stagger {
-          width: 100%;
-        }
-      }
-
-      .module {
-        margin: var(--space-xl) 0;
-      }
-
-      ul {
-        padding-left: var(--space-l);
-      }
-
-      ul li {
-        margin-bottom: var(--space-s);
-      }
-
-      .email-box {
-        margin-top: var(--space-m);
-        display: flex;
-        gap: var(--space-s);
-      }
-
-      input[type="email"] {
-        flex: 1;
-        padding: var(--space-m);
-        border: 1px solid var(--sage);
-        border-radius: 6px;
-        background: white;
-        font-size: 16px;
-      }
-
-      button {
-        padding: var(--space-m) var(--space-l);
-        background: var(--olive);
-        color: white;
-        border: none;
-        border-radius: 6px;
-        font-size: 16px;
-        cursor: not-allowed;
-        opacity: 0.7;
-      }
-
-      footer {
-        margin-top: var(--space-xl);
-        padding: var(--space-l) var(--space-m);
-        text-align: center;
-        color: var(--text-secondary);
-        font-size: 14px;
-      }
-    </style>
-  </head>
-
-  <body>
-    <header>
-      <div class="brand-block">
-        <img src="assets/nestlonger-logo.png" alt="NestLonger logo" />
-        <p class="tagline">You’ve poured a lifetime into making the place yours - stay in it longer.</p>
-      </div>
-    </header>
-
-    <div class="container">
-
-      <section class="hero">
-        <h1>Stay in your home longer, with clarity and confidence</h1>
-        <p>
-          NestLonger helps families understand the realities of aging in place,
-          anticipate home and care needs before they become urgent, and connect
-          with trusted geriatric care managers who can support long-term planning.
-        </p>
-      </section>
-
-      <img src="assets/hero.jpg" alt="Older adult at home" class="image-full" />
-
-      <section class="module">
-        <h2>What we help families do</h2>
-        <p>
-          Most families wait until a crisis before they start looking for help.
-          By then the decisions feel rushed, confusing, and emotionally charged.
-          NestLonger gives families a clearer path long before things get urgent.
-        </p>
-        <p>
-          We bring structure, education, and guidance so families can confidently
-          support a parent who wishes to stay in the home they love.
-        </p>
-        <ul>
-          <li>Spot home safety and mobility risks early</li>
-          <li>Understand care needs across the next months and years</li>
-          <li>Explore home modifications and practical supports without overwhelm</li>
-          <li>Connect with vetted geriatric care managers</li>
-        </ul>
-      </section>
-
-      <img src="assets/fix.png" alt="Light switch repair" class="image-stagger" />
-
-      <section class="module">
-        <h2>Who it’s for</h2>
-        <p>
-          NestLonger is for adult children, caregivers, and families trying to
-          help an aging parent remain safe, supported, and independent. Whether
-          you're noticing small changes or navigating a larger shift in health
-          or mobility, we give you tools to understand what matters now and what
-          is likely to matter next.
-        </p>
-      </section>
-
-      <img src="assets/grabbar.jpg" alt="Grab bar installation" class="image-stagger" />
-
-      <section class="module">
-        <h2>Get help now</h2>
-        <p>
-          NestLonger is here to help you feel more certain about what comes next.
-          Share your email and take the first step toward clarity, steadiness, and
-          a plan that feels doable.
-        </p>
-
-        <iframe data-tally-src="https://tally.so/embed/81NJxP?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1&formEventsForwarding=1" loading="lazy" width="100%" height="610" frameborder="0" marginheight="0" marginwidth="0" title="NestLonger"></iframe>
-<script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
-        
-      </section>
-
-      <footer>
-        NestLonger © 2025
-      </footer>
-
+  <header class="nl-nav">
+    <div class="nl-nav-inner">
+      <a href="index.html" class="nl-wordmark" aria-label="NestLonger">Nest<span>Longer</span></a>
+      <nav class="nl-nav-links">
+        <a href="grab-bars.html">Grab bars</a>
+        <a href="adus.html">ADUs</a>
+        <a href="partners.html">For partners</a>
+        <button type="button" class="nl-btn nl-btn-primary nl-btn-sm" data-tally-cta data-source="homepage">Get matched</button>
+      </nav>
     </div>
-  </body>
+  </header>
+
+  <section class="nl-home-hero">
+    <div class="nl-home-hero-inner">
+      <div class="nl-eyebrow">Aging at home, made doable</div>
+      <h1 class="nl-home-h1">
+        Help your parent stay home <em>safely</em> — before something happens.
+      </h1>
+      <p class="nl-home-lede">
+        NestLonger connects families with certified professionals for the home modifications that keep aging parents safe and independent. Get ahead of it, not after.
+      </p>
+
+      <div class="nl-vert-grid">
+        <a href="grab-bars.html" class="nl-vert-card">
+          <div class="nl-vert-card-img" style="background-image: url('assets/images/grab-bars.webp');" aria-hidden="true"></div>
+          <div class="nl-vert-card-inner">
+            <div class="nl-eyebrow">Grab bars</div>
+            <h2 class="nl-vert-card-h">The simplest <em>safety upgrade</em> a bathroom can have.</h2>
+            <p class="nl-vert-card-body">
+              A properly installed grab bar reduces falls by up to 80%. We match you with a certified installer, usually within one business day.
+            </p>
+            <div class="nl-vert-card-meta">
+              <div class="nl-vert-meta-item">
+                <div class="nl-vert-meta-num">&lt; $500</div>
+                <div class="nl-vert-meta-label">Typical cost</div>
+              </div>
+              <div class="nl-vert-meta-item">
+                <div class="nl-vert-meta-num">2 hrs</div>
+                <div class="nl-vert-meta-label">Install time</div>
+              </div>
+              <div class="nl-vert-meta-item">
+                <div class="nl-vert-meta-num">1 day</div>
+                <div class="nl-vert-meta-label">To get matched</div>
+              </div>
+            </div>
+            <span class="nl-vert-card-arrow">Find a certified installer →</span>
+          </div>
+        </a>
+
+        <a href="adus.html" class="nl-vert-card">
+          <div class="nl-vert-card-img" style="background-image: url('assets/images/adu.webp');" aria-hidden="true"></div>
+          <div class="nl-vert-card-inner">
+            <div class="nl-eyebrow">ADUs</div>
+            <h2 class="nl-vert-card-h">A second home on your property — <em>so they can stay close.</em></h2>
+            <p class="nl-vert-card-body">
+              An accessory dwelling unit lets your parent live near you without giving up independence. We help you scope, finance, and find a qualified contractor.
+            </p>
+            <div class="nl-vert-card-meta">
+              <div class="nl-vert-meta-item">
+                <div class="nl-vert-meta-num">$150–300K</div>
+                <div class="nl-vert-meta-label">Typical range</div>
+              </div>
+              <div class="nl-vert-meta-item">
+                <div class="nl-vert-meta-num">6–12 mo</div>
+                <div class="nl-vert-meta-label">Plan to keys</div>
+              </div>
+              <div class="nl-vert-meta-item">
+                <div class="nl-vert-meta-num">Free</div>
+                <div class="nl-vert-meta-label">To families</div>
+              </div>
+            </div>
+            <span class="nl-vert-card-arrow">See what's possible →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="nl-section">
+    <div class="nl-section-inner">
+      <div class="nl-section-head">
+        <div class="nl-eyebrow">The problem</div>
+        <h2 class="nl-h2">Most families <em>wait too long</em> to make the home safer.</h2>
+        <p class="nl-lede">
+          The fix is almost never the hard part. The hard part is finding the right person, getting it scheduled, and figuring out who pays for it — usually while juggling a full-time job and your own kids.
+        </p>
+      </div>
+      <div class="nl-prob-grid">
+        <div class="nl-prob-cell">
+          <div class="nl-prob-num">1 in 4</div>
+          <div class="nl-prob-label">older adults falls each year</div>
+          <div class="nl-prob-source">CDC, National Council on Aging</div>
+        </div>
+        <div class="nl-prob-cell">
+          <div class="nl-prob-num">77%</div>
+          <div class="nl-prob-label">of adults 50+ want to stay in their current home</div>
+          <div class="nl-prob-source">AARP Home &amp; Community Preferences survey</div>
+        </div>
+        <div class="nl-prob-cell">
+          <div class="nl-prob-num">$50B</div>
+          <div class="nl-prob-label">in annual fall-related medical costs in the US</div>
+          <div class="nl-prob-source">CDC, fall prevention reporting</div>
+        </div>
+      </div>
+      <blockquote class="nl-pull">
+        "We help families <em>get ahead of it</em> — before a fall, not after."
+        <span class="nl-pull-attr">Matthew Mamet · Founder</span>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="nl-section nl-section-cream" id="how">
+    <div class="nl-section-inner">
+      <div class="nl-section-head">
+        <div class="nl-eyebrow">How it works</div>
+        <h2 class="nl-h2">Three steps. <em>One business day.</em></h2>
+      </div>
+      <ol class="nl-steps">
+        <li class="nl-step">
+          <div class="nl-step-num">01</div>
+          <h3 class="nl-step-title">Tell us what your parent needs</h3>
+          <p class="nl-step-body">A grab bar, an ADU, or you're not sure yet. ZIP code, a few details, takes a minute.</p>
+        </li>
+        <li class="nl-step">
+          <div class="nl-step-num">02</div>
+          <h3 class="nl-step-title">We match a certified pro</h3>
+          <p class="nl-step-body">Vetted, insured, trained on aging-in-place work. Usually within one business day.</p>
+        </li>
+        <li class="nl-step">
+          <div class="nl-step-num">03</div>
+          <h3 class="nl-step-title">They handle it from there</h3>
+          <p class="nl-step-body">Quote, install, paperwork. We help you sort out insurance and what's covered.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="nl-section">
+    <div class="nl-section-inner">
+      <div class="nl-section-head">
+        <div class="nl-eyebrow">Why families trust us</div>
+        <h2 class="nl-h2">Honest matchmaking, not a lead auction.</h2>
+      </div>
+      <div class="nl-trustsig-grid">
+        <div class="nl-trustsig-card">
+          <div class="nl-trustsig-h">Vetted professionals</div>
+          <div class="nl-trustsig-body">Every partner is licensed, insured, and trained on aging-in-place work.</div>
+        </div>
+        <div class="nl-trustsig-card">
+          <div class="nl-trustsig-h">Free to families</div>
+          <div class="nl-trustsig-body">We're paid by certified partners on a referral basis. You never pay us.</div>
+        </div>
+        <div class="nl-trustsig-card">
+          <div class="nl-trustsig-h">No spam, ever</div>
+          <div class="nl-trustsig-body">We share your info with one matched partner — not a list of bidders.</div>
+        </div>
+        <div class="nl-trustsig-card">
+          <div class="nl-trustsig-h">Built by an EnergySage alum</div>
+          <div class="nl-trustsig-body">Same playbook that brought solar to the mainstream, applied to home safety.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="nl-email-cta">
+    <div class="nl-email-cta-inner">
+      <div class="nl-eyebrow">Stay in the loop</div>
+      <h2 class="nl-email-cta-h">
+        One short email a month, <em>just the useful stuff.</em>
+      </h2>
+      <p class="nl-email-cta-lede">
+        New verticals as we launch them, what insurance is actually covering this year, and the occasional reminder to schedule the install you've been putting off.
+      </p>
+      <button type="button" class="nl-btn nl-btn-primary" data-tally-cta data-source="newsletter">Subscribe</button>
+      <div class="nl-email-cta-fine">No spam. Unsubscribe in one click.</div>
+    </div>
+  </section>
+
+  <footer class="nl-footer">
+    <div class="nl-footer-inner">
+      <div class="nl-footer-brand">
+        <div class="nl-wordmark nl-wordmark-footer">Nest<span>Longer</span></div>
+        <div class="nl-footer-tag">Stay home, safely.</div>
+        <p class="nl-footer-blurb">
+          NestLonger helps adult children get ahead of the hard stuff — connecting families with certified professionals before the crisis forces their hand.
+        </p>
+      </div>
+      <div class="nl-footer-cols">
+        <div class="nl-footer-col">
+          <div class="nl-footer-col-h">Verticals</div>
+          <a href="grab-bars.html">Grab bars</a>
+          <a href="adus.html">ADUs</a>
+        </div>
+        <div class="nl-footer-col">
+          <div class="nl-footer-col-h">Company</div>
+          <a href="partners.html">For partners</a>
+          <a href="about.html">About</a>
+        </div>
+        <div class="nl-footer-col">
+          <div class="nl-footer-col-h">Legal</div>
+          <a href="privacy.html">Privacy policy</a>
+        </div>
+      </div>
+    </div>
+    <div class="nl-footer-fine">© 2026 NestLonger. The home you love, for as long as possible.</div>
+  </footer>
+
+  <script>
+    (function() {
+      function openTally(source) {
+        if (window.Tally && typeof window.Tally.openPopup === 'function') {
+          window.Tally.openPopup('7R49EL', {
+            layout: 'modal',
+            width: 600,
+            hiddenFields: { source: source }
+          });
+        } else {
+          window.location.href = 'https://tally.so/r/7R49EL?source=' + encodeURIComponent(source);
+        }
+      }
+      document.addEventListener('click', function(e) {
+        var trigger = e.target.closest('[data-tally-cta]');
+        if (!trigger) return;
+        e.preventDefault();
+        openTally(trigger.getAttribute('data-source') || 'unknown');
+      });
+    })();
+  </script>
+</body>
 </html>
