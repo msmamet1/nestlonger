@@ -51,10 +51,13 @@ Write for the adult child, not the aging parent. Clear, warm, practical.
 
 ## When adding or renaming a page
 
-1. Add a `<loc>` entry to `sitemap.xml` (it lists the six real pages; 404 is correctly excluded)
-2. Add the nav/footer link to all seven pages
-3. Pick a new `data-source` value for its CTAs
+1. Run `python3 tools/build-sitemap.py` — **never hand-edit `sitemap.xml`**. It discovers pages from the filesystem and skips anything with a `noindex` meta tag.
+2. Add the nav/footer link to every other page (they are independent copies)
+3. Pick a `?src=` value for its CTAs
 4. Set canonical, OG, and Twitter meta to the `https://www.nestlonger.com/…` absolute URL
+5. Reference the shared schema `@id`s rather than redeclaring the Organization
+
+Blog posts start from `blog/_template.html`; the full checklist is in README, "Adding a blog post". The template carries a `noindex` tag that **must be deleted** in a real post — it is what keeps the template itself out of the sitemap and search results.
 
 ## SEO artifacts
 

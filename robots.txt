@@ -4,5 +4,8 @@ Allow: /
 # GitHub Pages serves every file in the repo, so repo docs are reachable by URL.
 # This only keeps them out of search results.
 Disallow: /README.md
+Disallow: /blog/_template.html
+Disallow: /worker/
+Disallow: /tools/
 
 Sitemap: https://www.nestlonger.com/sitemap.xml

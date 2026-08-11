@@ -956,6 +956,98 @@ img { display: block; max-width: 100%; }
   color: var(--nl-sage); margin-bottom: 12px;
 }
 
+/* ===== BLOG =====
+   Listing at /blog/, posts at /blog/<slug>.html. Hand-authored HTML: copy
+   blog/_template.html and fill it in. See README "Adding a blog post". */
+.nl-blog { padding: 72px 40px; background: var(--nl-linen); }
+.nl-blog-inner { max-width: 720px; margin: 0 auto; }
+
+.nl-blog-h1 {
+  font-family: var(--nl-font-serif); font-weight: 400;
+  font-size: 52px; line-height: 1.05; letter-spacing: -0.03em;
+  color: var(--nl-charcoal); margin-bottom: 14px;
+}
+.nl-blog-h1 em { font-style: italic; color: var(--nl-sage); }
+.nl-blog-lede {
+  font-size: 18px; color: var(--nl-mid); line-height: 1.65;
+  margin-bottom: 48px;
+}
+
+/* Listing */
+.nl-blog-list { display: grid; gap: 1px; background: var(--nl-border);
+  border-top: 1px solid var(--nl-border); border-bottom: 1px solid var(--nl-border); }
+.nl-blog-item { background: var(--nl-linen); padding: 26px 0; display: block; }
+.nl-blog-item:hover .nl-blog-item-h { color: var(--nl-sage); }
+.nl-blog-item-meta {
+  font-size: 12px; color: var(--nl-light); letter-spacing: 0.04em;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.nl-blog-item-h {
+  font-family: var(--nl-font-serif); font-weight: 400;
+  font-size: 26px; line-height: 1.2; letter-spacing: -0.02em;
+  color: var(--nl-charcoal); margin-bottom: 8px;
+  transition: color 0.15s ease;
+}
+.nl-blog-item-body { font-size: 16px; color: var(--nl-mid); line-height: 1.6; }
+
+/* Article */
+.nl-post-meta {
+  font-size: 13px; color: var(--nl-light);
+  margin-bottom: 40px; letter-spacing: 0.02em;
+}
+.nl-post-body { font-size: 18px; line-height: 1.75; color: var(--nl-charcoal); }
+.nl-post-body > * + * { margin-top: 24px; }
+.nl-post-body h2 {
+  font-family: var(--nl-font-serif); font-weight: 400;
+  font-size: 30px; line-height: 1.2; letter-spacing: -0.02em;
+  margin-top: 48px;
+}
+.nl-post-body h3 {
+  font-family: var(--nl-font-sans); font-weight: 500;
+  font-size: 19px; margin-top: 36px;
+}
+.nl-post-body a { color: var(--nl-sage); text-decoration: underline; text-underline-offset: 3px; }
+.nl-post-body ul, .nl-post-body ol { padding-left: 24px; }
+.nl-post-body li + li { margin-top: 8px; }
+.nl-post-body img { border-radius: 10px; border: 1px solid var(--nl-border); }
+.nl-post-body blockquote {
+  border-left: 2px solid var(--nl-sage);
+  padding-left: 20px; font-family: var(--nl-font-serif);
+  font-size: 21px; line-height: 1.5; color: var(--nl-charcoal);
+}
+.nl-post-body figcaption,
+.nl-post-note { font-size: 14px; color: var(--nl-mid); }
+.nl-post-body table { width: 100%; border-collapse: collapse; font-size: 16px; }
+.nl-post-body th, .nl-post-body td {
+  text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--nl-border);
+}
+.nl-post-body th { font-weight: 500; color: var(--nl-charcoal); }
+
+/* Sources block: every stat on this site is attributed. See llms.txt. */
+.nl-post-sources {
+  margin-top: 56px; padding-top: 24px;
+  border-top: 1px solid var(--nl-border);
+  font-size: 14px; color: var(--nl-mid); line-height: 1.6;
+}
+.nl-post-sources h2 {
+  font-family: var(--nl-font-sans); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--nl-sage);
+  margin-bottom: 12px;
+}
+.nl-post-sources ol { padding-left: 20px; }
+
+.nl-post-cta {
+  margin-top: 56px; padding: 28px;
+  background: var(--nl-cream);
+  border: 1px solid var(--nl-border);
+  border-radius: var(--nl-radius-l);
+}
+.nl-post-cta-h {
+  font-family: var(--nl-font-serif); font-size: 20px;
+  color: var(--nl-charcoal); margin-bottom: 8px; letter-spacing: -0.01em;
+}
+.nl-post-cta p { font-size: 15px; color: var(--nl-mid); margin-bottom: 18px; }
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 880px) {
   .nl-hero-inner, .nl-section-cta-inner { grid-template-columns: 1fr; gap: 40px; }
@@ -996,6 +1088,11 @@ img { display: block; max-width: 100%; }
   .nl-404-h { font-size: 28px; }
   .nl-form-page { padding: 40px 24px 56px; }
   .nl-form-h1 { font-size: 30px; }
+  .nl-blog { padding: 48px 24px 56px; }
+  .nl-blog-h1 { font-size: 34px; }
+  .nl-blog-item-h { font-size: 22px; }
+  .nl-post-body { font-size: 17px; }
+  .nl-post-body h2 { font-size: 26px; }
   .nl-field-row { grid-template-columns: 1fr; gap: 0; }
   .nl-field-row .nl-field { margin-bottom: 18px; }
 }

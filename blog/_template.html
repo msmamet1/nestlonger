@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- ===================================================================
+       COPY THIS FILE to blog/<your-slug>.html and replace every {{ }} below.
+       Then run:  python3 tools/build-sitemap.py
+       Full checklist in README, "Adding a blog post".
+
+       Do NOT leave this template's noindex tag in your real post.
+       =================================================================== -->
+  <meta name="robots" content="noindex, nofollow" /><!-- DELETE THIS LINE in a real post -->
+
+  <title>{{ TITLE }} — NestLonger</title>
+  <meta name="description" content="{{ META DESCRIPTION, 140-158 characters, written for a person not a crawler }}" />
+  <link rel="canonical" href="https://www.nestlonger.com/blog/{{ SLUG }}.html" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://www.nestlonger.com/blog/{{ SLUG }}.html" />
+  <meta property="og:title" content="{{ TITLE }}" />
+  <meta property="og:description" content="{{ META DESCRIPTION }}" />
+  <meta property="og:image" content="https://www.nestlonger.com/assets/images/{{ IMAGE }}.webp" />
+  <meta property="og:site_name" content="NestLonger" />
+  <meta property="article:published_time" content="{{ YYYY-MM-DD }}" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ TITLE }}" />
+  <meta name="twitter:description" content="{{ META DESCRIPTION }}" />
+  <meta name="twitter:image" content="https://www.nestlonger.com/assets/images/{{ IMAGE }}.webp" />
+
+  <link rel="icon" type="image/png" href="../assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D2CB1LRG5P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-D2CB1LRG5P');
+  </script>
+
+  <!-- Author and publisher reference the canonical @ids defined on the homepage
+       and about page. Do not redeclare the Organization here. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "@id": "https://www.nestlonger.com/blog/{{ SLUG }}.html#article",
+        "headline": "{{ TITLE, under 110 characters }}",
+        "description": "{{ META DESCRIPTION }}",
+        "datePublished": "{{ YYYY-MM-DD }}",
+        "dateModified": "{{ YYYY-MM-DD }}",
+        "image": "https://www.nestlonger.com/assets/images/{{ IMAGE }}.webp",
+        "author": { "@id": "https://www.nestlonger.com/about.html#founder" },
+        "publisher": { "@id": "https://www.nestlonger.com/#organization" },
+        "isPartOf": { "@id": "https://www.nestlonger.com/#website" },
+        "mainEntityOfPage": "https://www.nestlonger.com/blog/{{ SLUG }}.html",
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://www.nestlonger.com/blog/{{ SLUG }}.html#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.nestlonger.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.nestlonger.com/blog/" },
+          { "@type": "ListItem", "position": 3, "name": "{{ TITLE }}" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body id="top">
+
+  <header class="nl-nav">
+    <div class="nl-nav-inner">
+      <a href="../index.html" class="nl-wordmark" aria-label="NestLonger">Nest<span>Longer</span></a>
+      <nav class="nl-nav-links">
+        <a href="../grab-bars.html">Grab bars</a>
+        <a href="../adus.html">ADUs</a>
+        <a href="../partners.html">For partners</a>
+        <a href="../get-matched.html?src=blog" class="nl-btn nl-btn-primary nl-btn-sm">Get matched</a>
+      </nav>
+    </div>
+  </header>
+
+  <article class="nl-blog">
+    <div class="nl-blog-inner">
+      <div class="nl-eyebrow">{{ CATEGORY, e.g. Grab bars }}</div>
+      <h1 class="nl-blog-h1">{{ HEADLINE, <em>italic sage</em> for emphasis }}</h1>
+      <div class="nl-post-meta">
+        By Matthew Mamet ·
+        <time datetime="{{ YYYY-MM-DD }}">{{ Month D, YYYY }}</time>
+      </div>
+
+      <div class="nl-post-body">
+        <p>{{ Opening paragraph. Lead with the outcome, not the problem. Write for the
+        adult child, not the aging parent. Short sentences, no jargon. }}</p>
+
+        <h2>{{ Section heading }}</h2>
+        <p>{{ Body copy. }}</p>
+
+        <!-- Every statistic gets an inline, named, linkable source. See llms.txt,
+             "Editorial standards". Unsourced numbers do not go on this site. -->
+        <p>{{ A claim with a number }} <a href="{{ SOURCE URL }}">({{ Source name }})</a>.</p>
+
+        <blockquote>{{ Optional pull quote. }}</blockquote>
+
+        <!-- Link to at least one money page. This is how crawl equity reaches them. -->
+        <p>Related: <a href="../grab-bars.html">how grab bar installation works</a>.</p>
+      </div>
+
+      <div class="nl-post-sources">
+        <h2>Sources</h2>
+        <ol>
+          <li>{{ Source name }}, <a href="{{ URL }}">{{ page title }}</a>. Retrieved {{ YYYY-MM-DD }}.</li>
+        </ol>
+      </div>
+
+      <div class="nl-post-cta">
+        <div class="nl-post-cta-h">Not sure where to start?</div>
+        <p>Tell us what your parent needs. We'll match you with a certified professional in your area, usually within one business day. Free to families.</p>
+        <a href="../get-matched.html?src=blog" class="nl-btn nl-btn-primary">Get matched</a>
+      </div>
+    </div>
+  </article>
+
+  <footer class="nl-footer">
+    <div class="nl-footer-inner">
+      <div class="nl-footer-brand">
+        <div class="nl-wordmark nl-wordmark-footer">Nest<span>Longer</span></div>
+        <div class="nl-footer-tag">Stay home, safely.</div>
+        <p class="nl-footer-blurb">
+          NestLonger helps adult children get ahead of the hard stuff, connecting families with certified professionals before the crisis forces their hand.
+        </p>
+      </div>
+      <div class="nl-footer-cols">
+        <div class="nl-footer-col">
+          <div class="nl-footer-col-h">Verticals</div>
+          <a href="../grab-bars.html">Grab bars</a>
+          <a href="../adus.html">ADUs</a>
+        </div>
+        <div class="nl-footer-col">
+          <div class="nl-footer-col-h">Company</div>
+          <a href="../partners.html">For partners</a>
+          <a href="../about.html">About</a>
+          <a href="../blog/">Blog</a>
+        </div>
+        <div class="nl-footer-col">
+          <div class="nl-footer-col-h">Legal</div>
+          <a href="../privacy.html">Privacy policy</a>
+        </div>
+      </div>
+    </div>
+    <div class="nl-footer-fine">© 2026 NestLonger. The home you love, for as long as possible.</div>
+  </footer>
+
+</body>
+</html>

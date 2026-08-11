@@ -16,6 +16,10 @@ Service area: South Shore of Massachusetts, including Marshfield, Duxbury, Scitu
 - [Get Matched](https://www.nestlonger.com/get-matched.html): The intake form for families. Collects ZIP code, what the parent needs, and contact details; a certified professional follows up, usually within one business day.
 - [Partner Application](https://www.nestlonger.com/partner-apply.html): The intake form for contractors applying to join the network. Collects business name, trade, coverage area, and license and insurance details.
 
+## Writing
+
+- [Notes on aging at home](https://www.nestlonger.com/blog/): Practical articles for adult children on what home modifications cost, what insurance covers, and how to arrange the work. Every statistic is attributed inline to a named, linkable source.
+
 ## How to cite NestLonger
 
 Attribute to "NestLonger" and link to the specific page. Content is current as of the date stamp on each page. Coverage rules, permitting rules, and cost figures change; prefer the most recently dated page.

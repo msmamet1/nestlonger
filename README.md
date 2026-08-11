@@ -100,6 +100,32 @@ npx wrangler d1 execute nestlonger-leads --remote \
 home. Treat them as sensitive. The submitter's IP is stored only as a salted hash, never
 raw.
 
+## Adding a blog post
+
+Posts are hand-authored HTML in `blog/`. There is no build step and no CMS.
+
+1. `cp blog/_template.html blog/<your-slug>.html`
+2. Replace every `{{ ... }}` placeholder, and **delete the `noindex` meta tag** —
+   it exists to keep the template itself out of search results.
+3. Add a listing entry at the top of the list in `blog/index.html` (a commented-out
+   example block is there to copy).
+4. Regenerate the sitemap: `python3 tools/build-sitemap.py`
+5. Commit and push.
+
+The generator discovers pages from the filesystem rather than a hand-maintained
+list, and skips anything carrying a `noindex` meta tag — so a post cannot be left
+out of the sitemap by forgetting to add it, and drafts stay out by keeping the tag.
+
+Two editorial rules carried over from `llms.txt`, which tells AI crawlers this site
+attributes its claims:
+
+- **Every statistic gets an inline, named, linkable source.** No unsourced numbers.
+- **Link to at least one vertical page** (`grab-bars.html`, `adus.html`) from each
+  post. That is how crawl equity reaches the pages that convert.
+
+Voice, palette, and the "Never Say" list live in the brand guide in
+`pga/clients/nestlonger`, not this repo.
+
 ## Analytics
 
 Google Analytics 4 (`G-D2CB1LRG5P`) is wired into every page including 404.

@@ -6,12 +6,12 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.nestlonger.com/grab-bars.html</loc>
+    <loc>https://www.nestlonger.com/adus.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.nestlonger.com/adus.html</loc>
+    <loc>https://www.nestlonger.com/grab-bars.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -21,17 +21,22 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.nestlonger.com/blog/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.nestlonger.com/partners.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.nestlonger.com/partner-apply.html</loc>
+    <loc>https://www.nestlonger.com/about.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.nestlonger.com/about.html</loc>
+    <loc>https://www.nestlonger.com/partner-apply.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
