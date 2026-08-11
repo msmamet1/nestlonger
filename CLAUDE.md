@@ -47,6 +47,14 @@ Then confirm the new bytes are actually being served, rather than assuming:
 curl -s https://www.nestlonger.com/assets/styles.css | grep "<something you just added>"
 ```
 
+## Definition of done
+
+A task is done when every acceptance criterion is verifiably true against the live site at `https://www.nestlonger.com`, not against the repo. Pages deploy in roughly 30 to 60 seconds; assets need a cache purge first, per the warning above. Report the actual HTTP status or rendered output observed.
+
+Matthew works in a local checkout that has diverged from `origin/main` before. Pull and rebase before starting, and say so when you finish.
+
+Specs live in `msmamet1/pga` at `clients/nestlonger/specs/`, written by the engagement manager and executed here. Open both repos in one VS Code workspace rather than copying specs into this one, since everything tracked here is served publicly. Completion notes, research inputs, and measurement baselines are written back to pga.
+
 ## Architecture
 
 **Ten standalone HTML pages, no templating.** Six content pages (`index`, `grab-bars`, `adus`, `partners`, `about`, `privacy`), three form pages (`get-matched`, `partner-apply`, `thanks`), and `404.html`. Every page carries its own full copy of the nav, footer, and GA4 snippet. Changing any shared block means editing all of them.
@@ -65,7 +73,15 @@ The per-vertical routing that Tally's `data-source` used to provide now rides on
 
 Spam protection is a `website` honeypot plus per-IP rate limiting in the Worker — deliberately no CAPTCHA, since Turnstile would reintroduce a third-party script.
 
-⚠️ **Cloudflare Bot Fight Mode must stay off.** It was enabled until 2026-08-11 and was serving a 403 managed challenge on every HTML page — Googlebot cannot solve a JS challenge, so the site was uncrawlable (0 organic keywords, 3 impressions in 3.5 months). Free-plan Bot Fight Mode has no verified-crawler exemption. It would also block form POSTs.
+⚠️ **Cloudflare Bot Fight Mode must stay off.** It was enabled until 2026-08-11. Free-plan Bot Fight Mode has no verified-crawler exemption, and it would block form POSTs to the Worker, so it stays off. It was previously blamed for the site's near-zero search traffic. That is false. Search Console shows Googlebot smartphone fetched `grab-bars.html` successfully on 8 August 2026 and indexed it, with crawl allowed and indexing allowed, three days before the mode was disabled. The 0 organic keywords and 3 impressions over 3.5 months is a ranking problem, not an access problem, which is an ordinary result for a three-month-old domain with thin content and a spam-only link profile. Full write-up in `pga/clients/nestlonger/2026-08-11-crawlability-root-cause.md`.
+
+Two further Cloudflare settings were corrected on 2026-08-11 and must not regress.
+
+**AI Scrapers and Crawlers (`ai_bots_protection`) must stay `disabled`.** When set to `block` it disallowed ClaudeBot, GPTBot, Google-Extended, CCBot, meta-externalagent, Amazonbot, Applebot-Extended, and Bytespider. Answer-engine citation is the primary traffic strategy for this site, so blocking those agents defeats the plan.
+
+**Managed robots.txt (`is_robots_txt_managed`) must stay `false`.** When true, Cloudflare injected its own robots.txt over the one in this repo, so editing `robots.txt` here had no effect on what was served. If a robots.txt change appears not to deploy, check this setting before debugging anything else.
+
+Disabling the AI crawler block also removed Cloudflare's `Content-Signal` directives, including `ai-train=no`, which was a rights reservation under Article 4 of the EU copyright directive. That removal was intentional.
 
 **Analytics**: GA4 `G-D2CB1LRG5P`, inline on every page including 404.
 
@@ -78,6 +94,16 @@ Class names are all `nl-` prefixed and semantic (`nl-vert-card`, `nl-prob-cell`,
 The brand guide lives **outside this repo**, in `pga/clients/nestlonger` — it is the source of truth for voice, palette, type, and UI patterns, and it is prescriptive, including a **Never Say** list (notably: "loved one", "senior/elderly", "journey", "seamless/robust/holistic", "empowering families to"). Read it before writing any user-facing copy or adding visual components; ask for it if the PGA repo is not attached to the session.
 
 Write for the adult child, not the aging parent. Clear, warm, practical.
+
+## No unsourced statistics
+
+Every numeric claim on a public page carries an inline attribution to a named, linkable source, or it does not ship. This applies to body copy, headings, the `description` / `og:description` / `twitter:description` trio, image alt text, and JSON-LD.
+
+The category is health-adjacent, where an inaccurate efficacy or coverage claim is a trust and compliance liability rather than just a missed ranking. Answer engines also preferentially cite pages that attribute their claims, which makes this the cheapest AEO improvement available.
+
+If a task hands you a claim without a citation, stop and flag it. Do not source it yourself, do not infer a source, do not substitute a similar figure from a different study. The "reduces falls by up to 80%" claim currently on `grab-bars.html` is what happens without this rule. It is attributed across the web to a CDC study that does not exist, and it originates as a misread of a statistic about where falls occur rather than what prevents them.
+
+Insurance and public-program coverage claims carry a further rule. State the plan year, and never assert that a specific plan covers a specific modification. CMS narrowed Special Supplemental Benefits for the Chronically Ill for 2026, and coverage now depends on plan, county, plan year, and documented condition.
 
 ## When adding or renaming a page
 
