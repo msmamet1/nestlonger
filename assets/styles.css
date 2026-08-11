@@ -124,19 +124,60 @@ img { display: block; max-width: 100%; }
 .nl-wordmark span { color: var(--nl-sage); }
 .nl-wordmark-footer { font-size: 28px; }
 .nl-nav-links { display: flex; gap: 28px; align-items: center; }
-.nl-nav-links a:not(.nl-btn) { font-size: 14px; color: var(--nl-mid); }
-.nl-nav-links a:not(.nl-btn):hover { color: var(--nl-charcoal); }
+.nl-nav-links > a:not(.nl-btn) { font-size: 14px; color: var(--nl-mid); }
+.nl-nav-links > a:not(.nl-btn):hover { color: var(--nl-charcoal); }
 .nl-nav-links .nl-btn { white-space: nowrap; }
-.nl-nav-links a:not(.nl-btn).is-active {
+.nl-nav-links > a:not(.nl-btn).is-active {
   color: var(--nl-charcoal);
   position: relative;
 }
-.nl-nav-links a:not(.nl-btn).is-active::after {
+.nl-nav-links > a:not(.nl-btn).is-active::after {
   content: "";
   position: absolute;
   left: 0; right: 0; bottom: -19px;
   height: 2px; background: var(--nl-sage);
 }
+
+/* ===== MOBILE NAV =====
+   Native <details>/<summary> disclosure. No JavaScript.
+   Hidden above 880px, where .nl-nav-links carries the same links inline.
+   The panel mirrors each page's own nav links, including is-active, so
+   per-page variations survive. */
+.nl-nav-mobile { display: none; position: relative; }
+.nl-nav-mobile > summary {
+  list-style: none;
+  display: flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px;
+  border: 1px solid var(--nl-border);
+  border-radius: var(--nl-radius-s);
+  background: var(--nl-cream);
+  cursor: pointer;
+  color: var(--nl-charcoal);
+}
+.nl-nav-mobile > summary::-webkit-details-marker { display: none; }
+.nl-nav-mobile > summary::marker { content: ""; }
+.nl-nav-mobile > summary:focus-visible {
+  outline: none; border-color: var(--nl-sage);
+  box-shadow: 0 0 0 3px var(--nl-sage-light);
+}
+.nl-nav-mobile[open] > summary { border-color: var(--nl-sage); color: var(--nl-sage); }
+.nl-nav-mobile-panel {
+  position: absolute; right: 0; top: calc(100% + 10px);
+  min-width: 210px; z-index: 60;
+  display: flex; flex-direction: column;
+  padding: 8px;
+  background: var(--nl-cream);
+  border: 1px solid var(--nl-border);
+  border-radius: var(--nl-radius-m);
+  box-shadow: var(--nl-shadow-card);
+}
+.nl-nav-mobile-panel a {
+  padding: 11px 12px;
+  font-size: 15px; color: var(--nl-charcoal);
+  border-radius: var(--nl-radius-s);
+}
+.nl-nav-mobile-panel a:hover { background: var(--nl-sage-light); }
+.nl-nav-mobile-panel a.is-active { color: var(--nl-sage); font-weight: 500; }
 
 /* ===== BUTTONS ===== */
 .nl-btn {
@@ -1078,7 +1119,12 @@ img { display: block; max-width: 100%; }
   .nl-stats, .nl-steps, .nl-ins-grid { grid-template-columns: 1fr; }
   .nl-footer-inner { grid-template-columns: 1fr; gap: 32px; }
   .nl-nav-links { gap: 14px; }
-  .nl-nav-links a:not(.nl-btn) { display: none; }
+  /* Inline text links give way to the disclosure menu; the CTA stays in the bar. */
+  .nl-nav-links > a:not(.nl-btn) { display: none; }
+  .nl-nav-mobile { display: block; }
+  .nl-nav-inner { padding: 12px 24px; gap: 12px; }
+  .nl-nav-links { gap: 10px; }
+  .nl-btn-sm { padding: 9px 13px; }
 
   .nl-home-h1 { font-size: 44px; }
   .nl-home-photo { height: 240px; }

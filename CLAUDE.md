@@ -11,10 +11,29 @@ The public marketing site for **www.nestlonger.com** — a matchmaking service c
 There is no build, bundler, package manager, test suite, or linter. `.nojekyll` disables Jekyll processing, so files are served exactly as committed.
 
 ```bash
-python3 -m http.server 8000       # local preview at http://localhost:8000
-python3 tools/build-sitemap.py    # regenerate sitemap.xml after adding/removing a page
-git push origin main              # deploy — GitHub Pages publishes from main at repo root
+python3 -m http.server 8000        # local preview at http://localhost:8000
+python3 tools/fingerprint-css.py   # REQUIRED after any edit to assets/styles.css
+python3 tools/build-sitemap.py     # regenerate sitemap.xml after adding/removing a page
+git push origin main               # deploy — GitHub Pages publishes from main at repo root
 ```
+
+### ⚠️ Run `fingerprint-css.py` after every stylesheet edit
+
+Pages link `assets/styles.css?v=<sha256[:10]>`. The hash is derived from the file's
+own bytes, so it cannot be forgotten the way a hand-incremented `?v=2` can — but the
+script has to be run, and it must run **after** the CSS edit, not before.
+
+Without it, a returning visitor arriving within the 4-hour cache window gets the new
+HTML and the old CSS. On `get-matched.html` that used to render as unstyled
+browser-default fields with the spam honeypot showing as a visible "Company website"
+input on a real form. The honeypot is now hidden by an **inline** style as well as by
+`.nl-hp`, specifically so a missing stylesheet cannot expose it — do not remove that
+inline style.
+
+The fingerprint is a query string, not a hashed filename, so `worker/index.js` can keep
+referencing `/assets/styles.css` on its error page. The zone's cache level is
+`aggressive` (Cloudflare's "Standard"), which includes the query string in the cache
+key, so this busts edge and browser caches together.
 
 Preview must be served over HTTP, not opened via `file://` — `404.html` uses root-absolute paths that only resolve from a server root.
 
@@ -62,8 +81,10 @@ Specs live in `msmamet1/pga` at `clients/nestlonger/specs/`, written by the enga
 **The shared blocks are not byte-identical**, so blind find-and-replace across pages will corrupt them. Per-page variations to preserve:
 
 - nav CTA target and label (`Get matched` → `get-matched.html?src=<page>`, except partners → `Apply to join` → `partner-apply.html`); form pages have no nav CTA at all
-- `class="is-active"` on the nav link matching the current page
-- `404.html` uses root-absolute paths (`/adus.html`, `/assets/styles.css`); all other pages use relative paths (`adus.html`)
+- `class="is-active"` on the nav link matching the current page — **in two places**, the inline bar link and the mobile disclosure panel link
+- `404.html` uses root-absolute paths (`/adus.html`, `/assets/styles.css`); all other pages use relative paths (`adus.html`); `blog/` uses `../`
+
+**Mobile nav** is a native `<details class="nl-nav-mobile">` disclosure inside `.nl-nav-links`, shown only below 880px. No JavaScript. Because the panel's links are nested inside `.nl-nav-links`, every rule targeting the inline bar links is scoped with `>` (`.nl-nav-links > a:not(.nl-btn)`). Dropping that combinator makes the mobile rule `display: none` hide the panel's own links, and the menu opens as an empty box.
 
 **Lead capture uses no third-party form service.** Three native HTML forms post same-origin to `/api/*`, handled by a Cloudflare Worker (`nestlonger-forms`) that writes to a D1 database (`nestlonger-leads`) and answers with a 303 to `thanks.html`. No JS is needed to submit. Worker source is in `worker/`; see README "Lead capture → The backend" for the deploy and query commands.
 
