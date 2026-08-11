@@ -30,7 +30,6 @@
     gtag('config', 'G-D2CB1LRG5P');
   </script>
 
-  <script async src="https://tally.so/widgets/embed.js"></script>
 
   <script type="application/ld+json">
   {
@@ -152,7 +151,7 @@
         <a href="grab-bars.html" class="is-active">Grab bars</a>
         <a href="adus.html">ADUs</a>
         <a href="partners.html">For partners</a>
-        <button type="button" class="nl-btn nl-btn-primary nl-btn-sm" data-tally-cta data-source="grab-bars">Find an installer</button>
+        <a href="get-matched.html?src=grab-bars" class="nl-btn nl-btn-primary nl-btn-sm">Find an installer</a>
       </nav>
     </div>
   </header>
@@ -188,9 +187,7 @@
         <p class="nl-hero-form-body">
           Free to families. We'll match you with a certified installer in your area within one business day. No pressure, no spam.
         </p>
-        <button type="button" class="nl-btn nl-btn-primary nl-btn-block" data-tally-cta data-source="grab-bars">
-          Find a certified installer
-        </button>
+        <a href="get-matched.html?src=grab-bars" class="nl-btn nl-btn-primary nl-btn-block">Find a certified installer</a>
         <div class="nl-lead-fineprint">
           Free to families. We share your info only with the certified installer in your area.
         </div>
@@ -326,9 +323,7 @@
         <p class="nl-hero-form-body">
           We share your info only with the certified installer in your area. Usually matched within one business day.
         </p>
-        <button type="button" class="nl-btn nl-btn-primary nl-btn-block" data-tally-cta data-source="grab-bars">
-          Find a certified installer
-        </button>
+        <a href="get-matched.html?src=grab-bars" class="nl-btn nl-btn-primary nl-btn-block">Find a certified installer</a>
         <div class="nl-lead-fineprint">
           Free to families. We share your info only with the certified installer in your area.
         </div>
@@ -365,27 +360,5 @@
     <div class="nl-footer-fine">© 2026 NestLonger. The home you love, for as long as possible.</div>
   </footer>
 
-  <script>
-    (function() {
-      function openTally(source) {
-        if (window.Tally && typeof window.Tally.openPopup === 'function') {
-          window.Tally.openPopup('7R49EL', {
-            layout: 'modal',
-            width: 600,
-            hideTitle: true,
-            hiddenFields: { source: source }
-          });
-        } else {
-          window.location.href = 'https://tally.so/r/7R49EL?source=' + encodeURIComponent(source);
-        }
-      }
-      document.addEventListener('click', function(e) {
-        var trigger = e.target.closest('[data-tally-cta]');
-        if (!trigger) return;
-        e.preventDefault();
-        openTally(trigger.getAttribute('data-source') || 'unknown');
-      });
-    })();
-  </script>
 </body>
 </html>

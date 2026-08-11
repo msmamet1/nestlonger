@@ -139,6 +139,7 @@ img { display: block; max-width: 100%; }
   display: inline-block; font-family: var(--nl-font-sans);
   font-size: 14px; font-weight: 500;
   padding: 12px 24px; border-radius: 5px; border: none; cursor: pointer;
+  text-align: center; /* <a class="nl-btn"> does not centre text the way <button> does */
   text-decoration: none; transition: background 0.15s ease, transform 0.1s ease;
 }
 .nl-btn-primary { background: var(--nl-sage); color: white; }
@@ -859,6 +860,98 @@ img { display: block; max-width: 100%; }
 }
 .nl-404-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
+/* ===== FORMS =====
+   Native HTML forms posting directly to the form endpoint. No third-party
+   script, no client-side validation library - the browser does both. */
+.nl-form-page {
+  padding: 56px 40px 72px;
+  background: var(--nl-linen);
+}
+.nl-form-inner {
+  max-width: 620px; margin: 0 auto;
+}
+.nl-form-h1 {
+  font-family: var(--nl-font-serif); font-weight: 400;
+  font-size: 38px; line-height: 1.1; letter-spacing: -0.02em;
+  color: var(--nl-charcoal); margin-bottom: 16px;
+}
+.nl-form-h1 em { font-style: italic; color: var(--nl-sage); }
+.nl-form-lede {
+  font-size: 17px; color: var(--nl-mid); line-height: 1.6;
+  margin-bottom: 32px;
+}
+.nl-form-card {
+  background: var(--nl-cream);
+  border: 1px solid var(--nl-border);
+  border-radius: var(--nl-radius-l);
+  padding: 28px;
+}
+
+.nl-field { margin-bottom: 18px; }
+.nl-field:last-of-type { margin-bottom: 24px; }
+.nl-field-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+.nl-label {
+  display: block;
+  font-family: var(--nl-font-sans); font-size: 13px; font-weight: 500;
+  color: var(--nl-charcoal); margin-bottom: 6px;
+}
+.nl-label-opt { color: var(--nl-light); font-weight: 400; }
+.nl-input, .nl-select, .nl-textarea {
+  width: 100%;
+  font-family: var(--nl-font-sans); font-size: 15px;
+  color: var(--nl-charcoal);
+  background: white;
+  border: 1px solid var(--nl-border);
+  border-radius: var(--nl-radius-s);
+  padding: 11px 13px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.nl-textarea { min-height: 96px; resize: vertical; line-height: 1.5; }
+.nl-select { appearance: none; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236B6860' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 13px center;
+  padding-right: 34px;
+}
+.nl-input:focus, .nl-select:focus, .nl-textarea:focus {
+  outline: none;
+  border-color: var(--nl-sage);
+  box-shadow: 0 0 0 3px var(--nl-sage-light);
+}
+.nl-input:invalid:not(:placeholder-shown) {
+  border-color: var(--nl-terracotta);
+}
+.nl-field-help {
+  font-size: 12px; color: var(--nl-mid); margin-top: 5px; line-height: 1.5;
+}
+
+/* Honeypot: hidden from people, visible to bots that fill every field. */
+.nl-hp {
+  position: absolute; left: -9999px;
+  width: 1px; height: 1px; overflow: hidden;
+}
+
+.nl-form-fine {
+  font-size: 12px; color: var(--nl-light); line-height: 1.5;
+  margin-top: 14px;
+}
+.nl-form-fine a { color: var(--nl-mid); }
+
+/* Inline newsletter form (homepage) */
+.nl-email-form {
+  display: flex; gap: 10px; justify-content: center;
+  max-width: 420px; margin: 0 auto; flex-wrap: wrap;
+}
+.nl-email-form .nl-input { flex: 1; min-width: 200px; text-align: left; }
+
+/* Confirmation page */
+.nl-thanks { text-align: center; }
+.nl-thanks-mark {
+  font-family: var(--nl-font-serif); font-size: 44px;
+  color: var(--nl-sage); margin-bottom: 12px;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 880px) {
   .nl-hero-inner, .nl-section-cta-inner { grid-template-columns: 1fr; gap: 40px; }
@@ -897,4 +990,8 @@ img { display: block; max-width: 100%; }
   .nl-privacy-toc ol { grid-template-columns: 1fr; }
   .nl-404-num { font-size: 64px; }
   .nl-404-h { font-size: 28px; }
+  .nl-form-page { padding: 40px 24px 56px; }
+  .nl-form-h1 { font-size: 30px; }
+  .nl-field-row { grid-template-columns: 1fr; gap: 0; }
+  .nl-field-row .nl-field { margin-bottom: 18px; }
 }

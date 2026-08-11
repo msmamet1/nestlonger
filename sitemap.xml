@@ -16,9 +16,19 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://www.nestlonger.com/get-matched.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.nestlonger.com/partners.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.nestlonger.com/partner-apply.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.nestlonger.com/about.html</loc>

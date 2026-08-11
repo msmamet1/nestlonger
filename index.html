@@ -30,7 +30,6 @@
     gtag('config', 'G-D2CB1LRG5P');
   </script>
 
-  <script async src="https://tally.so/widgets/embed.js"></script>
 </head>
 <body id="top">
 
@@ -41,7 +40,7 @@
         <a href="grab-bars.html">Grab bars</a>
         <a href="adus.html">ADUs</a>
         <a href="partners.html">For partners</a>
-        <button type="button" class="nl-btn nl-btn-primary nl-btn-sm" data-tally-cta data-source="homepage">Get matched</button>
+        <a href="get-matched.html?src=homepage" class="nl-btn nl-btn-primary nl-btn-sm">Get matched</a>
       </nav>
     </div>
   </header>
@@ -207,7 +206,18 @@
       <p class="nl-email-cta-lede">
         New verticals as we launch them, what insurance is actually covering this year, and the occasional reminder to schedule the install you've been putting off.
       </p>
-      <button type="button" class="nl-btn nl-btn-primary" data-tally-cta data-source="newsletter">Subscribe</button>
+      <form class="nl-email-form" action="https://formspree.io/f/FORMSPREE_FORM_ID" method="POST">
+        <input type="hidden" name="_next" value="https://www.nestlonger.com/thanks.html?type=newsletter" />
+        <input type="hidden" name="_subject" value="New NestLonger newsletter signup" />
+        <input type="hidden" name="source" value="newsletter" />
+        <div class="nl-hp" aria-hidden="true">
+          <label for="nl-fax">Fax</label>
+          <input type="text" name="_gotcha" id="nl-fax" tabindex="-1" autocomplete="off" />
+        </div>
+        <label class="nl-hp" for="nl-news-email">Email address</label>
+        <input class="nl-input" type="email" name="email" id="nl-news-email" required autocomplete="email" placeholder="you@example.com" />
+        <button type="submit" class="nl-btn nl-btn-primary">Subscribe</button>
+      </form>
       <div class="nl-email-cta-fine">No spam. Unsubscribe in one click.</div>
     </div>
   </section>
@@ -241,27 +251,5 @@
     <div class="nl-footer-fine">© 2026 NestLonger. The home you love, for as long as possible.</div>
   </footer>
 
-  <script>
-    (function() {
-      function openTally(source) {
-        if (window.Tally && typeof window.Tally.openPopup === 'function') {
-          window.Tally.openPopup('7R49EL', {
-            layout: 'modal',
-            width: 600,
-            hideTitle: true,
-            hiddenFields: { source: source }
-          });
-        } else {
-          window.location.href = 'https://tally.so/r/7R49EL?source=' + encodeURIComponent(source);
-        }
-      }
-      document.addEventListener('click', function(e) {
-        var trigger = e.target.closest('[data-tally-cta]');
-        if (!trigger) return;
-        e.preventDefault();
-        openTally(trigger.getAttribute('data-source') || 'unknown');
-      });
-    })();
-  </script>
 </body>
 </html>

@@ -30,7 +30,6 @@
     gtag('config', 'G-D2CB1LRG5P');
   </script>
 
-  <script async src="https://tally.so/widgets/embed.js"></script>
 </head>
 <body id="top">
 
@@ -41,7 +40,7 @@
         <a href="grab-bars.html">Grab bars</a>
         <a href="adus.html">ADUs</a>
         <a href="partners.html" class="is-active">For partners</a>
-        <button type="button" class="nl-btn nl-btn-primary nl-btn-sm" data-tally-cta data-source="partners">Apply to join</button>
+        <a href="partner-apply.html" class="nl-btn nl-btn-primary nl-btn-sm">Apply to join</a>
       </nav>
     </div>
   </header>
@@ -150,9 +149,7 @@
         <p class="nl-hero-form-body">
           Verified licensing, insurance, and references required. We typically respond within two business days.
         </p>
-        <button type="button" class="nl-btn nl-btn-primary nl-btn-block" data-tally-cta data-source="partners">
-          Apply to join the network
-        </button>
+        <a href="partner-apply.html" class="nl-btn nl-btn-primary nl-btn-block">Apply to join the network</a>
         <div class="nl-lead-fineprint">
           We verify licensing, insurance, and references before activating any partner.
         </div>
@@ -189,27 +186,5 @@
     <div class="nl-footer-fine">© 2026 NestLonger. The home you love, for as long as possible.</div>
   </footer>
 
-  <script>
-    (function() {
-      function openTally(source) {
-        if (window.Tally && typeof window.Tally.openPopup === 'function') {
-          window.Tally.openPopup('7R49EL', {
-            layout: 'modal',
-            width: 600,
-            hideTitle: true,
-            hiddenFields: { source: source }
-          });
-        } else {
-          window.location.href = 'https://tally.so/r/7R49EL?source=' + encodeURIComponent(source);
-        }
-      }
-      document.addEventListener('click', function(e) {
-        var trigger = e.target.closest('[data-tally-cta]');
-        if (!trigger) return;
-        e.preventDefault();
-        openTally(trigger.getAttribute('data-source') || 'unknown');
-      });
-    })();
-  </script>
 </body>
 </html>

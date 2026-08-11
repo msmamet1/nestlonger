@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Get matched with a certified pro — NestLonger</title>
+  <meta name="description" content="Tell us what your parent needs. We'll match you with a certified professional in your area, usually within one business day. Free to families." />
+  <link rel="canonical" href="https://www.nestlonger.com/get-matched.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.nestlonger.com/get-matched.html" />
+  <meta property="og:title" content="Get matched with a certified pro — NestLonger" />
+  <meta property="og:description" content="Tell us what your parent needs. We'll match you with a certified professional in your area, usually within one business day." />
+  <meta property="og:image" content="https://www.nestlonger.com/assets/images/grab-bars.webp" />
+  <meta property="og:site_name" content="NestLonger" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Get matched with a certified pro — NestLonger" />
+  <meta name="twitter:description" content="Tell us what your parent needs. We'll match you with a certified professional in your area." />
+  <meta name="twitter:image" content="https://www.nestlonger.com/assets/images/grab-bars.webp" />
+
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="stylesheet" href="assets/styles.css" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D2CB1LRG5P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-D2CB1LRG5P');
+  </script>
+</head>
+<body id="top">
+
+  <header class="nl-nav">
+    <div class="nl-nav-inner">
+      <a href="index.html" class="nl-wordmark" aria-label="NestLonger">Nest<span>Longer</span></a>
+      <nav class="nl-nav-links">
+        <a href="grab-bars.html">Grab bars</a>
+        <a href="adus.html">ADUs</a>
+        <a href="partners.html">For partners</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="nl-form-page">
+    <div class="nl-form-inner">
+      <div class="nl-eyebrow">Get matched</div>
+      <h1 class="nl-form-h1">Tell us what your parent needs.</h1>
+      <p class="nl-form-lede">
+        A few details is all it takes. We'll match you with a certified professional in your area, usually within one business day. Free to families, and we share your information with one matched partner only.
+      </p>
+
+      <div class="nl-form-card">
+        <form action="https://formspree.io/f/FORMSPREE_FORM_ID" method="POST">
+          <input type="hidden" name="_next" value="https://www.nestlonger.com/thanks.html" />
+          <input type="hidden" name="_subject" value="New NestLonger lead" />
+          <input type="hidden" name="source" id="nl-source" value="site" />
+
+          <!-- Honeypot. Real people never see this; bots fill it and get rejected. -->
+          <div class="nl-hp" aria-hidden="true">
+            <label for="nl-company">Company</label>
+            <input type="text" name="_gotcha" id="nl-company" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="nl-field-row">
+            <div class="nl-field">
+              <label class="nl-label" for="name">Your name</label>
+              <input class="nl-input" type="text" name="name" id="name" required autocomplete="name" placeholder="Jane Doe" />
+            </div>
+            <div class="nl-field">
+              <label class="nl-label" for="zip">ZIP code <span class="nl-label-opt">(your parent's)</span></label>
+              <input class="nl-input" type="text" name="zip" id="zip" required inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="02458" />
+            </div>
+          </div>
+
+          <div class="nl-field-row">
+            <div class="nl-field">
+              <label class="nl-label" for="email">Email</label>
+              <input class="nl-input" type="email" name="email" id="email" required autocomplete="email" placeholder="jane@example.com" />
+            </div>
+            <div class="nl-field">
+              <label class="nl-label" for="phone">Phone <span class="nl-label-opt">(optional)</span></label>
+              <input class="nl-input" type="tel" name="phone" id="phone" autocomplete="tel" placeholder="(617) 555-0142" />
+            </div>
+          </div>
+
+          <div class="nl-field">
+            <label class="nl-label" for="need">What do you need?</label>
+            <select class="nl-select" name="need" id="need" required>
+              <option value="">Select one</option>
+              <option value="grab-bars">Grab bars or bathroom safety</option>
+              <option value="adu">An ADU on my property</option>
+              <option value="home-safety">A general home safety assessment</option>
+              <option value="not-sure">I'm not sure yet</option>
+            </select>
+          </div>
+
+          <div class="nl-field">
+            <label class="nl-label" for="who">Who is this for?</label>
+            <select class="nl-select" name="who" id="who" required>
+              <option value="">Select one</option>
+              <option value="parent">My mom or dad</option>
+              <option value="both-parents">Both my parents</option>
+              <option value="myself">Myself</option>
+              <option value="other">Someone else in my family</option>
+            </select>
+          </div>
+
+          <div class="nl-field">
+            <label class="nl-label" for="details">Anything else we should know? <span class="nl-label-opt">(optional)</span></label>
+            <textarea class="nl-textarea" name="details" id="details" placeholder="Stairs they're struggling with, a recent fall, a bathroom that worries you, a timeline you're working against."></textarea>
+            <div class="nl-field-help">The more you tell us, the better the match.</div>
+          </div>
+
+          <button type="submit" class="nl-btn nl-btn-primary nl-btn-block">Get matched</button>
+
+          <div class="nl-form-fine">
+            Free to families. We share your information with the one certified partner we match you to, never a list of bidders. See our <a href="privacy.html">privacy policy</a>.
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="nl-footer">
+    <div class="nl-footer-inner">
+      <div class="nl-footer-brand">
+        <div class="nl-wordmark nl-wordmark-footer">Nest<span>Longer</span></div>
+        <div class="nl-footer-tag">Stay home, safely.</div>
+        <p class="nl-footer-blurb">
+          NestLonger helps adult children get ahead of the hard stuff, connecting families with certified professionals before the crisis forces their hand.
+        </p>
+      </div>
+      <div class="nl-footer-cols">
+        <div class="nl-footer-col">
+          <div class="nl-footer-col-h">Verticals</div>
+          <a href="grab-bars.html">Grab bars</a>
+          <a href="adus.html">ADUs</a>
+        </div>
+        <div class="nl-footer-col">
+          <div class="nl-footer-col-h">Company</div>
+          <a href="partners.html">For partners</a>
+          <a href="about.html">About</a>
+        </div>
+        <div class="nl-footer-col">
+          <div class="nl-footer-col-h">Legal</div>
+          <a href="privacy.html">Privacy policy</a>
+        </div>
+      </div>
+    </div>
+    <div class="nl-footer-fine">© 2026 NestLonger. The home you love, for as long as possible.</div>
+  </footer>
+
+  <script>
+    // Carry the entry point through as a hidden field so leads can be routed by
+    // vertical, the same way the old data-source attribute worked. Degrades to
+    // "site" with JavaScript off - the form still submits either way.
+    (function() {
+      var src = new URLSearchParams(window.location.search).get('src');
+      if (src) document.getElementById('nl-source').value = src.slice(0, 40);
+    })();
+  </script>
+</body>
+</html>

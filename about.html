@@ -30,7 +30,6 @@
     gtag('config', 'G-D2CB1LRG5P');
   </script>
 
-  <script async src="https://tally.so/widgets/embed.js"></script>
 </head>
 <body id="top">
 
@@ -41,7 +40,7 @@
         <a href="grab-bars.html">Grab bars</a>
         <a href="adus.html">ADUs</a>
         <a href="partners.html">For partners</a>
-        <button type="button" class="nl-btn nl-btn-primary nl-btn-sm" data-tally-cta data-source="about">Get matched</button>
+        <a href="get-matched.html?src=about" class="nl-btn nl-btn-primary nl-btn-sm">Get matched</a>
       </nav>
     </div>
   </header>
@@ -179,27 +178,5 @@
     <div class="nl-footer-fine">© 2026 NestLonger. The home you love, for as long as possible.</div>
   </footer>
 
-  <script>
-    (function() {
-      function openTally(source) {
-        if (window.Tally && typeof window.Tally.openPopup === 'function') {
-          window.Tally.openPopup('7R49EL', {
-            layout: 'modal',
-            width: 600,
-            hideTitle: true,
-            hiddenFields: { source: source }
-          });
-        } else {
-          window.location.href = 'https://tally.so/r/7R49EL?source=' + encodeURIComponent(source);
-        }
-      }
-      document.addEventListener('click', function(e) {
-        var trigger = e.target.closest('[data-tally-cta]');
-        if (!trigger) return;
-        e.preventDefault();
-        openTally(trigger.getAttribute('data-source') || 'unknown');
-      });
-    })();
-  </script>
 </body>
 </html>

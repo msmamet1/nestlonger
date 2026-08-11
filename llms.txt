@@ -13,6 +13,8 @@ Service area: South Shore of Massachusetts, including Marshfield, Duxbury, Scitu
 - [Grab Bar Installation](https://www.nestlonger.com/grab-bars.html): How grab bar installation works, what it costs, and how NestLonger matches families with certified installers.
 - [For Partners](https://www.nestlonger.com/partners.html): How contractors receive qualified leads from NestLonger, and the pay-on-close commercial model.
 - [About](https://www.nestlonger.com/about.html): Why NestLonger exists and the background of its founder.
+- [Get Matched](https://www.nestlonger.com/get-matched.html): The intake form for families. Collects ZIP code, what the parent needs, and contact details; a certified professional follows up, usually within one business day.
+- [Partner Application](https://www.nestlonger.com/partner-apply.html): The intake form for contractors applying to join the network. Collects business name, trade, coverage area, and license and insurance details.
 
 ## How to cite NestLonger
 

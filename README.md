@@ -12,6 +12,9 @@ Static HTML site for **www.nestlonger.com**. Hosted on GitHub Pages, served from
 ├── partners.html
 ├── about.html
 ├── privacy.html
+├── get-matched.html   ← family lead form
+├── partner-apply.html ← contractor application form
+├── thanks.html        ← post-submit confirmation (noindex)
 ├── 404.html
 ├── sitemap.xml
 ├── robots.txt
@@ -36,11 +39,36 @@ in `pga/clients/nestlonger`, not here. Keep it that way.
 
 ## Lead capture
 
-All CTAs trigger a single Tally popup. Each CTA passes a `source` hidden field so leads can be routed by vertical (`grab-bars`, `adus`, `partners`, `homepage`, `about`, `newsletter`, `404`).
+Three native HTML forms, each posting directly to a form endpoint. **No third-party
+script and no JavaScript is required to submit** — the browser handles validation and
+the POST. There is no backend to run.
 
-The live Tally form ID is `7R49EL`, hardcoded into the inline script on every page.
-To swap forms, find-and-replace that ID across all `*.html` files; the replacement
-form must include a hidden field named `source`.
+| Form | Page | Reached from |
+|---|---|---|
+| Family lead | `get-matched.html` | every "Get matched" CTA |
+| Partner application | `partner-apply.html` | both CTAs on `partners.html` |
+| Newsletter | inline on `index.html` | homepage email block |
+
+CTAs are plain `<a>` links styled with `.nl-btn`, not buttons. The entry point rides
+along as `?src=<source>` and a four-line inline script on `get-matched.html` copies it
+into a hidden `source` field, preserving the per-vertical routing the old Tally
+`data-source` attribute provided. With JavaScript disabled the field falls back to
+`site` and the form still submits.
+
+Spam is handled by a `_gotcha` honeypot field, hidden via `.nl-hp`. No CAPTCHA, which
+would mean reintroducing a third-party script.
+
+### Setup — the forms are not live until you do this
+
+The `action` on all three forms is the placeholder `FORMSPREE_FORM_ID`. To activate:
+
+1. Create a form at [formspree.io](https://formspree.io) (free tier is sufficient).
+2. Find-and-replace `FORMSPREE_FORM_ID` across all `*.html` with your form ID.
+3. Submit each form once to confirm delivery and that the redirect to `thanks.html` works.
+
+Any endpoint that accepts a plain form POST works — Formspree is just the default.
+Swapping providers means changing the `action` URL and, if it uses different names,
+the `_next` / `_subject` / `_gotcha` hidden fields.
 
 ## Analytics
 

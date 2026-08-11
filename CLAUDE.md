@@ -19,15 +19,19 @@ Preview must be served over HTTP, not opened via `file://` — `404.html` uses r
 
 ## Architecture
 
-**Seven standalone HTML pages, no templating.** `index.html`, `grab-bars.html`, `adus.html`, `partners.html`, `about.html`, `privacy.html`, `404.html`. Every page carries its own full copy of the nav, footer, GA4 snippet, and Tally script. Changing any shared block means editing all seven files.
+**Ten standalone HTML pages, no templating.** Six content pages (`index`, `grab-bars`, `adus`, `partners`, `about`, `privacy`), three form pages (`get-matched`, `partner-apply`, `thanks`), and `404.html`. Every page carries its own full copy of the nav, footer, and GA4 snippet. Changing any shared block means editing all of them.
 
 **The shared blocks are not byte-identical**, so blind find-and-replace across pages will corrupt them. Per-page variations to preserve:
 
-- nav CTA `data-source` value (one per page) and its label (`Get matched`, except partners → `Apply to join`)
+- nav CTA target and label (`Get matched` → `get-matched.html?src=<page>`, except partners → `Apply to join` → `partner-apply.html`); form pages have no nav CTA at all
 - `class="is-active"` on the nav link matching the current page
 - `404.html` uses root-absolute paths (`/adus.html`, `/assets/styles.css`); all other pages use relative paths (`adus.html`)
 
-**Lead capture** is a single Tally popup (form ID `7R49EL`) behind a delegated click handler. Any element with `data-tally-cta` opens it; its `data-source` attribute is passed as a hidden field so leads route by vertical. Current values: `homepage`, `newsletter`, `grab-bars`, `adus`, `partners`, `about`, `privacy`, `404`. If the Tally widget script hasn't loaded, the handler falls back to a full-page redirect to `tally.so/r/7R49EL?source=…`. Note: `README.md` still describes the form ID as an unreplaced `TALLY_FORM_ID` placeholder — that is stale, the real ID is wired into every page.
+**Lead capture** is three native HTML forms posting directly to a form endpoint — no third-party script, no JS needed to submit. `get-matched.html` (families), `partner-apply.html` (contractors), and an inline newsletter form on the homepage. All CTAs are `<a class="nl-btn">` links, not buttons.
+
+The per-vertical routing that Tally's `data-source` used to provide now rides on `?src=` in the CTA href; four lines of inline script on `get-matched.html` copy it into a hidden `source` field, falling back to `site` without JS. Sources in use: `homepage`, `grab-bars`, `adus`, `about`, `privacy`, `404`, plus fixed `partner-application` and `newsletter`.
+
+⚠️ **The forms post to the placeholder `FORMSPREE_FORM_ID` and are not live until it is replaced.** See README "Lead capture → Setup". Spam protection is a `_gotcha` honeypot only — deliberately no CAPTCHA, since that would reintroduce a third-party script.
 
 **Analytics**: GA4 `G-D2CB1LRG5P`, inline on every page including 404.
 
