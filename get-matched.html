@@ -52,15 +52,13 @@
       </p>
 
       <div class="nl-form-card">
-        <form action="https://formspree.io/f/FORMSPREE_FORM_ID" method="POST">
-          <input type="hidden" name="_next" value="https://www.nestlonger.com/thanks.html" />
-          <input type="hidden" name="_subject" value="New NestLonger lead" />
+        <form action="/api/lead" method="POST">
           <input type="hidden" name="source" id="nl-source" value="site" />
 
           <!-- Honeypot. Real people never see this; bots fill it and get rejected. -->
           <div class="nl-hp" aria-hidden="true">
-            <label for="nl-company">Company</label>
-            <input type="text" name="_gotcha" id="nl-company" tabindex="-1" autocomplete="off" />
+            <label for="nl-company">Company website</label>
+            <input type="text" name="website" id="nl-company" tabindex="-1" autocomplete="off" />
           </div>
 
           <div class="nl-field-row">

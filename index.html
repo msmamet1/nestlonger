@@ -206,13 +206,11 @@
       <p class="nl-email-cta-lede">
         New verticals as we launch them, what insurance is actually covering this year, and the occasional reminder to schedule the install you've been putting off.
       </p>
-      <form class="nl-email-form" action="https://formspree.io/f/FORMSPREE_FORM_ID" method="POST">
-        <input type="hidden" name="_next" value="https://www.nestlonger.com/thanks.html?type=newsletter" />
-        <input type="hidden" name="_subject" value="New NestLonger newsletter signup" />
+      <form class="nl-email-form" action="/api/subscribe" method="POST">
         <input type="hidden" name="source" value="newsletter" />
         <div class="nl-hp" aria-hidden="true">
-          <label for="nl-fax">Fax</label>
-          <input type="text" name="_gotcha" id="nl-fax" tabindex="-1" autocomplete="off" />
+          <label for="nl-fax">Company website</label>
+          <input type="text" name="website" id="nl-fax" tabindex="-1" autocomplete="off" />
         </div>
         <label class="nl-hp" for="nl-news-email">Email address</label>
         <input class="nl-input" type="email" name="email" id="nl-news-email" required autocomplete="email" placeholder="you@example.com" />

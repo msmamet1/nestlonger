@@ -27,11 +27,15 @@ Preview must be served over HTTP, not opened via `file://` — `404.html` uses r
 - `class="is-active"` on the nav link matching the current page
 - `404.html` uses root-absolute paths (`/adus.html`, `/assets/styles.css`); all other pages use relative paths (`adus.html`)
 
-**Lead capture** is three native HTML forms posting directly to a form endpoint — no third-party script, no JS needed to submit. `get-matched.html` (families), `partner-apply.html` (contractors), and an inline newsletter form on the homepage. All CTAs are `<a class="nl-btn">` links, not buttons.
+**Lead capture uses no third-party form service.** Three native HTML forms post same-origin to `/api/*`, handled by a Cloudflare Worker (`nestlonger-forms`) that writes to a D1 database (`nestlonger-leads`) and answers with a 303 to `thanks.html`. No JS is needed to submit. Worker source is in `worker/`; see README "Lead capture → The backend" for the deploy and query commands.
 
-The per-vertical routing that Tally's `data-source` used to provide now rides on `?src=` in the CTA href; four lines of inline script on `get-matched.html` copy it into a hidden `source` field, falling back to `site` without JS. Sources in use: `homepage`, `grab-bars`, `adus`, `about`, `privacy`, `404`, plus fixed `partner-application` and `newsletter`.
+This only works because **the zone is proxied through Cloudflare** — the Worker intercepts `/api/*` before the request reaches GitHub Pages. If the proxy is ever switched to DNS-only, every form silently breaks.
 
-⚠️ **The forms post to the placeholder `FORMSPREE_FORM_ID` and are not live until it is replaced.** See README "Lead capture → Setup". Spam protection is a `_gotcha` honeypot only — deliberately no CAPTCHA, since that would reintroduce a third-party script.
+The per-vertical routing that Tally's `data-source` used to provide now rides on `?src=` in the CTA href; four lines of inline script on `get-matched.html` copy it into a hidden `source` field, falling back to `site` without JS. Sources in use: `homepage`, `grab-bars`, `adus`, `about`, `privacy`, `404`, plus `newsletter`.
+
+Spam protection is a `website` honeypot plus per-IP rate limiting in the Worker — deliberately no CAPTCHA, since Turnstile would reintroduce a third-party script.
+
+⚠️ **Cloudflare Bot Fight Mode must stay off.** It was enabled until 2026-08-11 and was serving a 403 managed challenge on every HTML page — Googlebot cannot solve a JS challenge, so the site was uncrawlable (0 organic keywords, 3 impressions in 3.5 months). Free-plan Bot Fight Mode has no verified-crawler exemption. It would also block form POSTs.
 
 **Analytics**: GA4 `G-D2CB1LRG5P`, inline on every page including 404.
 

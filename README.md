@@ -55,20 +55,50 @@ into a hidden `source` field, preserving the per-vertical routing the old Tally
 `data-source` attribute provided. With JavaScript disabled the field falls back to
 `site` and the form still submits.
 
-Spam is handled by a `_gotcha` honeypot field, hidden via `.nl-hp`. No CAPTCHA, which
-would mean reintroducing a third-party script.
+Spam is handled by a `website` honeypot field, hidden via `.nl-hp`, plus per-IP rate
+limiting in the Worker. No CAPTCHA — Turnstile would reintroduce the third-party script
+this setup exists to remove.
 
-### Setup — the forms are not live until you do this
+### The backend
 
-The `action` on all three forms is the placeholder `FORMSPREE_FORM_ID`. To activate:
+There is no form vendor. Submissions post **same-origin** to a Cloudflare Worker on this
+site's own domain, which writes to a D1 database owned by the account.
 
-1. Create a form at [formspree.io](https://formspree.io) (free tier is sufficient).
-2. Find-and-replace `FORMSPREE_FORM_ID` across all `*.html` with your form ID.
-3. Submit each form once to confirm delivery and that the redirect to `thanks.html` works.
+```
+Browser ──POST /api/lead──▶ Worker "nestlonger-forms"
+                              ├─▶ honeypot + validation + rate limit
+                              ├─▶ INSERT into D1 "nestlonger-leads"
+                              ├─▶ Slack webhook (if SLACK_WEBHOOK_URL is set)
+                              └─▶ 303 ──▶ /thanks.html
+```
 
-Any endpoint that accepts a plain form POST works — Formspree is just the default.
-Swapping providers means changing the `action` URL and, if it uses different names,
-the `_next` / `_subject` / `_gotcha` hidden fields.
+| Endpoint | Table | Form |
+|---|---|---|
+| `/api/lead` | `leads` | `get-matched.html` |
+| `/api/partner` | `partners` | `partner-apply.html` |
+| `/api/subscribe` | `subscribers` | homepage newsletter |
+
+This works because the zone is proxied through Cloudflare, so the Worker intercepts
+`/api/*` before the request reaches GitHub Pages. Everything else still comes from Pages.
+
+Source lives in [`worker/`](worker/) — `index.js` and `schema.sql`. It holds no secrets
+(`SLACK_WEBHOOK_URL` and `IP_SALT` are Worker secrets), so its being publicly served is
+harmless. Redeploy after editing:
+
+```bash
+npx wrangler deploy worker/index.js --name nestlonger-forms
+```
+
+Read the leads (CSV-friendly):
+
+```bash
+npx wrangler d1 execute nestlonger-leads --remote \
+  --command "SELECT * FROM leads ORDER BY created_at DESC" --json
+```
+
+**On the data:** these tables hold a ZIP plus free-text notes about an elderly person's
+home. Treat them as sensitive. The submitter's IP is stored only as a salted hash, never
+raw.
 
 ## Analytics
 
