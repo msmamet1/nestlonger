@@ -956,6 +956,28 @@ img { display: block; max-width: 100%; }
   color: var(--nl-sage); margin-bottom: 12px;
 }
 
+/* ===== FAQ =====
+   Google requires FAQPage question and answer content to be visible on the
+   rendered page. Anything added to a page's FAQPage JSON-LD must also appear
+   here, with the answer text matching the markup exactly. */
+.nl-faq-list {
+  border-top: 1px solid var(--nl-border);
+  max-width: 720px;
+}
+.nl-faq-item {
+  border-bottom: 1px solid var(--nl-border);
+  padding: 24px 0;
+}
+.nl-faq-q {
+  font-family: var(--nl-font-serif); font-weight: 400;
+  font-size: 21px; line-height: 1.3; letter-spacing: -0.01em;
+  color: var(--nl-charcoal); margin-bottom: 10px;
+}
+.nl-faq-a {
+  font-size: 16px; line-height: 1.7; color: var(--nl-mid);
+}
+.nl-faq-a a { color: var(--nl-sage); text-decoration: underline; text-underline-offset: 3px; }
+
 /* ===== BLOG =====
    Listing at /blog/, posts at /blog/<slug>.html. Hand-authored HTML: copy
    blog/_template.html and fill it in. See README "Adding a blog post". */
