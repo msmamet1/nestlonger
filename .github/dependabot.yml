@@ -1,9 +1,8 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "weekly"
+  # This site has no package manager (no build, no bundler, no npm), so there is
+  # no npm ecosystem to watch. Kept for GitHub Actions, which activates only if
+  # workflows are ever added under .github/workflows/.
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
 
+# Internal artifacts. GitHub Pages serves every file in the repo, so these are
+# reachable by URL — this only keeps them out of search results.
+Disallow: /internal/
+Disallow: /README.md
+
 Sitemap: https://www.nestlonger.com/sitemap.xml
