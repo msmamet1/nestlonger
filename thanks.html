@@ -8,6 +8,9 @@
   <meta name="description" content="We received your details and will be in touch." />
 
   <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" />
   <link rel="stylesheet" href="assets/styles.css" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-D2CB1LRG5P"></script>
@@ -34,8 +37,8 @@
   <section class="nl-form-page">
     <div class="nl-form-inner nl-thanks">
       <div class="nl-thanks-mark">✓</div>
-      <h1 class="nl-form-h1">Got it. <em>We're on it.</em></h1>
-      <p class="nl-form-lede">
+      <h1 class="nl-form-h1" id="nl-thanks-h">Got it. <em>We're on it.</em></h1>
+      <p class="nl-form-lede" id="nl-thanks-lede">
         We'll review your details and follow up by email, usually within one business day. If it's urgent, reply to that email and tell us — we'll move faster.
       </p>
       <div class="nl-404-actions">
@@ -74,5 +77,33 @@
     <div class="nl-footer-fine">© 2026 NestLonger. The home you love, for as long as possible.</div>
   </footer>
 
+  <script>
+    // The Worker redirects here with ?type=lead|partner|newsletter. Fire a distinct
+    // GA4 event per form so a family lead is not counted the same as a newsletter
+    // signup, and correct the copy, which otherwise promises a callback to someone
+    // who only subscribed.
+    (function () {
+      var type = new URLSearchParams(window.location.search).get('type');
+      var events = {
+        lead:       { name: 'generate_lead',       h: "Got it. <em>We're on it.</em>",
+                      lede: "We'll review your details and follow up by email, usually within one business day. If it's urgent, reply to that email and tell us — we'll move faster." },
+        partner:    { name: 'partner_application', h: "Application received.",
+                      lede: "We read every application. We'll be in touch about coverage in your area, usually within a few business days." },
+        newsletter: { name: 'sign_up',             h: "You're subscribed.",
+                      lede: "One short email a month, just the useful stuff. Unsubscribe in one click, any time." }
+      };
+      var e = events[type];
+      if (!e) return;
+
+      var h = document.getElementById('nl-thanks-h');
+      var lede = document.getElementById('nl-thanks-lede');
+      if (h) h.innerHTML = e.h;
+      if (lede) lede.textContent = e.lede;
+
+      if (typeof gtag === 'function') {
+        gtag('event', e.name, { form_type: type });
+      }
+    })();
+  </script>
 </body>
 </html>

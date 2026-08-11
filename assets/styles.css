@@ -3,7 +3,11 @@
                 styles.css (marketing UI kit),
                 site.css (multi-page extensions). */
 
-@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
+/* Fonts are linked from each page's <head>, NOT @imported here. An @import inside
+   this stylesheet serialises the fetch: HTML -> styles.css -> parse -> Google Fonts
+   CSS -> font files, four round trips before text renders in the brand face. The
+   <link> version lets the browser start both stylesheets at once. Do not move it
+   back. */
 
 :root {
   /* Colors */
@@ -418,7 +422,7 @@ img { display: block; max-width: 100%; }
 .nl-vert-card:hover { border-color: var(--nl-sage); }
 .nl-vert-card-img {
   width: 100%; height: 240px;
-  background-size: cover; background-position: center;
+  display: block; object-fit: cover; object-position: center;
   border-bottom: 1px solid var(--nl-border);
   filter: saturate(0.85) contrast(0.96) brightness(1.02) sepia(0.04);
 }
@@ -653,7 +657,7 @@ img { display: block; max-width: 100%; }
   width: 200px; height: 240px;
   border-radius: 12px;
   border: 1px solid var(--nl-border);
-  background-size: cover; background-position: center;
+  display: block; object-fit: cover; object-position: center;
   filter: saturate(0.85) contrast(0.96) brightness(1.02) sepia(0.04);
 }
 .nl-founder-name {
@@ -793,7 +797,7 @@ img { display: block; max-width: 100%; }
   width: 100%; aspect-ratio: 4 / 5;
   border-radius: 12px;
   border: 1px solid var(--nl-border);
-  background-size: cover; background-position: center;
+  display: block; object-fit: cover; object-position: center;
   filter: saturate(0.85) contrast(0.96) brightness(1.02) sepia(0.04);
 }
 .nl-split-copy h3 {

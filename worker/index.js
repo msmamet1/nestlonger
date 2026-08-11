@@ -26,24 +26,29 @@ const THANKS = `${SITE}/thanks.html`;
 const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW_MIN = 60;
 
+// `type` is echoed back on the thanks.html redirect so GA4 can tell a family lead
+// apart from a newsletter signup. Without it every conversion looks identical.
 const FORMS = {
   '/api/lead': {
     table: 'leads',
     required: ['name', 'email', 'zip'],
     fields: ['source', 'name', 'email', 'phone', 'zip', 'need', 'who', 'details'],
     label: 'New family lead',
+    type: 'lead',
   },
   '/api/partner': {
     table: 'partners',
     required: ['business', 'contact', 'email'],
     fields: ['business', 'contact', 'email', 'phone', 'trade', 'coverage', 'license', 'aging_experience'],
     label: 'New partner application',
+    type: 'partner',
   },
   '/api/subscribe': {
     table: 'subscribers',
     required: ['email'],
     fields: ['email', 'source'],
     label: 'New newsletter signup',
+    type: 'newsletter',
   },
 };
 
@@ -67,7 +72,7 @@ export default {
     // Honeypot. A real person never sees this field; bots fill every input they find.
     // Answer with the ordinary redirect so the bot cannot tell it was rejected.
     if ((form.get('website') || '').trim() !== '') {
-      return redirectToThanks();
+      return redirectToThanks(config.type);
     }
 
     const values = {};
@@ -114,7 +119,7 @@ export default {
       // A duplicate newsletter email hits the UNIQUE constraint. That is a success
       // from the subscriber's point of view, not an error.
       if (config.table === 'subscribers' && String(err).includes('UNIQUE')) {
-        return redirectToThanks();
+        return redirectToThanks(config.type);
       }
       console.error('D1 insert failed', String(err));
     }
@@ -125,13 +130,15 @@ export default {
       return problem('Something went wrong on our end and your details were not saved. Please try again.');
     }
 
-    return redirectToThanks();
+    return redirectToThanks(config.type);
   },
 };
 
-function redirectToThanks() {
-  // 303 so the browser follows with GET rather than re-POSTing.
-  return Response.redirect(THANKS, 303);
+function redirectToThanks(type) {
+  // 303 so the browser follows with GET rather than re-POSTing. The type rides
+  // along so thanks.html can fire a distinct GA4 conversion event per form.
+  const url = type ? `${THANKS}?type=${encodeURIComponent(type)}` : THANKS;
+  return Response.redirect(url, 303);
 }
 
 function problem(message) {
