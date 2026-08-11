@@ -37,7 +37,9 @@ Class names are all `nl-` prefixed and semantic (`nl-vert-card`, `nl-prob-cell`,
 
 ## Brand and copy
 
-`internal/brand-guide.md` is the source of truth for voice, palette, type, and UI patterns — read it before writing any user-facing copy or adding visual components. It is prescriptive, including a **Never Say** list (notably: "loved one", "senior/elderly", "journey", "seamless/robust/holistic", "empowering families to"). Write for the adult child, not the aging parent. `internal/brand-guide.html` is a rendered version of the same content.
+The brand guide lives **outside this repo**, in `pga/clients/nestlonger` — it is the source of truth for voice, palette, type, and UI patterns, and it is prescriptive, including a **Never Say** list (notably: "loved one", "senior/elderly", "journey", "seamless/robust/holistic", "empowering families to"). Read it before writing any user-facing copy or adding visual components; ask for it if the PGA repo is not attached to the session.
+
+Write for the adult child, not the aging parent. Clear, warm, practical.
 
 ## When adding or renaming a page
 
@@ -46,8 +48,10 @@ Class names are all `nl-` prefixed and semantic (`nl-vert-card`, `nl-prob-cell`,
 3. Pick a new `data-source` value for its CTAs
 4. Set canonical, OG, and Twitter meta to the `https://www.nestlonger.com/…` absolute URL
 
-## SEO artifacts and `internal/`
+## SEO artifacts
 
-`robots.txt` points at the sitemap and disallows `/internal/` and `/README.md`. `CNAME` pins the custom domain; do not remove it.
+`robots.txt` points at the sitemap; `CNAME` pins the custom domain, do not remove it. `llms.txt` is the AEO site summary and page index — update it when pages are added or their purpose changes.
 
-`internal/` holds things that are versioned with the site but are not part of it: the brand guide (both formats) and `disavow.txt`, a Google Search Console upload artifact from a July 2026 backlink audit (371 nofollow referring domains). **GitHub Pages serves every file in the repository**, so these are reachable by URL — the robots rules and the `noindex` meta on `brand-guide.html` only keep them out of search results. Nothing genuinely private belongs in this repo.
+**GitHub Pages serves every file in this repository**, with no way to make one private. Internal working documents therefore do not belong here — the brand guide and the Google Search Console disavow list were moved out to `pga/clients/nestlonger` for exactly this reason. `robots.txt` still carries a `Disallow: /internal/` rule from before that move; it is inert but harmless.
+
+The disavow list is maintained in the PGA repo. The rule that matters when editing it: **disavow uploads replace the live list rather than merging into it**, so that file is the cumulative source of truth — merge new Ahrefs exports into it and re-upload the whole thing, never upload a raw export. As of 2026-08-11 the live list is 422 domains / 0 URLs.

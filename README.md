@@ -17,20 +17,18 @@ Static HTML site for **www.nestlonger.com**. Hosted on GitHub Pages, served from
 ├── robots.txt
 ├── CNAME              ← www.nestlonger.com
 ├── .nojekyll          ← disables Jekyll processing
-├── assets/
-│   ├── styles.css     ← single consolidated stylesheet
-│   ├── favicon.png
-│   ├── wordmark.svg   ← used in grab-bars.html JSON-LD logo field
-│   ├── wordmark-light.svg
-│   └── images/        ← page imagery (WebP)
-└── internal/          ← not part of the site; robots-disallowed
-    ├── brand-guide.md
-    ├── brand-guide.html
-    └── disavow.txt    ← Google Search Console upload artifact
+├── llms.txt           ← AEO site summary and page index
+└── assets/
+    ├── styles.css     ← single consolidated stylesheet
+    ├── favicon.png
+    ├── wordmark.svg   ← used in grab-bars.html JSON-LD logo field
+    ├── wordmark-light.svg
+    └── images/        ← page imagery (WebP)
 ```
 
-Pages serves every file in the repository, so `internal/` is reachable by URL even
-though it is excluded from search results. Do not put anything genuinely private there.
+Pages serves every file in the repository, and there is no way to make one private.
+Internal working documents — the brand guide, the Search Console disavow list — live
+in `pga/clients/nestlonger`, not here. Keep it that way.
 
 ## Deployment
 
