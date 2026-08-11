@@ -30,6 +30,43 @@
     gtag('config', 'G-D2CB1LRG5P');
   </script>
 
+  <!-- The company itself is defined once on the homepage; this references that @id. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://www.nestlonger.com/adus.html#webpage",
+        "url": "https://www.nestlonger.com/adus.html",
+        "name": "Accessory dwelling units for aging parents",
+        "isPartOf": { "@id": "https://www.nestlonger.com/#website" },
+        "about": { "@id": "https://www.nestlonger.com/adus.html#service" },
+        "primaryImageOfPage": "https://www.nestlonger.com/assets/images/adu.webp",
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "Service",
+        "@id": "https://www.nestlonger.com/adus.html#service",
+        "name": "Accessory dwelling unit matching",
+        "serviceType": "Accessory dwelling unit design and construction",
+        "description": "NestLonger helps families scope, finance, and find a qualified contractor for an accessory dwelling unit, so an aging parent can live nearby without giving up independence.",
+        "provider": { "@id": "https://www.nestlonger.com/#organization" },
+        "areaServed": { "@type": "AdministrativeArea", "name": "South Shore, Massachusetts" },
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "Adult children arranging housing for an aging parent"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "description": "Free to families. Certified partners pay NestLonger on referral."
+        }
+      }
+    ]
+  }
+  </script>
 
   <script type="application/ld+json">
   {

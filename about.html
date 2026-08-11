@@ -30,6 +30,39 @@
     gtag('config', 'G-D2CB1LRG5P');
   </script>
 
+  <!-- Founder Person carries the @id the homepage Organization points to. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "AboutPage",
+        "@id": "https://www.nestlonger.com/about.html#webpage",
+        "url": "https://www.nestlonger.com/about.html",
+        "name": "About NestLonger",
+        "isPartOf": { "@id": "https://www.nestlonger.com/#website" },
+        "about": { "@id": "https://www.nestlonger.com/#organization" },
+        "primaryImageOfPage": "https://www.nestlonger.com/assets/images/founder.webp",
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "Person",
+        "@id": "https://www.nestlonger.com/about.html#founder",
+        "name": "Matthew Mamet",
+        "jobTitle": "Founder",
+        "description": "Two decades building demand-generation businesses in categories defined by information asymmetry: travel, auto insurance, and solar. NestLonger applies the same playbook to aging at home.",
+        "image": "https://www.nestlonger.com/assets/images/founder.webp",
+        "worksFor": { "@id": "https://www.nestlonger.com/#organization" },
+        "alumniOf": [
+          { "@type": "Organization", "name": "TripAdvisor" },
+          { "@type": "Organization", "name": "EverQuote" },
+          { "@type": "Organization", "name": "EnergySage" }
+        ]
+      }
+    ]
+  }
+  </script>
+
 </head>
 <body id="top">
 

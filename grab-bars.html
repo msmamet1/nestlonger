@@ -31,27 +31,42 @@
   </script>
 
 
+  <!-- The company itself is defined once on the homepage; this references that @id
+       rather than redeclaring it. What belongs here is the service, not the org. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "NestLonger",
-    "description": "NestLonger connects families with certified professionals for the home modifications that keep aging parents safe and independent.",
-    "url": "https://www.nestlonger.com/",
-    "logo": "https://www.nestlonger.com/assets/wordmark.svg",
-    "image": "https://www.nestlonger.com/assets/images/grab-bars.webp",
-    "areaServed": {
-      "@type": "Country",
-      "name": "United States"
-    },
-    "founder": {
-      "@type": "Person",
-      "name": "Matthew Mamet"
-    },
-    "priceRange": "Free to families",
-    "telephone": "",
-    "email": "hello@nestlonger.com",
-    "sameAs": []
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://www.nestlonger.com/grab-bars.html#webpage",
+        "url": "https://www.nestlonger.com/grab-bars.html",
+        "name": "Grab bar installation for aging parents",
+        "isPartOf": { "@id": "https://www.nestlonger.com/#website" },
+        "about": { "@id": "https://www.nestlonger.com/grab-bars.html#service" },
+        "primaryImageOfPage": "https://www.nestlonger.com/assets/images/grab-bars.webp",
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "Service",
+        "@id": "https://www.nestlonger.com/grab-bars.html#service",
+        "name": "Grab bar installation matching",
+        "serviceType": "Grab bar installation",
+        "description": "NestLonger matches families with certified, insured installers for bathroom grab bars and related fall-prevention work, usually within one business day.",
+        "provider": { "@id": "https://www.nestlonger.com/#organization" },
+        "areaServed": { "@type": "AdministrativeArea", "name": "South Shore, Massachusetts" },
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "Adult children arranging home modifications for an aging parent"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "description": "Free to families. Certified partners pay NestLonger on referral."
+        }
+      }
+    ]
   }
   </script>
 
