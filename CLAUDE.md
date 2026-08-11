@@ -11,11 +11,41 @@ The public marketing site for **www.nestlonger.com** — a matchmaking service c
 There is no build, bundler, package manager, test suite, or linter. `.nojekyll` disables Jekyll processing, so files are served exactly as committed.
 
 ```bash
-python3 -m http.server 8000    # local preview at http://localhost:8000
-git push origin main            # deploy — GitHub Pages publishes from main at repo root
+python3 -m http.server 8000       # local preview at http://localhost:8000
+python3 tools/build-sitemap.py    # regenerate sitemap.xml after adding/removing a page
+git push origin main              # deploy — GitHub Pages publishes from main at repo root
 ```
 
 Preview must be served over HTTP, not opened via `file://` — `404.html` uses root-absolute paths that only resolve from a server root.
+
+### ⚠️ Always purge the Cloudflare cache after changing CSS or any asset
+
+The site is proxied through Cloudflare, which caches static assets for **4 hours**
+(`cache-control: max-age=14400`). HTML updates appear straight after a Pages deploy;
+`assets/styles.css`, images, and other static files **do not**. Pushing is not enough —
+without a purge, visitors and you keep getting the old file, and the change looks like
+it silently failed to deploy.
+
+This has already bitten once: a stylesheet edit deployed correctly but Cloudflare served
+the previous version for the next several hours.
+
+Purge after every change to `assets/**` — via the Cloudflare MCP:
+
+```js
+cloudflare.request({
+  method: "POST",
+  path: "/zones/11efc27bae375de8ba52baee28ff7a13/purge_cache",
+  body: { files: ["https://www.nestlonger.com/assets/styles.css"] }   // or { purge_everything: true }
+})
+```
+
+or Cloudflare dashboard → nestlonger.com → Caching → Configuration → Purge Everything.
+
+Then confirm the new bytes are actually being served, rather than assuming:
+
+```bash
+curl -s https://www.nestlonger.com/assets/styles.css | grep "<something you just added>"
+```
 
 ## Architecture
 
