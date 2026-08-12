@@ -985,6 +985,14 @@ img { display: block; max-width: 100%; }
   color: var(--nl-sage); margin-bottom: 12px;
 }
 
+/* Sourced footnote under a hero stat block. */
+.nl-hero-note {
+  margin-top: 20px;
+  font-size: 13px; line-height: 1.6; color: var(--nl-mid);
+  max-width: 560px;
+}
+.nl-hero-note a { color: var(--nl-sage); text-decoration: underline; text-underline-offset: 3px; }
+
 /* ===== FAQ =====
    Google requires FAQPage question and answer content to be visible on the
    rendered page. Anything added to a page's FAQPage JSON-LD must also appear
