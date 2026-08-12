@@ -332,10 +332,6 @@ img { display: block; max-width: 100%; }
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
   margin-bottom: 24px;
 }
-.nl-ins-grid-4 {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-  margin-bottom: 24px;
-}
 .nl-ins-card {
   background: var(--nl-cream);
   border: 1px solid var(--nl-border);
@@ -1133,8 +1129,7 @@ img { display: block; max-width: 100%; }
   .nl-prob-cell:last-child { border-bottom: none; }
   .nl-trustsig-grid { grid-template-columns: 1fr 1fr; }
   .nl-fin-grid { grid-template-columns: 1fr 1fr; }
-  .nl-ins-grid-4 { grid-template-columns: 1fr; }
-  .nl-partner-pillars { grid-template-columns: 1fr; }
+    .nl-partner-pillars { grid-template-columns: 1fr; }
   .nl-partner-pillar { border-right: none; border-bottom: 1px solid var(--nl-border); }
   .nl-partner-pillar:last-child { border-bottom: none; }
   .nl-hero-stats { grid-template-columns: 1fr 1fr 1fr; }

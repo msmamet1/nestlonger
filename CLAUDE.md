@@ -126,6 +126,14 @@ If a task hands you a claim without a citation, stop and flag it. Do not source 
 
 Insurance and public-program coverage claims carry a further rule. State the plan year, and never assert that a specific plan covers a specific modification. CMS narrowed Special Supplemental Benefits for the Chronically Ill for 2026, and coverage now depends on plan, county, plan year, and documented condition.
 
+### Coverage claims
+
+A coverage claim is any statement that an insurer, plan, or benefit program covers, reimburses, is likely to cover, or commonly covers anything. This includes prevalence claims ("most families", "a lot of plans"), likelihood badges ("often covered"), and adjectives that imply coverage ("insurance-friendly"). Do not publish one. Statements about what NestLonger does, such as checking a plan or helping submit, are not coverage claims and are always fine.
+
+Coverage claims hide in eight places, and a fix that touches only one of them is not a fix: headings, hero stat labels, trust bars, badges and tags, card body copy, FAQ answers, JSON-LD of every type, and meta descriptions. Sweep all eight.
+
+This rule exists because three consecutive specs each removed the same class of claim from one artifact and left it standing on another — the JSON-LD, then the card copy, then the heading, stat label, and trust bar above them. Scope by claim, not by component.
+
 ## When adding or renaming a page
 
 1. Run `python3 tools/build-sitemap.py` — **never hand-edit `sitemap.xml`**. It discovers pages from the filesystem and skips anything with a `noindex` meta tag.
