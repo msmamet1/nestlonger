@@ -343,14 +343,6 @@ img { display: block; max-width: 100%; }
   padding: 24px 26px;
   position: relative;
 }
-.nl-ins-tag {
-  display: inline-block;
-  background: var(--nl-terracotta-light);
-  color: var(--nl-terracotta);
-  font-size: 11px; font-weight: 500;
-  padding: 4px 10px; border-radius: 999px;
-  margin-bottom: 14px;
-}
 .nl-ins-name {
   font-family: var(--nl-font-serif); font-weight: 400;
   font-size: 19px; color: var(--nl-charcoal);
