@@ -4,26 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Get matched with a certified pro — NestLonger</title>
-  <meta name="description" content="Tell us what your parent needs. We'll match you with a certified professional in your area, usually within one business day. Free to families." />
+  <meta name="description" content="Tell us what your parent needs. We’ll match you with a certified professional in your area, usually within one business day. Free to families." />
   <link rel="canonical" href="https://www.nestlonger.com/get-matched.html" />
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.nestlonger.com/get-matched.html" />
   <meta property="og:title" content="Get matched with a certified pro — NestLonger" />
-  <meta property="og:description" content="Tell us what your parent needs. We'll match you with a certified professional in your area, usually within one business day." />
+  <meta property="og:description" content="Tell us what your parent needs. We’ll match you with a certified professional in your area, usually within one business day." />
   <meta property="og:image" content="https://www.nestlonger.com/assets/images/grab-bars.webp" />
   <meta property="og:site_name" content="NestLonger" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Get matched with a certified pro — NestLonger" />
-  <meta name="twitter:description" content="Tell us what your parent needs. We'll match you with a certified professional in your area." />
+  <meta name="twitter:description" content="Tell us what your parent needs. We’ll match you with a certified professional in your area." />
   <meta name="twitter:image" content="https://www.nestlonger.com/assets/images/grab-bars.webp" />
 
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" />
-  <link rel="stylesheet" href="assets/styles.css?v=84745e7292" />
+  <link rel="stylesheet" href="assets/styles.css?v=8ea8336b64" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-D2CB1LRG5P"></script>
   <script>
@@ -77,9 +77,10 @@
       <div class="nl-eyebrow">Get matched</div>
       <h1 class="nl-form-h1">Tell us what your parent needs.</h1>
       <p class="nl-form-lede">
-        A few details is all it takes. We'll match you with a certified professional in your area, usually within one business day. Free to families, and we share your information with one matched partner only.
+        A few details is all it takes. We’ll match you with a certified professional in your area, usually within one business day. Free to families, and we share your information with one matched partner only.
       </p>
 
+      <div class="nl-form-layout">
       <div class="nl-form-card">
         <form action="/api/lead" method="POST">
           <input type="hidden" name="source" id="nl-source" value="site" />
@@ -96,7 +97,7 @@
               <input class="nl-input" type="text" name="name" id="name" required autocomplete="name" placeholder="Jane Doe" />
             </div>
             <div class="nl-field">
-              <label class="nl-label" for="zip">ZIP code <span class="nl-label-opt">(your parent's)</span></label>
+              <label class="nl-label" for="zip">ZIP code <span class="nl-label-opt">(your parent’s)</span></label>
               <input class="nl-input" type="text" name="zip" id="zip" required inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="02458" />
             </div>
           </div>
@@ -119,7 +120,7 @@
               <option value="grab-bars">Grab bars or bathroom safety</option>
               <option value="adu">An ADU on my property</option>
               <option value="home-safety">A general home safety assessment</option>
-              <option value="not-sure">I'm not sure yet</option>
+              <option value="not-sure">I’m not sure yet</option>
             </select>
           </div>
 
@@ -136,7 +137,7 @@
 
           <div class="nl-field">
             <label class="nl-label" for="details">Anything else we should know? <span class="nl-label-opt">(optional)</span></label>
-            <textarea class="nl-textarea" name="details" id="details" placeholder="Stairs they're struggling with, a recent fall, a bathroom that worries you, a timeline you're working against."></textarea>
+            <textarea class="nl-textarea" name="details" id="details" placeholder="Stairs they’re struggling with, a recent fall, a bathroom that worries you, a timeline you’re working against."></textarea>
             <div class="nl-field-help">The more you tell us, the better the match.</div>
           </div>
 
@@ -146,6 +147,42 @@
             Free to families. We share your information with the one certified partner we match you to, never a list of bidders. See our <a href="privacy.html">privacy policy</a>.
           </div>
         </form>
+      </div>
+      <aside class="nl-form-rail">
+        <!-- 4.1: three claims lifted verbatim from the homepage trust block.
+             This is the moment the audit concludes. -->
+        <div class="nl-rail-claims">
+          <div class="nl-rail-claim">
+            <div class="nl-rail-claim-h">Vetted professionals</div>
+            <p class="nl-rail-claim-b">Every partner is licensed, insured, and trained on aging-in-place work.</p>
+          </div>
+          <div class="nl-rail-claim">
+            <div class="nl-rail-claim-h">Free to families</div>
+            <p class="nl-rail-claim-b">We’re paid by certified partners on a referral basis. You never pay us.</p>
+          </div>
+          <div class="nl-rail-claim">
+            <div class="nl-rail-claim-h">No spam, ever</div>
+            <p class="nl-rail-claim-b">We share your info with one matched partner, not a list of bidders.</p>
+          </div>
+        </div>
+
+        <!-- 4.2: the founder, small, with a line of existing reassurance copy. -->
+        <div class="nl-rail-founder">
+          <img src="assets/images/founder-400.webp" width="400" height="325"
+               alt="Matthew Mamet, founder of NestLonger." loading="lazy" decoding="async" />
+          <div>
+            <p class="nl-rail-quote">“We help families get ahead of it, before a fall, not after.”</p>
+            <div class="nl-rail-attr">Matthew Mamet · Founder</div>
+          </div>
+        </div>
+
+        <!-- 4.3: a way out for anyone not ready to submit. -->
+        <div class="nl-rail-out">
+          <div class="nl-rail-out-h">Not ready yet?</div>
+          <a href="grab-bars.html">How grab bar installation works</a>
+          <a href="adus.html">What an ADU involves</a>
+        </div>
+      </aside>
       </div>
     </div>
   </section>
@@ -187,6 +224,33 @@
     (function() {
       var src = new URLSearchParams(window.location.search).get('src');
       if (src) document.getElementById('nl-source').value = src.slice(0, 40);
+    })();
+  </script>
+  <script>
+    // 5.5 entrance treatment and 5.6 nav shadow. Both are additive: with
+    // JavaScript off, content is fully visible and the nav simply never gains
+    // its scrolled shadow. 5.7: skipped entirely when reduced motion is asked for.
+    (function () {
+      var nav = document.querySelector('.nl-nav');
+      if (nav) {
+        var onScroll = function () {
+          nav.classList.toggle('is-scrolled', window.scrollY > 40);
+        };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (!('IntersectionObserver' in window)) return;
+      var targets = document.querySelectorAll('.nl-section-head, .nl-vert-grid, .nl-steps, .nl-trustsig-grid, .nl-ins-grid, .nl-prob-grid, .nl-founder-moment, .nl-faq-list');
+      if (!targets.length) return;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e, i) {
+          if (!e.isIntersecting) return;
+          setTimeout(function () { e.target.classList.add('is-in'); }, i * 70);
+          io.unobserve(e.target);
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+      targets.forEach(function (t) { t.classList.add('nl-reveal'); io.observe(t); });
     })();
   </script>
 </body>

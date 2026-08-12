@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" />
-  <link rel="stylesheet" href="assets/styles.css?v=84745e7292" />
+  <link rel="stylesheet" href="assets/styles.css?v=8ea8336b64" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-D2CB1LRG5P"></script>
   <script>
@@ -127,6 +127,11 @@
         NestLonger connects families with certified professionals for the home modifications that keep aging parents safe and independent. Get ahead of it, not after.
       </p>
 
+      <div class="nl-hero-actions">
+        <a href="get-matched.html?src=homepage" class="nl-btn nl-btn-primary">Get matched</a>
+        <a href="#how" class="nl-btn nl-btn-ghost">See how it works</a>
+      </div>
+
       <div class="nl-vert-grid">
         <a href="grab-bars.html" class="nl-vert-card">
           <img class="nl-vert-card-img" src="assets/images/grab-bars-960.webp"
@@ -182,7 +187,7 @@
                 <div class="nl-vert-meta-label">To families</div>
               </div>
             </div>
-            <span class="nl-vert-card-arrow">See what's possible →</span>
+            <span class="nl-vert-card-arrow">See what’s possible →</span>
           </div>
         </a>
       </div>
@@ -216,7 +221,7 @@
         </div>
       </div>
       <blockquote class="nl-pull">
-        "We help families <em>get ahead of it</em>, before a fall, not after."
+        “We help families <em>get ahead of it</em>, before a fall, not after.”
         <span class="nl-pull-attr">Matthew Mamet · Founder</span>
       </blockquote>
     </div>
@@ -232,7 +237,7 @@
         <li class="nl-step">
           <div class="nl-step-num">01</div>
           <h3 class="nl-step-title">Tell us what your parent needs</h3>
-          <p class="nl-step-body">A grab bar, an ADU, or you're not sure yet. ZIP code, a few details, takes a minute.</p>
+          <p class="nl-step-body">A grab bar, an ADU, or you’re not sure yet. ZIP code, a few details, takes a minute.</p>
         </li>
         <li class="nl-step">
           <div class="nl-step-num">02</div>
@@ -242,7 +247,7 @@
         <li class="nl-step">
           <div class="nl-step-num">03</div>
           <h3 class="nl-step-title">They handle it from there</h3>
-          <p class="nl-step-body">Quote, install, paperwork. We help you sort out insurance and what's covered.</p>
+          <p class="nl-step-body">Quote, install, paperwork. We help you sort out insurance and what’s covered.</p>
         </li>
       </ol>
     </div>
@@ -261,7 +266,7 @@
         </div>
         <div class="nl-trustsig-card">
           <div class="nl-trustsig-h">Free to families</div>
-          <div class="nl-trustsig-body">We're paid by certified partners on a referral basis. You never pay us.</div>
+          <div class="nl-trustsig-body">We’re paid by certified partners on a referral basis. You never pay us.</div>
         </div>
         <div class="nl-trustsig-card">
           <div class="nl-trustsig-h">No spam, ever</div>
@@ -275,6 +280,25 @@
     </div>
   </section>
 
+  <!-- 3.2: the one human asset in the repo, on the page most visitors reach.
+       Provenance line lifted verbatim from about.html. -->
+  <section class="nl-section nl-founder-strip">
+    <div class="nl-section-inner">
+      <div class="nl-founder-moment">
+        <img class="nl-founder-portrait" src="assets/images/founder-400.webp"
+             width="400" height="325" alt="Matthew Mamet, founder of NestLonger."
+             loading="lazy" decoding="async" />
+        <div class="nl-founder-moment-copy">
+          <div class="nl-eyebrow">Who is behind this</div>
+          <div class="nl-founder-name">Matthew Mamet</div>
+          <div class="nl-founder-role">Fractional Chief Growth Officer · Founder, NestLonger</div>
+          <p class="nl-founder-line">Matthew has spent two decades building demand-generation businesses where the consumer’s biggest enemy is information asymmetry, travel, solar, insurance. NestLonger applies the same playbook to a category that needs it more than any of them.</p>
+          <a href="about.html" class="nl-founder-link">More about why we built this →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="nl-email-cta">
     <div class="nl-email-cta-inner">
       <div class="nl-eyebrow">Stay in the loop</div>
@@ -282,7 +306,7 @@
         One short email a month, <em>just the useful stuff.</em>
       </h2>
       <p class="nl-email-cta-lede">
-        New verticals as we launch them, what insurance is actually covering this year, and the occasional reminder to schedule the install you've been putting off.
+        New verticals as we launch them, what insurance is actually covering this year, and the occasional reminder to schedule the install you’ve been putting off.
       </p>
       <form class="nl-email-form" action="/api/subscribe" method="POST">
         <input type="hidden" name="source" value="newsletter" />
@@ -328,5 +352,32 @@
     <div class="nl-footer-fine">© 2026 NestLonger. The home you love, for as long as possible.</div>
   </footer>
 
+  <script>
+    // 5.5 entrance treatment and 5.6 nav shadow. Both are additive: with
+    // JavaScript off, content is fully visible and the nav simply never gains
+    // its scrolled shadow. 5.7: skipped entirely when reduced motion is asked for.
+    (function () {
+      var nav = document.querySelector('.nl-nav');
+      if (nav) {
+        var onScroll = function () {
+          nav.classList.toggle('is-scrolled', window.scrollY > 40);
+        };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (!('IntersectionObserver' in window)) return;
+      var targets = document.querySelectorAll('.nl-section-head, .nl-vert-grid, .nl-steps, .nl-trustsig-grid, .nl-ins-grid, .nl-prob-grid, .nl-founder-moment, .nl-faq-list');
+      if (!targets.length) return;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e, i) {
+          if (!e.isIntersecting) return;
+          setTimeout(function () { e.target.classList.add('is-in'); }, i * 70);
+          io.unobserve(e.target);
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+      targets.forEach(function (t) { t.classList.add('nl-reveal'); io.observe(t); });
+    })();
+  </script>
 </body>
 </html>

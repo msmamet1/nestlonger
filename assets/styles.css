@@ -38,6 +38,25 @@
   --nl-font-serif: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
   --nl-font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
+  /* 1.4 Type scale. Nine steps, replacing 31 ad-hoc sizes. The display steps are
+     fluid so headlines scale continuously instead of jumping at the one
+     breakpoint. Nothing a visitor needs to read sits below --nl-type-small. */
+  --nl-type-display: clamp(2.75rem, 1.6rem + 4.4vw, 5rem);
+  --nl-type-h1:      clamp(2.25rem, 1.5rem + 2.8vw, 3.75rem);
+  --nl-type-h2:      clamp(1.75rem, 1.2rem + 2vw, 3rem);
+  --nl-type-h3:      clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem);
+  --nl-type-lede:    clamp(1.0625rem, 1rem + 0.4vw, 1.375rem);
+  --nl-type-body:    1.0625rem;   /* 17px — 1.3 raises base from 16px */
+  --nl-type-small:   0.9375rem;   /* 15px — card body floor */
+  --nl-type-fine:    0.8125rem;   /* 13px */
+  --nl-type-eyebrow: 0.6875rem;   /* 11px */
+
+  /* Display tracking scale, approved 2026-08-11. Supersedes the guide's fixed
+     -0.02em; the guide is filed to catch up. */
+  --nl-track-display: -0.035em;   /* 64px and above */
+  --nl-track-h1:      -0.03em;    /* 40-63px */
+  --nl-track-h2:      -0.02em;    /* 28-39px */
+
   /* Spacing */
   --nl-space-xs: 4px;
   --nl-space-s: 8px;
@@ -58,9 +77,7 @@
   --nl-border-hair: 0.5px solid var(--nl-border);
 
   /* Shadows */
-  --nl-shadow-soft: 0 1px 2px rgba(44, 44, 42, 0.04);
   --nl-shadow-card: 0 4px 16px rgba(44, 44, 42, 0.06);
-  --nl-shadow-sticky: 0 1px 0 var(--nl-border);
 
   /* Layout */
   --nl-content-max: 960px;
@@ -72,35 +89,55 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, body {
+/* Keep html at the browser default so rem stays anchored to it. Setting the
+   token on both html and body compounds it: body's 1.0625rem would resolve
+   against html's already-enlarged 17px and land at 18px. */
+html { font-size: 100%; }
+
+body {
   font-family: var(--nl-font-sans);
   background: var(--nl-linen);
   color: var(--nl-charcoal);
-  font-size: 16px;
+  font-size: var(--nl-type-body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 a { color: var(--nl-sage); text-decoration: none; }
+
+/* 1.6 Restore underlines in prose. The global rule above strips them, which left
+   the privacy link beside the conversion form distinguishable only by colour. */
+.nl-prose a,
+.nl-form-fine a,
+.nl-privacy-body a,
+.nl-about-body a,
+.nl-post-body a,
+.nl-faq-a a,
+.nl-hero-note a,
+.nl-ins-detail a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
 img { display: block; max-width: 100%; }
 
 .nl-eyebrow {
-  font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+  font-size: var(--nl-type-eyebrow); font-weight: 500; letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--nl-sage);
   margin-bottom: 16px;
 }
 
 .nl-h2 {
   font-family: var(--nl-font-serif); font-weight: 400;
-  font-size: 36px; line-height: 1.15; letter-spacing: -0.02em;
+  font-size: var(--nl-type-h2); line-height: 1.15; letter-spacing: var(--nl-track-h2);
   color: var(--nl-charcoal); margin-bottom: 16px;
 }
 .nl-h2 em { font-style: italic; color: var(--nl-sage); }
 .nl-serif-em { font-style: italic; color: var(--nl-sage); }
 
 .nl-lede {
-  font-size: 17px; color: var(--nl-mid); line-height: 1.65;
+  font-size: var(--nl-type-lede); color: var(--nl-mid); line-height: 1.65;
   max-width: 580px;
 }
 
@@ -109,8 +146,11 @@ img { display: block; max-width: 100%; }
   position: sticky; top: 0; z-index: 50;
   background: var(--nl-cream);
   border-bottom: 1px solid var(--nl-border);
-  box-shadow: 0 1px 2px rgba(44,44,42,0.04);
+  box-shadow: none;
+  transition: box-shadow 0.2s ease;
 }
+/* 5.6: the nav settles once the page has scrolled past 40px. */
+.nl-nav.is-scrolled { box-shadow: 0 2px 12px rgba(44,44,42,0.07); }
 .nl-nav-inner {
   max-width: 960px; margin: 0 auto;
   padding: 14px 40px;
@@ -124,7 +164,7 @@ img { display: block; max-width: 100%; }
 .nl-wordmark span { color: var(--nl-sage); }
 .nl-wordmark-footer { font-size: 28px; }
 .nl-nav-links { display: flex; gap: 28px; align-items: center; }
-.nl-nav-links > a:not(.nl-btn) { font-size: 14px; color: var(--nl-mid); }
+.nl-nav-links > a:not(.nl-btn) { font-size: var(--nl-type-small); color: var(--nl-mid); }
 .nl-nav-links > a:not(.nl-btn):hover { color: var(--nl-charcoal); }
 .nl-nav-links .nl-btn { white-space: nowrap; }
 .nl-nav-links > a:not(.nl-btn).is-active {
@@ -185,7 +225,7 @@ img { display: block; max-width: 100%; }
   font-size: 14px; font-weight: 500;
   padding: 12px 24px; border-radius: 5px; border: none; cursor: pointer;
   text-align: center; /* <a class="nl-btn"> does not centre text the way <button> does */
-  text-decoration: none; transition: background 0.15s ease, transform 0.1s ease;
+  text-decoration: none; transition: background 0.15s ease;
 }
 .nl-btn-primary { background: var(--nl-sage); color: white; }
 .nl-btn-primary:hover { background: var(--nl-sage-dark); }
@@ -211,10 +251,11 @@ img { display: block; max-width: 100%; }
 }
 .nl-hero-h1 {
   font-family: var(--nl-font-serif); font-weight: 400;
-  font-size: 60px; line-height: 1.05; letter-spacing: -0.03em;
+  font-size: var(--nl-type-h1); line-height: 1.08; letter-spacing: var(--nl-track-h1);
+  text-wrap: balance;
   color: var(--nl-charcoal); margin-bottom: 24px;
 }
-.nl-hero-h1 em { font-style: italic; color: var(--nl-sage); }
+.nl-hero-h1 em { font-style: italic; color: var(--nl-sage); font-synthesis: none; }
 
 .nl-hero-form {
   background: var(--nl-cream);
@@ -228,13 +269,13 @@ img { display: block; max-width: 100%; }
   letter-spacing: -0.01em;
 }
 .nl-hero-form-body {
-  font-size: 14px; color: var(--nl-mid); line-height: 1.6;
+  font-size: var(--nl-type-small); color: var(--nl-mid); line-height: 1.6;
   margin-bottom: 18px;
 }
 
 /* ===== LEAD CTA CARD (Tally trigger) ===== */
 .nl-lead-fineprint {
-  font-size: 12px; color: var(--nl-light); line-height: 1.5;
+  font-size: 12px; color: var(--nl-mid); line-height: 1.5;
   margin-top: 14px;
 }
 
@@ -260,7 +301,10 @@ img { display: block; max-width: 100%; }
 }
 
 /* ===== SECTIONS ===== */
+/* 2.4: give the page a shape rather than a uniform 72px everywhere. */
 .nl-section { padding: 72px 40px; }
+.nl-section-cta { padding: 96px 40px; }
+.nl-home-hero { padding-bottom: 88px; }
 .nl-section-cream {
   background: var(--nl-cream);
   border-top: 1px solid var(--nl-border);
@@ -297,35 +341,38 @@ img { display: block; max-width: 100%; }
 .nl-figure { margin-top: 8px; }
 .nl-figure img {
   width: 100%; border-radius: 10px; border: 1px solid var(--nl-border);
-  filter: saturate(0.82) contrast(0.96) brightness(1.02) sepia(0.06);
+  filter: saturate(0.85) contrast(0.96) brightness(1.02) sepia(0.04);
 }
 .nl-figure figcaption {
-  font-size: 12px; color: var(--nl-light); margin-top: 10px;
+  font-size: 12px; color: var(--nl-mid); margin-top: 10px;
   font-style: italic;
 }
 
 /* ===== STEPS ===== */
+/* 2.1: typographic, not cards. Cards are how software organises information;
+   a publication uses space and hierarchy. Only the two homepage vertical cards
+   stay cards, because they are genuinely parallel objects and are also links. */
 .nl-steps {
   list-style: none; padding: 0;
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
 }
 .nl-step {
-  background: var(--nl-linen);
-  border: 1px solid var(--nl-border);
-  border-radius: 10px;
-  padding: 26px 28px;
+  display: flex; flex-direction: column;
+  padding-top: 20px;
+  border-top: 1px solid var(--nl-border);
 }
 .nl-step-num {
-  font-family: var(--nl-font-serif); font-weight: 700;
-  font-size: 20px; color: var(--nl-sage);
-  letter-spacing: 0.02em; margin-bottom: 14px;
+  font-family: var(--nl-font-serif); font-weight: 400;
+  font-size: 30px; color: var(--nl-terracotta);
+  line-height: 1; letter-spacing: 0.01em; margin-bottom: 14px;
 }
 .nl-step-title {
   font-family: var(--nl-font-serif); font-weight: 400;
   font-size: 19px; line-height: 1.3; letter-spacing: -0.01em;
   color: var(--nl-charcoal); margin-bottom: 8px;
+  min-height: 2.6em;   /* 2.3: pin the heading block so bodies start level */
 }
-.nl-step-body { font-size: 14px; color: var(--nl-mid); line-height: 1.6; }
+.nl-step-body { font-size: var(--nl-type-small); color: var(--nl-mid); line-height: 1.65; }
 
 /* ===== INSURANCE ===== */
 .nl-ins-grid {
@@ -344,9 +391,9 @@ img { display: block; max-width: 100%; }
   font-size: 19px; color: var(--nl-charcoal);
   margin-bottom: 8px; letter-spacing: -0.01em;
 }
-.nl-ins-detail { font-size: 14px; color: var(--nl-mid); line-height: 1.6; }
+.nl-ins-detail { font-size: var(--nl-type-small); color: var(--nl-mid); line-height: 1.6; }
 .nl-ins-note {
-  font-size: 13px; color: var(--nl-light);
+  font-size: 13px; color: var(--nl-mid);
   font-style: italic; max-width: 640px;
 }
 
@@ -401,7 +448,7 @@ img { display: block; max-width: 100%; }
 .nl-footer-col a:hover { color: var(--nl-cream); }
 .nl-footer-fine {
   max-width: 960px; margin: 24px auto 0;
-  font-size: 12px; color: var(--nl-light); opacity: 0.6;
+  font-size: 12px; color: var(--nl-light);
 }
 
 /* ===== HOMEPAGE: dual entry cards ===== */
@@ -409,15 +456,17 @@ img { display: block; max-width: 100%; }
   padding: 96px 40px 64px;
   background: var(--nl-linen);
 }
-.nl-home-hero-inner { max-width: 1080px; margin: 0 auto; }
+.nl-home-hero-inner { max-width: 960px; margin: 0 auto; }
 .nl-home-h1 {
   font-family: var(--nl-font-serif); font-weight: 400;
-  font-size: 80px; line-height: 1.02; letter-spacing: -0.03em;
+  font-size: var(--nl-type-display); line-height: 1.08;
+  letter-spacing: var(--nl-track-display);
   color: var(--nl-charcoal); margin-bottom: 28px;
-  max-width: 920px;
+  max-width: 20ch;              /* 2.5: narrow the measure so the space reads deliberate */
+  text-wrap: balance;
   text-wrap: balance;
 }
-.nl-home-h1 em { font-style: italic; color: var(--nl-sage); }
+.nl-home-h1 em { font-style: italic; color: var(--nl-sage); font-synthesis: none; }
 .nl-home-lede {
   font-size: 22px; color: var(--nl-mid); line-height: 1.55;
   max-width: 680px;
@@ -427,7 +476,7 @@ img { display: block; max-width: 100%; }
   margin-top: 48px;
   width: 100%;
   height: 380px;
-  border-radius: 12px;
+  border-radius: var(--nl-radius-l);
   border: 1px solid var(--nl-border);
   background-size: cover;
   background-position: center 35%;
@@ -440,15 +489,17 @@ img { display: block; max-width: 100%; }
 }
 .nl-vert-card {
   background: var(--nl-cream);
+  transition: box-shadow 0.2s ease;
   border: 1px solid var(--nl-border);
-  border-radius: 12px;
+  border-radius: var(--nl-radius-l);
   display: flex; flex-direction: column;
   transition: border-color 0.15s ease, transform 0.2s ease;
   text-decoration: none; color: inherit;
   position: relative;
   overflow: hidden;
 }
-.nl-vert-card:hover { border-color: var(--nl-sage); }
+.nl-vert-card:hover {
+  box-shadow: var(--nl-shadow-card); border-color: var(--nl-sage); }
 .nl-vert-card-img {
   width: 100%; height: 240px;
   display: block; object-fit: cover; object-position: center;
@@ -464,7 +515,7 @@ img { display: block; max-width: 100%; }
 }
 .nl-vert-card-h em { font-style: italic; color: var(--nl-sage); }
 .nl-vert-card-body {
-  font-size: 16px; color: var(--nl-mid); line-height: 1.6;
+  font-size: var(--nl-type-small); color: var(--nl-mid); line-height: 1.6;
   margin-bottom: 24px;
 }
 .nl-vert-card-meta {
@@ -475,7 +526,7 @@ img { display: block; max-width: 100%; }
 .nl-vert-meta-item { display: flex; flex-direction: column; gap: 2px; }
 .nl-vert-meta-num {
   font-family: var(--nl-font-serif); font-weight: 700;
-  font-size: 24px; color: var(--nl-charcoal);
+  font-size: 24px; color: var(--nl-terracotta);   /* 5.8: one stat colour sitewide */
   letter-spacing: -0.01em;
 }
 .nl-vert-meta-label {
@@ -516,32 +567,34 @@ img { display: block; max-width: 100%; }
   letter-spacing: -0.01em; margin-bottom: 10px;
 }
 .nl-prob-source {
-  font-size: 12px; color: var(--nl-light); line-height: 1.5;
+  font-size: 12px; color: var(--nl-mid); line-height: 1.5;
 }
 
 /* ===== TRUST SIGNALS ===== */
+/* 2.1: typographic, matching .nl-steps. */
 .nl-trustsig-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
-  margin-top: 24px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 36px 32px;
+  margin-top: 32px;
 }
 .nl-trustsig-card {
-  background: var(--nl-cream);
-  border: 1px solid var(--nl-border);
-  border-radius: 10px;
-  padding: 22px 24px;
+  display: flex; flex-direction: column;
+  padding-top: 18px;
+  border-top: 1px solid var(--nl-border);
 }
 .nl-trustsig-h {
   font-family: var(--nl-font-serif); font-weight: 400;
-  font-size: 20px; line-height: 1.25; color: var(--nl-charcoal);
+  font-size: 19px; line-height: 1.25; color: var(--nl-charcoal);
   margin-bottom: 8px; letter-spacing: -0.01em;
+  min-height: 2.5em;   /* 2.3: two-line minimum so bodies start level */
 }
 .nl-trustsig-body {
-  font-size: 14px; color: var(--nl-mid); line-height: 1.6;
+  font-size: var(--nl-type-small); color: var(--nl-mid); line-height: 1.65;
 }
 
 /* ===== EMAIL CAPTURE ===== */
 .nl-email-cta {
-  background: var(--nl-charcoal);
+  /* 2.6: sage, so the page does not end in ~500px of undifferentiated dark. */
+  background: var(--nl-sage);
   color: var(--nl-cream);
   padding: 72px 40px;
 }
@@ -561,7 +614,7 @@ img { display: block; max-width: 100%; }
   margin: 0 auto 32px; max-width: 560px;
 }
 .nl-email-cta-fine {
-  font-size: 12px; color: var(--nl-light); opacity: 0.7;
+  font-size: 12px; color: var(--nl-light);
   margin-top: 16px;
 }
 
@@ -608,12 +661,12 @@ img { display: block; max-width: 100%; }
   margin-bottom: 10px; letter-spacing: -0.01em;
 }
 .nl-fin-card-body {
-  font-size: 14px; color: var(--nl-mid); line-height: 1.6;
+  font-size: var(--nl-type-small); color: var(--nl-mid); line-height: 1.6;
 }
 
 /* ===== PARTNER PAGE ===== */
 .nl-partner-hero { padding: 96px 40px 64px; background: var(--nl-linen); }
-.nl-partner-hero-inner { max-width: 1080px; margin: 0 auto; }
+.nl-partner-hero-inner { max-width: 960px; margin: 0 auto; }
 .nl-partner-h1 {
   font-family: var(--nl-font-serif); font-weight: 400;
   font-size: 68px; line-height: 1.05; letter-spacing: -0.03em;
@@ -684,7 +737,7 @@ img { display: block; max-width: 100%; }
 }
 .nl-founder-portrait {
   width: 200px; height: 240px;
-  border-radius: 12px;
+  border-radius: var(--nl-radius-l);
   border: 1px solid var(--nl-border);
   display: block; object-fit: cover; object-position: center;
   filter: saturate(0.85) contrast(0.96) brightness(1.02) sepia(0.04);
@@ -695,7 +748,7 @@ img { display: block; max-width: 100%; }
   margin-bottom: 6px; letter-spacing: -0.01em;
 }
 .nl-founder-role {
-  font-size: 14px; color: var(--nl-mid);
+  font-size: var(--nl-type-small); color: var(--nl-mid);
   margin-bottom: 18px; letter-spacing: 0.02em;
 }
 .nl-founder-prior {
@@ -737,7 +790,7 @@ img { display: block; max-width: 100%; }
   color: var(--nl-charcoal); margin-bottom: 14px;
 }
 .nl-privacy-meta {
-  font-size: 13px; color: var(--nl-light);
+  font-size: 13px; color: var(--nl-mid);
   margin-bottom: 40px; letter-spacing: 0.02em;
 }
 .nl-privacy-toc {
@@ -763,7 +816,7 @@ img { display: block; max-width: 100%; }
 }
 .nl-privacy-toc a:hover { color: var(--nl-sage); }
 .nl-privacy-toc-num {
-  font-family: var(--nl-font-serif); color: var(--nl-light);
+  font-family: var(--nl-font-serif); color: var(--nl-mid);
   font-size: 12px; min-width: 20px;
 }
 
@@ -800,7 +853,7 @@ img { display: block; max-width: 100%; }
 /* ===== EDITORIAL FIGURE ===== */
 .nl-figure-wide {
   margin: 56px 0 0;
-  border-radius: 12px;
+  border-radius: var(--nl-radius-l);
   overflow: hidden;
   border: 1px solid var(--nl-border);
 }
@@ -824,7 +877,7 @@ img { display: block; max-width: 100%; }
 }
 .nl-split-img {
   width: 100%; aspect-ratio: 4 / 5;
-  border-radius: 12px;
+  border-radius: var(--nl-radius-l);
   border: 1px solid var(--nl-border);
   display: block; object-fit: cover; object-position: center;
   filter: saturate(0.85) contrast(0.96) brightness(1.02) sepia(0.04);
@@ -855,7 +908,7 @@ img { display: block; max-width: 100%; }
 .nl-pull-attr {
   display: block; margin-top: 18px;
   font-family: var(--nl-font-sans); font-style: normal;
-  font-size: 12px; color: var(--nl-light);
+  font-size: 12px; color: var(--nl-mid);
   letter-spacing: 0.1em; text-transform: uppercase;
 }
 
@@ -930,7 +983,7 @@ img { display: block; max-width: 100%; }
   font-family: var(--nl-font-sans); font-size: 13px; font-weight: 500;
   color: var(--nl-charcoal); margin-bottom: 6px;
 }
-.nl-label-opt { color: var(--nl-light); font-weight: 400; }
+.nl-label-opt { color: var(--nl-mid); font-weight: 400; }
 .nl-input, .nl-select, .nl-textarea {
   width: 100%;
   font-family: var(--nl-font-sans); font-size: 15px;
@@ -966,7 +1019,7 @@ img { display: block; max-width: 100%; }
 }
 
 .nl-form-fine {
-  font-size: 12px; color: var(--nl-light); line-height: 1.5;
+  font-size: 12px; color: var(--nl-mid); line-height: 1.5;
   margin-top: 14px;
 }
 .nl-form-fine a { color: var(--nl-mid); }
@@ -1038,7 +1091,7 @@ img { display: block; max-width: 100%; }
 .nl-blog-item { background: var(--nl-linen); padding: 26px 0; display: block; }
 .nl-blog-item:hover .nl-blog-item-h { color: var(--nl-sage); }
 .nl-blog-item-meta {
-  font-size: 12px; color: var(--nl-light); letter-spacing: 0.04em;
+  font-size: 12px; color: var(--nl-mid); letter-spacing: 0.04em;
   text-transform: uppercase; margin-bottom: 8px;
 }
 .nl-blog-item-h {
@@ -1051,7 +1104,7 @@ img { display: block; max-width: 100%; }
 
 /* Article */
 .nl-post-meta {
-  font-size: 13px; color: var(--nl-light);
+  font-size: 13px; color: var(--nl-mid);
   margin-bottom: 40px; letter-spacing: 0.02em;
 }
 .nl-post-body { font-size: 18px; line-height: 1.75; color: var(--nl-charcoal); }
@@ -1075,7 +1128,7 @@ img { display: block; max-width: 100%; }
   font-size: 21px; line-height: 1.5; color: var(--nl-charcoal);
 }
 .nl-post-body figcaption,
-.nl-post-note { font-size: 14px; color: var(--nl-mid); }
+.nl-post-note { font-size: var(--nl-type-small); color: var(--nl-mid); }
 .nl-post-body table { width: 100%; border-collapse: collapse; font-size: 16px; }
 .nl-post-body th, .nl-post-body td {
   text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--nl-border);
@@ -1086,7 +1139,7 @@ img { display: block; max-width: 100%; }
 .nl-post-sources {
   margin-top: 56px; padding-top: 24px;
   border-top: 1px solid var(--nl-border);
-  font-size: 14px; color: var(--nl-mid); line-height: 1.6;
+  font-size: var(--nl-type-small); color: var(--nl-mid); line-height: 1.6;
 }
 .nl-post-sources h2 {
   font-family: var(--nl-font-sans); font-size: 12px; font-weight: 500;
@@ -1112,7 +1165,7 @@ img { display: block; max-width: 100%; }
   .nl-hero-inner, .nl-section-cta-inner { grid-template-columns: 1fr; gap: 40px; }
   .nl-hero-h1 { font-size: 40px; }
   .nl-h2 { font-size: 28px; }
-  .nl-stats, .nl-steps, .nl-ins-grid { grid-template-columns: 1fr; }
+  .nl-stats, .nl-steps, .nl-ins-grid { grid-template-columns: 1fr 1fr; }
   .nl-footer-inner { grid-template-columns: 1fr; gap: 32px; }
   .nl-nav-links { gap: 14px; }
   /* Inline text links give way to the disclosure menu; the CTA stays in the bar. */
@@ -1157,5 +1210,136 @@ img { display: block; max-width: 100%; }
   .nl-post-body { font-size: 17px; }
   .nl-post-body h2 { font-size: 26px; }
   .nl-field-row { grid-template-columns: 1fr; gap: 0; }
+}
+
+/* Section 6: the one intermediate step. Without it the site went from full
+   desktop to full mobile at a single breakpoint, so a 700px tablet got the
+   phone layout and the four-up grid was never anything but 4 or 1. */
+@media (max-width: 620px) {
+  .nl-stats, .nl-steps, .nl-ins-grid,
+  .nl-trustsig-grid, .nl-fin-grid { grid-template-columns: 1fr; }
   .nl-field-row .nl-field { margin-bottom: 18px; }
+}
+
+/* ===== MOTION =====
+   5.5 entrance treatment. Content is visible by default; the script ADDS the
+   animated state, so nothing is hidden when JavaScript is off.
+   5.7 all motion is opt-out. */
+@media (prefers-reduced-motion: no-preference) {
+  /* Elements are visible by DEFAULT. .is-in runs a keyframe that ends visible,
+     so a missed observer, a throttled tab or a JS error can never strand copy
+     at opacity 0. Invisible content is a far worse failure than no animation. */
+  @keyframes nl-rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .nl-reveal.is-in { animation: nl-rise 0.4s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nl-vert-card, .nl-nav { transition: none; }
+}
+
+/* ===== HERO ACTIONS (2.5) ===== */
+.nl-hero-actions {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+/* ===== FOUNDER MOMENT (3.2) =====
+   Homepage strip. In a category with no brands, a named accountable human
+   is the brand. Portrait and copy both already existed in the repo. */
+.nl-founder-strip {
+  background: var(--nl-cream);
+  border-top: 1px solid var(--nl-border);
+  border-bottom: 1px solid var(--nl-border);
+}
+.nl-founder-moment {
+  display: grid; grid-template-columns: 160px 1fr; gap: 36px;
+  align-items: start;
+}
+.nl-founder-moment .nl-founder-portrait {
+  width: 160px; height: 190px;
+  border-radius: var(--nl-radius-l);
+  border: 1px solid var(--nl-border);
+  object-fit: cover; object-position: center;
+  filter: saturate(0.85) contrast(0.96) brightness(1.02) sepia(0.04);
+}
+.nl-founder-moment-copy .nl-eyebrow { margin-bottom: 10px; }
+.nl-founder-moment .nl-founder-name {
+  font-family: var(--nl-font-serif); font-size: 24px;
+  color: var(--nl-charcoal); letter-spacing: -0.01em;
+}
+.nl-founder-moment .nl-founder-role {
+  font-size: var(--nl-type-fine); color: var(--nl-mid);
+  margin-top: 4px; margin-bottom: 14px;
+}
+.nl-founder-line {
+  font-size: var(--nl-type-small); color: var(--nl-mid);
+  line-height: 1.7; max-width: 56ch;
+}
+.nl-founder-link {
+  display: inline-block; margin-top: 16px;
+  font-size: var(--nl-type-small); color: var(--nl-sage);
+}
+
+/* ===== CONVERSION PAGE RAIL (4.1-4.3) =====
+   The form was seven fields on an empty background. The rail carries the
+   reassurance that was already on the homepage, plus a way out. */
+.nl-form-layout {
+  display: grid; grid-template-columns: 1fr 300px; gap: 40px;
+  align-items: start;
+}
+.nl-form-rail { display: flex; flex-direction: column; gap: 28px; }
+.nl-rail-claims { display: flex; flex-direction: column; gap: 18px; }
+.nl-rail-claim { padding-top: 14px; border-top: 1px solid var(--nl-border); }
+.nl-rail-claim-h {
+  font-family: var(--nl-font-serif); font-size: 16px;
+  color: var(--nl-charcoal); margin-bottom: 5px;
+}
+.nl-rail-claim-b { font-size: var(--nl-type-fine); color: var(--nl-mid); line-height: 1.6; }
+
+.nl-rail-founder {
+  display: grid; grid-template-columns: 56px 1fr; gap: 14px; align-items: start;
+  padding-top: 20px; border-top: 1px solid var(--nl-border);
+}
+.nl-rail-founder img {
+  width: 56px; height: 56px; border-radius: 50%;
+  object-fit: cover; object-position: center top;
+  border: 1px solid var(--nl-border);
+  filter: saturate(0.85) contrast(0.96) brightness(1.02) sepia(0.04);
+}
+.nl-rail-quote {
+  font-family: var(--nl-font-serif); font-size: 15px; line-height: 1.5;
+  color: var(--nl-charcoal);
+}
+.nl-rail-attr { font-size: var(--nl-type-fine); color: var(--nl-mid); margin-top: 6px; }
+
+.nl-rail-out { padding-top: 20px; border-top: 1px solid var(--nl-border); }
+.nl-rail-out-h {
+  font-size: var(--nl-type-eyebrow); font-weight: 500; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--nl-sage); margin-bottom: 10px;
+}
+.nl-rail-out a {
+  display: block; font-size: var(--nl-type-small); color: var(--nl-charcoal);
+  padding: 6px 0;
+}
+.nl-rail-out a:hover { color: var(--nl-sage); }
+
+/* 3.1 Promote the source lines. Every number here carries a named source;
+   that is a competitive advantage and should not look like a legal footnote. */
+.nl-prob-source {
+  margin-top: 14px; padding-top: 10px;
+  border-top: 1px solid var(--nl-border);
+  font-size: var(--nl-type-eyebrow); font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--nl-mid);
+}
+
+@media (max-width: 880px) {
+  /* 4.1: rail above the form on mobile, where it is read first. */
+  .nl-form-layout { grid-template-columns: 1fr; gap: 32px; }
+  .nl-form-rail { order: -1; }
+  .nl-founder-moment { grid-template-columns: 1fr; gap: 20px; }
+  .nl-founder-moment .nl-founder-portrait { width: 120px; height: 140px; }
+  .nl-hero-actions .nl-btn { flex: 1 1 auto; }
 }

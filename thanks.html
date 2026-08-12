@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" />
-  <link rel="stylesheet" href="assets/styles.css?v=84745e7292" />
+  <link rel="stylesheet" href="assets/styles.css?v=8ea8336b64" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-D2CB1LRG5P"></script>
   <script>
@@ -45,9 +45,9 @@
   <section class="nl-form-page">
     <div class="nl-form-inner nl-thanks">
       <div class="nl-thanks-mark">✓</div>
-      <h1 class="nl-form-h1" id="nl-thanks-h">Got it. <em>We're on it.</em></h1>
+      <h1 class="nl-form-h1" id="nl-thanks-h">Got it. <em>We’re on it.</em></h1>
       <p class="nl-form-lede" id="nl-thanks-lede">
-        We'll review your details and follow up by email, usually within one business day. If it's urgent, reply to that email and tell us — we'll move faster.
+        We’ll review your details and follow up by email, usually within one business day. If it’s urgent, reply to that email and tell us — we’ll move faster.
       </p>
       <div class="nl-404-actions">
         <a href="index.html" class="nl-btn nl-btn-ghost">Back to home</a>
@@ -94,11 +94,11 @@
     (function () {
       var type = new URLSearchParams(window.location.search).get('type');
       var events = {
-        lead:       { name: 'generate_lead',       h: "Got it. <em>We're on it.</em>",
-                      lede: "We'll review your details and follow up by email, usually within one business day. If it's urgent, reply to that email and tell us — we'll move faster." },
+        lead:       { name: 'generate_lead',       h: "Got it. <em>We’re on it.</em>",
+                      lede: "We’ll review your details and follow up by email, usually within one business day. If it’s urgent, reply to that email and tell us — we’ll move faster." },
         partner:    { name: 'partner_application', h: "Application received.",
-                      lede: "We read every application. We'll be in touch about coverage in your area, usually within a few business days." },
-        newsletter: { name: 'sign_up',             h: "You're subscribed.",
+                      lede: "We read every application. We’ll be in touch about coverage in your area, usually within a few business days." },
+        newsletter: { name: 'sign_up',             h: "You’re subscribed.",
                       lede: "One short email a month, just the useful stuff. Unsubscribe in one click, any time." }
       };
       var e = events[type];
@@ -112,6 +112,33 @@
       if (typeof gtag === 'function') {
         gtag('event', e.name, { form_type: type });
       }
+    })();
+  </script>
+  <script>
+    // 5.5 entrance treatment and 5.6 nav shadow. Both are additive: with
+    // JavaScript off, content is fully visible and the nav simply never gains
+    // its scrolled shadow. 5.7: skipped entirely when reduced motion is asked for.
+    (function () {
+      var nav = document.querySelector('.nl-nav');
+      if (nav) {
+        var onScroll = function () {
+          nav.classList.toggle('is-scrolled', window.scrollY > 40);
+        };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (!('IntersectionObserver' in window)) return;
+      var targets = document.querySelectorAll('.nl-section-head, .nl-vert-grid, .nl-steps, .nl-trustsig-grid, .nl-ins-grid, .nl-prob-grid, .nl-founder-moment, .nl-faq-list');
+      if (!targets.length) return;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e, i) {
+          if (!e.isIntersecting) return;
+          setTimeout(function () { e.target.classList.add('is-in'); }, i * 70);
+          io.unobserve(e.target);
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+      targets.forEach(function (t) { t.classList.add('nl-reveal'); io.observe(t); });
     })();
   </script>
 </body>

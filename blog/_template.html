@@ -9,7 +9,7 @@
        Then run:  python3 tools/build-sitemap.py
        Full checklist in README, "Adding a blog post".
 
-       Do NOT leave this template's noindex tag in your real post.
+       Do NOT leave this template’s noindex tag in your real post.
        =================================================================== -->
   <meta name="robots" content="noindex, nofollow" /><!-- DELETE THIS LINE in a real post -->
 
@@ -34,7 +34,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" />
-  <link rel="stylesheet" href="../assets/styles.css?v=84745e7292" />
+  <link rel="stylesheet" href="../assets/styles.css?v=8ea8336b64" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-D2CB1LRG5P"></script>
   <script>
@@ -134,7 +134,7 @@
 
       <div class="nl-post-cta">
         <div class="nl-post-cta-h">Not sure where to start?</div>
-        <p>Tell us what your parent needs. We'll match you with a certified professional in your area, usually within one business day. Free to families.</p>
+        <p>Tell us what your parent needs. We’ll match you with a certified professional in your area, usually within one business day. Free to families.</p>
         <a href="../get-matched.html?src=blog" class="nl-btn nl-btn-primary">Get matched</a>
       </div>
     </div>
@@ -170,5 +170,32 @@
     <div class="nl-footer-fine">© 2026 NestLonger. The home you love, for as long as possible.</div>
   </footer>
 
+  <script>
+    // 5.5 entrance treatment and 5.6 nav shadow. Both are additive: with
+    // JavaScript off, content is fully visible and the nav simply never gains
+    // its scrolled shadow. 5.7: skipped entirely when reduced motion is asked for.
+    (function () {
+      var nav = document.querySelector('.nl-nav');
+      if (nav) {
+        var onScroll = function () {
+          nav.classList.toggle('is-scrolled', window.scrollY > 40);
+        };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (!('IntersectionObserver' in window)) return;
+      var targets = document.querySelectorAll('.nl-section-head, .nl-vert-grid, .nl-steps, .nl-trustsig-grid, .nl-ins-grid, .nl-prob-grid, .nl-founder-moment, .nl-faq-list');
+      if (!targets.length) return;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e, i) {
+          if (!e.isIntersecting) return;
+          setTimeout(function () { e.target.classList.add('is-in'); }, i * 70);
+          io.unobserve(e.target);
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+      targets.forEach(function (t) { t.classList.add('nl-reveal'); io.observe(t); });
+    })();
+  </script>
 </body>
 </html>

@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" />
-  <link rel="stylesheet" href="assets/styles.css?v=84745e7292" />
+  <link rel="stylesheet" href="assets/styles.css?v=8ea8336b64" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-D2CB1LRG5P"></script>
   <script>
@@ -76,7 +76,7 @@
       </div>
 
       <p class="nl-privacy-body" style="font-size: 17px; color: var(--nl-mid); margin-bottom: 40px;">
-        We wrote this in plain language because legalese hides bad behavior. Here's exactly what we collect, what we do with it, and what control you have.
+        We wrote this in plain language because legalese hides bad behavior. Here’s exactly what we collect, what we do with it, and what control you have.
       </p>
 
       <div id="what-we-collect" class="nl-privacy-section">
@@ -88,8 +88,8 @@
         </p>
         <ul class="nl-privacy-list">
           <li>Your name and email address</li>
-          <li>Your ZIP code, and any details you tell us about your parent's home</li>
-          <li>What kind of help you're looking for, grab bars, an ADU, something else</li>
+          <li>Your ZIP code, and any details you tell us about your parent’s home</li>
+          <li>What kind of help you’re looking for, grab bars, an ADU, something else</li>
           <li>For partners: your business name, license info, and coverage area</li>
         </ul>
         <p class="nl-privacy-body">
@@ -136,12 +136,12 @@
         </h2>
         <ul class="nl-privacy-list">
           <li><strong class="nl-privacy-strong">Unsubscribe.</strong> Every email we send has a one-click unsubscribe link. It works.</li>
-          <li><strong class="nl-privacy-strong">See your data.</strong> Email <a href="mailto:privacy@nestlonger.com">privacy@nestlonger.com</a> and we'll send you everything we have on file within 30 days.</li>
-          <li><strong class="nl-privacy-strong">Delete your data.</strong> Same email, same response time. We'll delete it and confirm.</li>
-          <li><strong class="nl-privacy-strong">Opt out of cookies.</strong> Most browsers let you reject non-essential cookies. We don't track you across other sites.</li>
+          <li><strong class="nl-privacy-strong">See your data.</strong> Email <a href="mailto:privacy@nestlonger.com">privacy@nestlonger.com</a> and we’ll send you everything we have on file within 30 days.</li>
+          <li><strong class="nl-privacy-strong">Delete your data.</strong> Same email, same response time. We’ll delete it and confirm.</li>
+          <li><strong class="nl-privacy-strong">Opt out of cookies.</strong> Most browsers let you reject non-essential cookies. We don’t track you across other sites.</li>
         </ul>
         <p class="nl-privacy-body">
-          California residents have additional rights under the CCPA. Residents of the EU and UK have additional rights under GDPR. We honor all of them. Email us and we'll handle it.
+          California residents have additional rights under the CCPA. Residents of the EU and UK have additional rights under GDPR. We honor all of them. Email us and we’ll handle it.
         </p>
       </div>
 
@@ -150,7 +150,7 @@
           <span class="nl-privacy-h2-num">05</span>Kids
         </h2>
         <p class="nl-privacy-body">
-          NestLonger is for adults helping parents. We don't knowingly collect information from anyone under 18. If you believe we have, email us and we'll delete it.
+          NestLonger is for adults helping parents. We don’t knowingly collect information from anyone under 18. If you believe we have, email us and we’ll delete it.
         </p>
       </div>
 
@@ -159,7 +159,7 @@
           <span class="nl-privacy-h2-num">06</span>Changes to this policy
         </h2>
         <p class="nl-privacy-body">
-          If we make a meaningful change, we'll update the date at the top of this page and email anyone who's given us their address. We'll explain what changed in plain language, not "we have updated our terms."
+          If we make a meaningful change, we’ll update the date at the top of this page and email anyone who’s given us their address. We’ll explain what changed in plain language, not "we have updated our terms."
         </p>
       </div>
 
@@ -207,5 +207,32 @@
     <div class="nl-footer-fine">© 2026 NestLonger. The home you love, for as long as possible.</div>
   </footer>
 
+  <script>
+    // 5.5 entrance treatment and 5.6 nav shadow. Both are additive: with
+    // JavaScript off, content is fully visible and the nav simply never gains
+    // its scrolled shadow. 5.7: skipped entirely when reduced motion is asked for.
+    (function () {
+      var nav = document.querySelector('.nl-nav');
+      if (nav) {
+        var onScroll = function () {
+          nav.classList.toggle('is-scrolled', window.scrollY > 40);
+        };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (!('IntersectionObserver' in window)) return;
+      var targets = document.querySelectorAll('.nl-section-head, .nl-vert-grid, .nl-steps, .nl-trustsig-grid, .nl-ins-grid, .nl-prob-grid, .nl-founder-moment, .nl-faq-list');
+      if (!targets.length) return;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e, i) {
+          if (!e.isIntersecting) return;
+          setTimeout(function () { e.target.classList.add('is-in'); }, i * 70);
+          io.unobserve(e.target);
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+      targets.forEach(function (t) { t.classList.add('nl-reveal'); io.observe(t); });
+    })();
+  </script>
 </body>
 </html>

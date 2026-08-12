@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" />
-  <link rel="stylesheet" href="assets/styles.css?v=84745e7292" />
+  <link rel="stylesheet" href="assets/styles.css?v=8ea8336b64" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-D2CB1LRG5P"></script>
   <script>
@@ -108,10 +108,10 @@
         The home safety industry is a maze. Aging-in-place modifications are scattered across handymen, contractors, occupational therapists, insurance plans, state programs, and a long tail of well-meaning nonprofits. The information is everywhere and trustworthy almost nowhere.
       </p>
       <p class="nl-about-body">
-        Meanwhile, the people who need this most, adult children, age 45-60, helping a parent, are the most time-poor demographic in America. They have full-time jobs, kids of their own, and a parent who insists they're "fine." When they finally start looking, they're already behind.
+        Meanwhile, the people who need this most, adult children, age 45-60, helping a parent, are the most time-poor demographic in America. They have full-time jobs, kids of their own, and a parent who insists they’re "fine." When they finally start looking, they’re already behind.
       </p>
       <p class="nl-about-body">
-        We started with the simplest, highest-impact intervention: <em>grab bars</em>. We're growing into ADUs next, then home modifications more broadly. The model is the same one that worked for solar (EnergySage) and auto insurance (EverQuote): own intent through honest content, refer families to vetted local pros, get paid only when something good happens.
+        We started with the simplest, highest-impact intervention: <em>grab bars</em>. We’re growing into ADUs next, then home modifications more broadly. The model is the same one that worked for solar (EnergySage) and auto insurance (EverQuote): own intent through honest content, refer families to vetted local pros, get paid only when something good happens.
       </p>
     </div>
   </section>
@@ -127,7 +127,7 @@
           <div class="nl-founder-name">Matthew Mamet</div>
           <div class="nl-founder-role">Fractional Chief Growth Officer · Founder, NestLonger</div>
           <p class="nl-about-body" style="margin-bottom: 0;">
-            Matthew has spent two decades building demand-generation businesses where the consumer's biggest enemy is information asymmetry, travel, solar, insurance. NestLonger applies the same playbook to a category that needs it more than any of them.
+            Matthew has spent two decades building demand-generation businesses where the consumer’s biggest enemy is information asymmetry, travel, solar, insurance. NestLonger applies the same playbook to a category that needs it more than any of them.
           </p>
           <div class="nl-founder-prior">
             <div><strong>TripAdvisor</strong> · Travel</div>
@@ -138,7 +138,7 @@
       </div>
 
       <blockquote class="nl-pull">
-        "Aging at home shouldn't mean <em>figuring it out alone.</em> It should feel like a network, one your parent earned, and you can finally lean on."
+        “Aging at home shouldn’t mean <em>figuring it out alone.</em> It should feel like a network, one your parent earned, and you can finally lean on.”
         <span class="nl-pull-attr">Matthew Mamet</span>
       </blockquote>
     </div>
@@ -159,21 +159,21 @@
           <div class="nl-approach-num">02</div>
           <div>
             <h3 class="nl-approach-h">Lead with the outcome, not the fear</h3>
-            <p class="nl-approach-body">A grab bar reduces falls by 80%. That's the headline. The category is heavy enough; we don't need to add to it.</p>
+            <p class="nl-approach-body">A grab bar reduces falls by 80%. That’s the headline. The category is heavy enough; we don’t need to add to it.</p>
           </div>
         </li>
         <li class="nl-approach-item">
           <div class="nl-approach-num">03</div>
           <div>
             <h3 class="nl-approach-h">Refer to people we trust</h3>
-            <p class="nl-approach-body">Every partner is licensed, insured, and aging-in-place trained. We'd send our own parent. That's the bar.</p>
+            <p class="nl-approach-body">Every partner is licensed, insured, and aging-in-place trained. We’d send our own parent. That’s the bar.</p>
           </div>
         </li>
         <li class="nl-approach-item">
           <div class="nl-approach-num">04</div>
           <div>
             <h3 class="nl-approach-h">Get paid on outcomes</h3>
-            <p class="nl-approach-body">We're paid by partners on closed referrals, not on leads, not on subscriptions. Our incentive is your incentive.</p>
+            <p class="nl-approach-body">We’re paid by partners on closed referrals, not on leads, not on subscriptions. Our incentive is your incentive.</p>
           </div>
         </li>
       </ul>
@@ -186,7 +186,7 @@
         <em>Stay home, safely.</em>
       </h2>
       <p class="nl-about-body nl-closer-body">
-        That's the whole brief. If you're trying to help your mom or dad stay in their home, start with the grab bars, then talk to us about an ADU when you're ready. We'll be here.
+        That’s the whole brief. If you’re trying to help your mom or dad stay in their home, start with the grab bars, then talk to us about an ADU when you’re ready. We’ll be here.
       </p>
       <div class="nl-closer-actions">
         <a href="grab-bars.html" class="nl-btn nl-btn-primary">Find a grab bar installer</a>
@@ -225,5 +225,32 @@
     <div class="nl-footer-fine">© 2026 NestLonger. The home you love, for as long as possible.</div>
   </footer>
 
+  <script>
+    // 5.5 entrance treatment and 5.6 nav shadow. Both are additive: with
+    // JavaScript off, content is fully visible and the nav simply never gains
+    // its scrolled shadow. 5.7: skipped entirely when reduced motion is asked for.
+    (function () {
+      var nav = document.querySelector('.nl-nav');
+      if (nav) {
+        var onScroll = function () {
+          nav.classList.toggle('is-scrolled', window.scrollY > 40);
+        };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (!('IntersectionObserver' in window)) return;
+      var targets = document.querySelectorAll('.nl-section-head, .nl-vert-grid, .nl-steps, .nl-trustsig-grid, .nl-ins-grid, .nl-prob-grid, .nl-founder-moment, .nl-faq-list');
+      if (!targets.length) return;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e, i) {
+          if (!e.isIntersecting) return;
+          setTimeout(function () { e.target.classList.add('is-in'); }, i * 70);
+          io.unobserve(e.target);
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+      targets.forEach(function (t) { t.classList.add('nl-reveal'); io.observe(t); });
+    })();
+  </script>
 </body>
 </html>
