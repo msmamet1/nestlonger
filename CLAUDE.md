@@ -30,6 +30,12 @@ input on a real form. The honeypot is now hidden by an **inline** style as well 
 `.nl-hp`, specifically so a missing stylesheet cannot expose it — do not remove that
 inline style.
 
+`.github/workflows/generated-files.yml` runs both this script and `build-sitemap.py`
+on every push to `main` and commits the result back if either changed a file, so a
+forgotten run repairs itself. That is a backstop, not a substitute: the site is live
+with the stale artifact for the one to two minutes the workflow takes. Run the script
+yourself and push one correct commit.
+
 The fingerprint is a query string, not a hashed filename, so `worker/index.js` can keep
 referencing `/assets/styles.css` on its error page. The zone's cache level is
 `aggressive` (Cloudflare's "Standard"), which includes the query string in the cache

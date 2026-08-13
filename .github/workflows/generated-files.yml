@@ -1,0 +1,109 @@
+# Regenerates the two files that must match the repo but have to be run by hand:
+# sitemap.xml (tools/build-sitemap.py) and the ?v= CSS fingerprint stamped into
+# every page (tools/fingerprint-css.py). If either script changed a tracked file,
+# this commits the result back to main and pushes.
+#
+# Loop prevention is structural, not a convention: a push made with the workflow's
+# own GITHUB_TOKEN does not trigger further workflow runs. Do not swap in a personal
+# access token to work around that, and do not rely on a [skip ci] string in the
+# message — that is a weaker guard a future edit can silently defeat.
+name: Generated files
+
+on:
+  push:
+    branches: [main]
+
+# Two pushes in quick succession must not race each other into a non-fast-forward
+# push, so queue rather than cancel.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    # The default token is read-only on this repo; the push fails without this.
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      # Neither script has a dependency beyond the standard library, so there is
+      # no requirements file to install. Order is not load-bearing today — sitemap
+      # generation does not touch HTML — but fixing it here means it cannot become
+      # load-bearing by accident later. No `|| true`: fingerprint-css.py exits
+      # non-zero when a page is still on a stale hash after its own pass, and that
+      # is a real defect that must fail the job.
+      - name: Regenerate
+        run: |
+          python3 tools/build-sitemap.py
+          python3 tools/fingerprint-css.py
+
+      # Scoped to the paths the two scripts own, so an unrelated stray file in the
+      # working tree can neither trigger a commit nor ride along in one.
+      - name: Detect drift
+        id: drift
+        run: |
+          if [ -z "$(git status --porcelain -- sitemap.xml '*.html')" ]; then
+            echo "No drift. sitemap.xml and the CSS fingerprint already match the repo."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Drift detected in:"
+            git status --porcelain -- sitemap.xml '*.html'
+            {
+              echo "changed=true"
+              echo "paths<<PATHS_EOF"
+              git status --porcelain -- sitemap.xml '*.html' | awk '{print $NF}'
+              echo "PATHS_EOF"
+            } >> "$GITHUB_OUTPUT"
+          fi
+
+      # Stage sitemap.xml and *.html explicitly rather than `git add -A`, so an
+      # unrelated stray file in the working tree can never ride along.
+      - name: Commit and push
+        if: steps.drift.outputs.changed == 'true'
+        env:
+          PATHS: ${{ steps.drift.outputs.paths }}
+        run: |
+          git config user.name  'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- sitemap.xml '*.html'
+          git commit -m 'chore: regenerate sitemap and CSS fingerprint' -m "$PATHS"
+
+          # One rebase, one retry, then fail. Never force push.
+          if ! git push origin HEAD:main; then
+            echo "Push rejected; main moved. Rebasing once and retrying once."
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      # CLAUDE.md requires a purge after any asset change. The ?v= fingerprint
+      # already busts the edge cache on its own, because the zone's cache level is
+      # aggressive and includes the query string in the key — this is redundancy,
+      # not the primary mechanism. So a missing secret or a failed purge must not
+      # fail the job: by this point the repair is already committed and pushed.
+      - name: Purge Cloudflare cache
+        if: steps.drift.outputs.changed == 'true'
+        continue-on-error: true
+        env:
+          CF_PURGE_TOKEN: ${{ secrets.CF_PURGE_TOKEN }}
+          CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
+        run: |
+          if [ -z "$CF_PURGE_TOKEN" ] || [ -z "$CF_ZONE_ID" ]; then
+            echo "CF_PURGE_TOKEN or CF_ZONE_ID not set — skipping cache purge."
+            echo "The ?v= fingerprint busts the edge cache on its own, so this is not fatal."
+            exit 0
+          fi
+          curl -sS -X POST \
+            "https://api.cloudflare.com/client/v4/zones/$CF_ZONE_ID/purge_cache" \
+            -H "Authorization: Bearer $CF_PURGE_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data '{"files":["https://www.nestlonger.com/assets/styles.css","https://www.nestlonger.com/sitemap.xml"]}' \
+            || echo "Purge request failed — the commit is already pushed, so this is logged and ignored."
