@@ -31,7 +31,7 @@ Static HTML site for **www.nestlonger.com**. Hosted on GitHub Pages, served from
 
 Pages serves every file in the repository, and there is no way to make one private.
 Internal working documents — the brand guide, the Search Console disavow list — live
-in `pga/clients/nestlonger`, not here. Keep it that way.
+in `pga/ventures/nestlonger`, not here. Keep it that way.
 
 ## Deployment
 
@@ -124,7 +124,7 @@ attributes its claims:
   post. That is how crawl equity reaches the pages that convert.
 
 Voice, palette, and the "Never Say" list live in the brand guide in
-`pga/clients/nestlonger`, not this repo.
+`pga/ventures/nestlonger`, not this repo.
 
 ## Analytics
 

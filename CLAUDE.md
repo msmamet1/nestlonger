@@ -78,7 +78,7 @@ A task is done when every acceptance criterion is verifiably true against the li
 
 Matthew works in a local checkout that has diverged from `origin/main` before. Pull and rebase before starting, and say so when you finish.
 
-Specs live in `msmamet1/pga` at `clients/nestlonger/specs/`, written by the engagement manager and executed here. Open both repos in one VS Code workspace rather than copying specs into this one, since everything tracked here is served publicly. Completion notes, research inputs, and measurement baselines are written back to pga.
+Specs live in `msmamet1/pga` at `ventures/nestlonger/specs/`, written by the engagement manager and executed here. Open both repos in one VS Code workspace rather than copying specs into this one, since everything tracked here is served publicly. Completion notes, research inputs, and measurement baselines are written back to pga.
 
 ## Architecture
 
@@ -100,7 +100,7 @@ The per-vertical routing that Tally's `data-source` used to provide now rides on
 
 Spam protection is a `website` honeypot plus per-IP rate limiting in the Worker — deliberately no CAPTCHA, since Turnstile would reintroduce a third-party script.
 
-⚠️ **Cloudflare Bot Fight Mode must stay off.** It was enabled until 2026-08-11. Free-plan Bot Fight Mode has no verified-crawler exemption, and it would block form POSTs to the Worker, so it stays off. It was previously blamed for the site's near-zero search traffic. That is false. Search Console shows Googlebot smartphone fetched `grab-bars.html` successfully on 8 August 2026 and indexed it, with crawl allowed and indexing allowed, three days before the mode was disabled. The 0 organic keywords and 3 impressions over 3.5 months is a ranking problem, not an access problem, which is an ordinary result for a three-month-old domain with thin content and a spam-only link profile. Full write-up in `pga/clients/nestlonger/2026-08-11-crawlability-root-cause.md`.
+⚠️ **Cloudflare Bot Fight Mode must stay off.** It was enabled until 2026-08-11. Free-plan Bot Fight Mode has no verified-crawler exemption, and it would block form POSTs to the Worker, so it stays off. It was previously blamed for the site's near-zero search traffic. That is false. Search Console shows Googlebot smartphone fetched `grab-bars.html` successfully on 8 August 2026 and indexed it, with crawl allowed and indexing allowed, three days before the mode was disabled. The 0 organic keywords and 3 impressions over 3.5 months is a ranking problem, not an access problem, which is an ordinary result for a three-month-old domain with thin content and a spam-only link profile. Full write-up in `pga/ventures/nestlonger/2026-08-11-crawlability-root-cause.md`.
 
 Two further Cloudflare settings were corrected on 2026-08-11 and must not regress.
 
@@ -118,7 +118,7 @@ Class names are all `nl-` prefixed and semantic (`nl-vert-card`, `nl-prob-cell`,
 
 ## Brand and copy
 
-The brand guide lives **outside this repo**, in `pga/clients/nestlonger` — it is the source of truth for voice, palette, type, and UI patterns, and it is prescriptive, including a **Never Say** list (notably: "loved one", "senior/elderly", "journey", "seamless/robust/holistic", "empowering families to"). Read it before writing any user-facing copy or adding visual components; ask for it if the PGA repo is not attached to the session.
+The brand guide lives **outside this repo**, in `pga/ventures/nestlonger` — it is the source of truth for voice, palette, type, and UI patterns, and it is prescriptive, including a **Never Say** list (notably: "loved one", "senior/elderly", "journey", "seamless/robust/holistic", "empowering families to"). Read it before writing any user-facing copy or adding visual components; ask for it if the PGA repo is not attached to the session.
 
 Write for the adult child, not the aging parent. Clear, warm, practical.
 
@@ -160,6 +160,6 @@ Blog posts start from `blog/_template.html`; the full checklist is in README, "A
 
 `robots.txt` points at the sitemap; `CNAME` pins the custom domain, do not remove it. `llms.txt` is the AEO site summary and page index — update it when pages are added or their purpose changes.
 
-**GitHub Pages serves every file in this repository**, with no way to make one private. Internal working documents therefore do not belong here — the brand guide and the Google Search Console disavow list were moved out to `pga/clients/nestlonger` for exactly this reason. Anything added here should be assumed public.
+**GitHub Pages serves every file in this repository**, with no way to make one private. Internal working documents therefore do not belong here — the brand guide and the Google Search Console disavow list were moved out to `pga/ventures/nestlonger` for exactly this reason. Anything added here should be assumed public.
 
 The disavow list is maintained in the PGA repo. The rule that matters when editing it: **disavow uploads replace the live list rather than merging into it**, so that file is the cumulative source of truth — merge new Ahrefs exports into it and re-upload the whole thing, never upload a raw export. As of 2026-08-11 the live list is 422 domains / 0 URLs.
