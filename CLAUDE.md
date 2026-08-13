@@ -122,9 +122,15 @@ Every numeric claim on a public page carries an inline attribution to a named, l
 
 The category is health-adjacent, where an inaccurate efficacy or coverage claim is a trust and compliance liability rather than just a missed ranking. Answer engines also preferentially cite pages that attribute their claims, which makes this the cheapest AEO improvement available.
 
-If a task hands you a claim without a citation, stop and flag it. Do not source it yourself, do not infer a source, do not substitute a similar figure from a different study. The "reduces falls by up to 80%" claim currently on `grab-bars.html` is what happens without this rule. It is attributed across the web to a CDC study that does not exist, and it originates as a misread of a statistic about where falls occur rather than what prevents them.
+If a task hands you a claim without a citation, stop and flag it. Do not source it yourself, do not infer a source, do not substitute a similar figure from a different study. The "reduces falls by up to 80%" claim is what happens without this rule. It is attributed across the web to a CDC study that does not exist, and it originates as a misread of a statistic about where falls occur rather than what prevents them. It was removed from `grab-bars.html`, then found again eight days later on `about.html`, which is why the sweeps below are scoped by claim rather than by page.
 
 Insurance and public-program coverage claims carry a further rule. State the plan year, and never assert that a specific plan covers a specific modification. CMS narrowed Special Supplemental Benefits for the Chronically Ill for 2026, and coverage now depends on plan, county, plan year, and documented condition.
+
+### Bare scope quantifiers
+
+A bare scope quantifier is a statistic. "Most", "many", "a lot of", "usually", "often" and "commonly" all assert a proportion without stating one, and they are subject to the no-unsourced-statistics rule exactly as a percentage is. Do not soften an unsourceable "most" to "many"; that is the same claim with a smaller number. Either state the real figure with a source, or make the sentence about something you can support. The site has produced eight of these; assume there is a ninth.
+
+Two things are not in this class and are always fine. Statements about NestLonger's own service ("usually within one business day", "we typically respond within two business days") are first-party operational commitments, not claims about the world. Quantifiers that weaken a claim rather than carry it ("estimates vary widely", "nearly all of that research comes from California") are hedges, and removing them would make the sentence less accurate, not more.
 
 ### Coverage claims
 
