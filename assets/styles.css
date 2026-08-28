@@ -901,12 +901,21 @@ img { display: block; max-width: 100%; }
   margin-top: 32px;
 }
 .nl-split-img {
-  width: 100%; aspect-ratio: 4 / 5;
+  /* height:auto is load-bearing. Both split images carry width/height attributes,
+     which map to the CSS height property, and aspect-ratio only fills in a
+     dimension that is auto. Without this the attribute wins and the image renders
+     at its full intrinsic height -- 1439px of bathroom against 293px of copy on
+     grab-bars.html. 4/3 lands the image at 339px, level with the copy beside it. */
+  width: 100%; height: auto; aspect-ratio: 4 / 3;
   border-radius: var(--nl-radius-l);
   border: 1px solid var(--nl-border);
   display: block; object-fit: cover; object-position: center;
   filter: saturate(0.85) contrast(0.96) brightness(1.02) sepia(0.04);
 }
+/* Same portrait source and same reasoning as .nl-vert-card-img--grab: 65% seats
+   the basin and the wainscot line rather than empty ceiling. The ADU source is
+   landscape and keeps the shared centre. */
+.nl-split-img--grab { object-position: center 65%; }
 .nl-split-copy h3 {
   font-family: var(--nl-font-serif); font-weight: 400;
   /* 36px kept raw: sits in the --nl-type-h3 (26) to --nl-type-h2 (48) gap; no step fits. */
