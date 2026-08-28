@@ -92,6 +92,7 @@
 /* Keep html at the browser default so rem stays anchored to it. Setting the
    token on both html and body compounds it: body's 1.0625rem would resolve
    against html's already-enlarged 17px and land at 18px. */
+/* 100% kept raw: rem basis for the whole scale; must stay 100%. */
 html { font-size: 100%; }
 
 body {
@@ -157,11 +158,13 @@ img { display: block; max-width: 100%; }
   display: flex; align-items: center; justify-content: space-between;
 }
 .nl-wordmark {
+  /* 26px kept raw: brand mark, sized to the nav bar; --nl-type-h3 would shrink it to 20px on mobile. */
   font-family: var(--nl-font-serif); font-weight: 700; font-size: 26px;
   color: var(--nl-charcoal); letter-spacing: -0.025em;
   text-decoration: none;
 }
 .nl-wordmark span { color: var(--nl-sage); }
+/* 28px kept raw: brand mark, see .nl-wordmark. */
 .nl-wordmark-footer { font-size: 28px; }
 .nl-nav-links { display: flex; gap: 28px; align-items: center; }
 .nl-nav-links > a:not(.nl-btn) { font-size: var(--nl-type-small); color: var(--nl-mid); }
@@ -213,7 +216,7 @@ img { display: block; max-width: 100%; }
 }
 .nl-nav-mobile-panel a {
   padding: 11px 12px;
-  font-size: 15px; color: var(--nl-charcoal);
+  font-size: var(--nl-type-small); color: var(--nl-charcoal);
   border-radius: var(--nl-radius-s);
 }
 .nl-nav-mobile-panel a:hover { background: var(--nl-sage-light); }
@@ -222,7 +225,7 @@ img { display: block; max-width: 100%; }
 /* ===== BUTTONS ===== */
 .nl-btn {
   display: inline-block; font-family: var(--nl-font-sans);
-  font-size: 14px; font-weight: 500;
+  font-size: var(--nl-type-small); font-weight: 500;
   padding: 12px 24px; border-radius: 5px; border: none; cursor: pointer;
   text-align: center; /* <a class="nl-btn"> does not centre text the way <button> does */
   text-decoration: none; transition: background 0.15s ease;
@@ -231,8 +234,8 @@ img { display: block; max-width: 100%; }
 .nl-btn-primary:hover { background: var(--nl-sage-dark); }
 .nl-btn-primary:active { transform: translateY(1px); }
 .nl-btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-.nl-btn-sm { padding: 9px 16px; font-size: 13px; }
-.nl-btn-block { display: block; width: 100%; padding: 14px 24px; font-size: 15px; }
+.nl-btn-sm { padding: 9px 16px; font-size: var(--nl-type-fine); }
+.nl-btn-block { display: block; width: 100%; padding: 14px 24px; font-size: var(--nl-type-small); }
 .nl-btn-ghost {
   background: transparent; color: var(--nl-sage);
   border: 1px solid var(--nl-sage);
@@ -255,7 +258,7 @@ img { display: block; max-width: 100%; }
   text-wrap: balance;
   color: var(--nl-charcoal); margin-bottom: 24px;
 }
-.nl-hero-h1 em { font-style: italic; color: var(--nl-sage); font-synthesis: none; }
+.nl-hero-h1 em { font-style: italic; color: var(--nl-terracotta); font-synthesis: none; }
 
 .nl-hero-form {
   background: var(--nl-cream);
@@ -264,7 +267,7 @@ img { display: block; max-width: 100%; }
   padding: 28px;
 }
 .nl-hero-form-eb {
-  font-family: var(--nl-font-serif); font-size: 17px;
+  font-family: var(--nl-font-serif); font-size: var(--nl-type-body);
   color: var(--nl-charcoal); margin-bottom: 18px;
   letter-spacing: -0.01em;
 }
@@ -275,7 +278,7 @@ img { display: block; max-width: 100%; }
 
 /* ===== LEAD CTA CARD (Tally trigger) ===== */
 .nl-lead-fineprint {
-  font-size: 12px; color: var(--nl-mid); line-height: 1.5;
+  font-size: var(--nl-type-fine); color: var(--nl-mid); line-height: 1.5;
   margin-top: 14px;
 }
 
@@ -292,7 +295,7 @@ img { display: block; max-width: 100%; }
 }
 .nl-trust-item {
   display: flex; align-items: center; gap: 10px;
-  font-size: 13px; color: var(--nl-charcoal);
+  font-size: var(--nl-type-fine); color: var(--nl-charcoal);
   font-weight: 500;
 }
 .nl-trust-dot {
@@ -313,11 +316,9 @@ img { display: block; max-width: 100%; }
 .nl-section-inner { max-width: 960px; margin: 0 auto; }
 .nl-section-head { max-width: 640px; margin-bottom: 40px; }
 .nl-section .nl-h2 {
-  font-size: 48px;
   letter-spacing: -0.025em;
   line-height: 1.08;
 }
-.nl-section .nl-lede { font-size: 19px; }
 
 /* ===== STATS ===== */
 .nl-stats {
@@ -332,11 +333,12 @@ img { display: block; max-width: 100%; }
 }
 .nl-stat-num {
   font-family: var(--nl-font-serif); font-weight: 700;
+  /* 40px kept raw: display numeral, sized to its block, not on the text scale. */
   font-size: 40px; color: var(--nl-terracotta);
   line-height: 1; margin-bottom: 10px;
   letter-spacing: -0.02em;
 }
-.nl-stat-label { font-size: 13px; color: var(--nl-mid); line-height: 1.5; }
+.nl-stat-label { font-size: var(--nl-type-fine); color: var(--nl-mid); line-height: 1.5; }
 
 .nl-figure { margin-top: 8px; }
 .nl-figure img {
@@ -344,7 +346,7 @@ img { display: block; max-width: 100%; }
   filter: saturate(0.85) contrast(0.96) brightness(1.02) sepia(0.04);
 }
 .nl-figure figcaption {
-  font-size: 12px; color: var(--nl-mid); margin-top: 10px;
+  font-size: var(--nl-type-fine); color: var(--nl-mid); margin-top: 10px;
   font-style: italic;
 }
 
@@ -363,11 +365,13 @@ img { display: block; max-width: 100%; }
 }
 .nl-step-num {
   font-family: var(--nl-font-serif); font-weight: 400;
+  /* 30px kept raw: display numeral, sized to its block, not on the text scale. */
   font-size: 30px; color: var(--nl-terracotta);
   line-height: 1; letter-spacing: 0.01em; margin-bottom: 14px;
 }
 .nl-step-title {
   font-family: var(--nl-font-serif); font-weight: 400;
+  /* 19px kept raw: small heading; the only close step is --nl-type-lede, which is not a heading step. */
   font-size: 19px; line-height: 1.3; letter-spacing: -0.01em;
   color: var(--nl-charcoal); margin-bottom: 8px;
   min-height: 2.6em;   /* 2.3: pin the heading block so bodies start level */
@@ -388,12 +392,13 @@ img { display: block; max-width: 100%; }
 }
 .nl-ins-name {
   font-family: var(--nl-font-serif); font-weight: 400;
+  /* 19px kept raw: small heading; the only close step is --nl-type-lede, which is not a heading step. */
   font-size: 19px; color: var(--nl-charcoal);
   margin-bottom: 8px; letter-spacing: -0.01em;
 }
 .nl-ins-detail { font-size: var(--nl-type-small); color: var(--nl-mid); line-height: 1.6; }
 .nl-ins-note {
-  font-size: 13px; color: var(--nl-mid);
+  font-size: var(--nl-type-fine); color: var(--nl-mid);
   font-style: italic; max-width: 640px;
 }
 
@@ -427,28 +432,28 @@ img { display: block; max-width: 100%; }
 }
 .nl-footer-tag {
   font-family: var(--nl-font-serif); font-style: italic;
-  font-size: 14px; color: var(--nl-light); margin-top: 10px;
+  font-size: var(--nl-type-small); color: var(--nl-light); margin-top: 10px;
 }
 .nl-footer-blurb {
-  font-size: 13px; color: var(--nl-light); line-height: 1.6;
+  font-size: var(--nl-type-fine); color: var(--nl-light); line-height: 1.6;
   margin-top: 18px; max-width: 320px;
 }
 .nl-footer-cols {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
 }
 .nl-footer-col-h {
-  font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+  font-size: var(--nl-type-eyebrow); font-weight: 500; letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--nl-cream);
   margin-bottom: 14px;
 }
 .nl-footer-col a {
-  display: block; font-size: 13px; color: var(--nl-light);
+  display: block; font-size: var(--nl-type-fine); color: var(--nl-light);
   padding: 4px 0; text-decoration: none;
 }
 .nl-footer-col a:hover { color: var(--nl-cream); }
 .nl-footer-fine {
   max-width: 960px; margin: 24px auto 0;
-  font-size: 12px; color: var(--nl-light);
+  font-size: var(--nl-type-fine); color: var(--nl-light);
 }
 
 /* ===== HOMEPAGE: dual entry cards ===== */
@@ -466,9 +471,9 @@ img { display: block; max-width: 100%; }
   text-wrap: balance;
   text-wrap: balance;
 }
-.nl-home-h1 em { font-style: italic; color: var(--nl-sage); font-synthesis: none; }
+.nl-home-h1 em { font-style: italic; color: var(--nl-terracotta); font-synthesis: none; }
 .nl-home-lede {
-  font-size: 22px; color: var(--nl-mid); line-height: 1.55;
+  font-size: var(--nl-type-lede); color: var(--nl-mid); line-height: 1.55;
   max-width: 680px;
 }
 
@@ -506,10 +511,16 @@ img { display: block; max-width: 100%; }
   border-bottom: 1px solid var(--nl-border);
   filter: saturate(0.85) contrast(0.96) brightness(1.02) sepia(0.04);
 }
+/* 5.4 framing, grab-bars card only. Portrait source in a landscape slot, so
+   object-position picks the visible band; 65% biases it to fixture level (basin
+   and wainscot) instead of empty ceiling and blown-out upper wall. The ADU card
+   keeps the shared centre. */
+.nl-vert-card-img--grab { object-position: center 65%; }
 .nl-vert-card-inner { padding: 32px 36px 32px; display: flex; flex-direction: column; flex: 1; }
 .nl-vert-card .nl-eyebrow { margin-bottom: 16px; }
 .nl-vert-card-h {
   font-family: var(--nl-font-serif); font-weight: 400;
+  /* 36px kept raw: sits in the --nl-type-h3 (26) to --nl-type-h2 (48) gap; no step fits. */
   font-size: 36px; line-height: 1.08; letter-spacing: -0.02em;
   color: var(--nl-charcoal); margin-bottom: 14px;
 }
@@ -526,11 +537,12 @@ img { display: block; max-width: 100%; }
 .nl-vert-meta-item { display: flex; flex-direction: column; gap: 2px; }
 .nl-vert-meta-num {
   font-family: var(--nl-font-serif); font-weight: 700;
+  /* 24px kept raw: display numeral, sized to its block, not on the text scale. */
   font-size: 24px; color: var(--nl-terracotta);   /* 5.8: one stat colour sitewide */
   letter-spacing: -0.01em;
 }
 .nl-vert-meta-label {
-  font-size: 11px; color: var(--nl-mid);
+  font-size: var(--nl-type-eyebrow); color: var(--nl-mid);
   letter-spacing: 0.06em; text-transform: uppercase;
   margin-top: 2px;
 }
@@ -538,7 +550,7 @@ img { display: block; max-width: 100%; }
   display: inline-flex; align-items: center; gap: 8px;
   margin-top: 4px;
   font-family: var(--nl-font-sans); font-weight: 500;
-  color: var(--nl-sage); font-size: 14px;
+  color: var(--nl-sage); font-size: var(--nl-type-small);
   letter-spacing: 0.01em;
   transition: transform 0.15s ease;
 }
@@ -558,16 +570,18 @@ img { display: block; max-width: 100%; }
 .nl-prob-cell:last-child { border-right: none; }
 .nl-prob-num {
   font-family: var(--nl-font-serif); font-weight: 700;
+  /* 72px kept raw: display numeral, sized to its block, not on the text scale. */
   font-size: 72px; line-height: 0.95; color: var(--nl-terracotta);
   letter-spacing: -0.03em; margin-bottom: 16px;
 }
 .nl-prob-label {
   font-family: var(--nl-font-serif); font-weight: 400;
+  /* 19px kept raw: small heading; the only close step is --nl-type-lede, which is not a heading step. */
   font-size: 19px; line-height: 1.35; color: var(--nl-charcoal);
   letter-spacing: -0.01em; margin-bottom: 10px;
 }
 .nl-prob-source {
-  font-size: 12px; color: var(--nl-mid); line-height: 1.5;
+  font-size: var(--nl-type-fine); color: var(--nl-mid); line-height: 1.5;
 }
 
 /* ===== TRUST SIGNALS ===== */
@@ -583,6 +597,7 @@ img { display: block; max-width: 100%; }
 }
 .nl-trustsig-h {
   font-family: var(--nl-font-serif); font-weight: 400;
+  /* 19px kept raw: small heading; the only close step is --nl-type-lede, which is not a heading step. */
   font-size: 19px; line-height: 1.25; color: var(--nl-charcoal);
   margin-bottom: 8px; letter-spacing: -0.01em;
   min-height: 2.5em;   /* 2.3: two-line minimum so bodies start level */
@@ -605,16 +620,19 @@ img { display: block; max-width: 100%; }
 .nl-email-cta .nl-eyebrow { color: var(--nl-sage-light); }
 .nl-email-cta-h {
   font-family: var(--nl-font-serif); font-weight: 400;
-  font-size: 48px; line-height: 1.05; letter-spacing: -0.025em;
+  font-size: var(--nl-type-h2); line-height: 1.05; letter-spacing: -0.025em;
   color: var(--nl-cream); margin-bottom: 20px;
 }
 .nl-email-cta-h em { font-style: italic; color: var(--nl-sage-light); }
+/* Contrast: this block moved charcoal -> sage in 2.6, so the 1.2 exemption that
+   kept --nl-light here no longer holds. --nl-light is 2.75:1 on sage; --nl-mid is
+   1.14:1. --nl-sage-light is 5.48:1 and matches the em in the heading above. */
 .nl-email-cta-lede {
-  font-size: 18px; color: var(--nl-light); line-height: 1.55;
+  font-size: var(--nl-type-lede); color: var(--nl-sage-light); line-height: 1.55;
   margin: 0 auto 32px; max-width: 560px;
 }
 .nl-email-cta-fine {
-  font-size: 12px; color: var(--nl-light);
+  font-size: var(--nl-type-fine); color: var(--nl-sage-light);
   margin-top: 16px;
 }
 
@@ -633,11 +651,12 @@ img { display: block; max-width: 100%; }
 .nl-hero-stat:nth-child(2) { padding-left: 18px; }
 .nl-hero-stat-num {
   font-family: var(--nl-font-serif); font-weight: 700;
+  /* 38px kept raw: display numeral, sized to its block, not on the text scale. */
   font-size: 38px; line-height: 1; color: var(--nl-terracotta);
   letter-spacing: -0.02em; margin-bottom: 10px;
 }
 .nl-hero-stat-label {
-  font-size: 13px; color: var(--nl-mid); line-height: 1.5;
+  font-size: var(--nl-type-fine); color: var(--nl-mid); line-height: 1.5;
 }
 
 /* ===== ADU FINANCING ===== */
@@ -652,12 +671,13 @@ img { display: block; max-width: 100%; }
 }
 .nl-fin-card-num {
   font-family: var(--nl-font-serif); font-weight: 700;
+  /* 32px kept raw: display numeral, sized to its block, not on the text scale. */
   font-size: 32px; color: var(--nl-charcoal);
   margin-bottom: 10px; letter-spacing: -0.02em;
 }
 .nl-fin-card-title {
   font-family: var(--nl-font-serif); font-weight: 400;
-  font-size: 18px; line-height: 1.25; color: var(--nl-charcoal);
+  font-size: var(--nl-type-body); line-height: 1.25; color: var(--nl-charcoal);
   margin-bottom: 10px; letter-spacing: -0.01em;
 }
 .nl-fin-card-body {
@@ -669,11 +689,11 @@ img { display: block; max-width: 100%; }
 .nl-partner-hero-inner { max-width: 960px; margin: 0 auto; }
 .nl-partner-h1 {
   font-family: var(--nl-font-serif); font-weight: 400;
-  font-size: 68px; line-height: 1.05; letter-spacing: -0.03em;
+  font-size: var(--nl-type-h1); line-height: 1.05; letter-spacing: -0.03em;
   color: var(--nl-charcoal); margin-bottom: 28px;
   max-width: 880px; text-wrap: balance;
 }
-.nl-partner-h1 em { font-style: italic; color: var(--nl-sage); }
+.nl-partner-h1 em { font-style: italic; color: var(--nl-terracotta); }
 .nl-partner-pillars {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
   margin-top: 40px;
@@ -687,12 +707,13 @@ img { display: block; max-width: 100%; }
 .nl-partner-pillar:last-child { border-right: none; }
 .nl-partner-pillar-h {
   font-family: var(--nl-font-serif); font-weight: 400;
+  /* 22px kept raw: small heading; the only close step is --nl-type-lede, which is not a heading step. */
   font-size: 22px; line-height: 1.25; color: var(--nl-charcoal);
   margin-bottom: 12px; letter-spacing: -0.01em;
 }
 .nl-partner-pillar-h em { font-style: italic; color: var(--nl-sage); }
 .nl-partner-pillar-body {
-  font-size: 15px; color: var(--nl-mid); line-height: 1.65;
+  font-size: var(--nl-type-small); color: var(--nl-mid); line-height: 1.65;
 }
 
 /* ===== ABOUT PAGE ===== */
@@ -703,12 +724,12 @@ img { display: block; max-width: 100%; }
 .nl-about-hero-inner { max-width: 760px; margin: 0 auto; }
 .nl-about-h1 {
   font-family: var(--nl-font-serif); font-weight: 400;
-  font-size: 64px; line-height: 1.05; letter-spacing: -0.03em;
+  font-size: var(--nl-type-h1); line-height: 1.05; letter-spacing: -0.03em;
   color: var(--nl-charcoal); margin-bottom: 28px;
 }
-.nl-about-h1 em { font-style: italic; color: var(--nl-sage); }
+.nl-about-h1 em { font-style: italic; color: var(--nl-terracotta); }
 .nl-about-lede {
-  font-size: 24px; color: var(--nl-mid); line-height: 1.5;
+  font-size: var(--nl-type-lede); color: var(--nl-mid); line-height: 1.5;
   font-family: var(--nl-font-serif); font-weight: 400;
 }
 
@@ -721,12 +742,13 @@ img { display: block; max-width: 100%; }
 }
 .nl-about-h3 {
   font-family: var(--nl-font-serif); font-weight: 400;
+  /* 34px kept raw: sits in the --nl-type-h3 (26) to --nl-type-h2 (48) gap; no step fits. */
   font-size: 34px; line-height: 1.18; letter-spacing: -0.02em;
   color: var(--nl-charcoal); margin-bottom: 22px;
 }
 .nl-about-h3 em { font-style: italic; color: var(--nl-sage); }
 .nl-about-body {
-  font-size: 18px; color: var(--nl-charcoal); line-height: 1.7;
+  font-size: var(--nl-type-body); color: var(--nl-charcoal); line-height: 1.7;
   margin-bottom: 18px;
 }
 .nl-about-body em { font-style: italic; color: var(--nl-sage); }
@@ -744,7 +766,7 @@ img { display: block; max-width: 100%; }
 }
 .nl-founder-name {
   font-family: var(--nl-font-serif); font-weight: 400;
-  font-size: 26px; color: var(--nl-charcoal);
+  font-size: var(--nl-type-h3); color: var(--nl-charcoal);
   margin-bottom: 6px; letter-spacing: -0.01em;
 }
 .nl-founder-role {
@@ -754,7 +776,7 @@ img { display: block; max-width: 100%; }
 .nl-founder-prior {
   display: flex; gap: 18px; margin-top: 16px;
   padding-top: 16px; border-top: 1px solid var(--nl-border);
-  font-size: 13px; color: var(--nl-mid);
+  font-size: var(--nl-type-fine); color: var(--nl-mid);
 }
 .nl-founder-prior strong { color: var(--nl-charcoal); font-weight: 500; }
 
@@ -769,14 +791,16 @@ img { display: block; max-width: 100%; }
 .nl-approach-item:last-child { border-bottom: none; }
 .nl-approach-num {
   font-family: var(--nl-font-serif); font-weight: 700;
+  /* 18px kept raw: display numeral, sized to its block, not on the text scale. */
   font-size: 18px; color: var(--nl-sage);
 }
 .nl-approach-h {
   font-family: var(--nl-font-serif); font-weight: 400;
+  /* 22px kept raw: small heading; the only close step is --nl-type-lede, which is not a heading step. */
   font-size: 22px; color: var(--nl-charcoal);
   margin-bottom: 8px; letter-spacing: -0.01em;
 }
-.nl-approach-body { font-size: 16px; color: var(--nl-mid); line-height: 1.65; }
+.nl-approach-body { font-size: var(--nl-type-body); color: var(--nl-mid); line-height: 1.65; }
 
 /* ===== PRIVACY PAGE ===== */
 .nl-privacy {
@@ -786,11 +810,11 @@ img { display: block; max-width: 100%; }
 .nl-privacy-inner { max-width: 720px; margin: 0 auto; }
 .nl-privacy-h1 {
   font-family: var(--nl-font-serif); font-weight: 400;
-  font-size: 56px; line-height: 1.05; letter-spacing: -0.03em;
+  font-size: var(--nl-type-h1); line-height: 1.05; letter-spacing: -0.03em;
   color: var(--nl-charcoal); margin-bottom: 14px;
 }
 .nl-privacy-meta {
-  font-size: 13px; color: var(--nl-mid);
+  font-size: var(--nl-type-fine); color: var(--nl-mid);
   margin-bottom: 40px; letter-spacing: 0.02em;
 }
 .nl-privacy-toc {
@@ -801,7 +825,7 @@ img { display: block; max-width: 100%; }
   margin-bottom: 48px;
 }
 .nl-privacy-toc-h {
-  font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+  font-size: var(--nl-type-eyebrow); font-weight: 500; letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--nl-sage);
   margin-bottom: 12px;
 }
@@ -810,30 +834,31 @@ img { display: block; max-width: 100%; }
   display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px;
 }
 .nl-privacy-toc a {
-  font-size: 14px; color: var(--nl-charcoal);
+  font-size: var(--nl-type-small); color: var(--nl-charcoal);
   display: grid; grid-template-columns: 24px 1fr; gap: 10px;
   align-items: baseline;
 }
 .nl-privacy-toc a:hover { color: var(--nl-sage); }
 .nl-privacy-toc-num {
   font-family: var(--nl-font-serif); color: var(--nl-mid);
-  font-size: 12px; min-width: 20px;
+  font-size: var(--nl-type-fine); min-width: 20px;
 }
 
 .nl-privacy-section { margin-bottom: 40px; }
 .nl-privacy-h2 {
   font-family: var(--nl-font-serif); font-weight: 400;
-  font-size: 24px; line-height: 1.25; letter-spacing: -0.02em;
+  font-size: var(--nl-type-h3); line-height: 1.25; letter-spacing: -0.02em;
   color: var(--nl-charcoal); margin-bottom: 14px;
   padding-top: 12px;
   scroll-margin-top: 80px;
 }
 .nl-privacy-h2 .nl-privacy-h2-num {
   font-family: var(--nl-font-serif); color: var(--nl-sage);
+  /* 18px kept raw: numeral sized against the 24px h2 it sits in. */
   font-size: 18px; margin-right: 12px; font-weight: 700;
 }
 .nl-privacy-body {
-  font-size: 15px; color: var(--nl-charcoal); line-height: 1.7;
+  font-size: var(--nl-type-small); color: var(--nl-charcoal); line-height: 1.7;
   margin-bottom: 14px;
 }
 .nl-privacy-body em { font-style: italic; }
@@ -842,7 +867,7 @@ img { display: block; max-width: 100%; }
 }
 .nl-privacy-list li {
   position: relative; padding: 6px 0 6px 22px;
-  font-size: 15px; color: var(--nl-charcoal); line-height: 1.6;
+  font-size: var(--nl-type-small); color: var(--nl-charcoal); line-height: 1.6;
 }
 .nl-privacy-list li::before {
   content: "-"; position: absolute; left: 0;
@@ -865,7 +890,7 @@ img { display: block; max-width: 100%; }
   background: var(--nl-cream);
   border-top: 1px solid var(--nl-border);
   padding: 14px 24px;
-  font-size: 13px; color: var(--nl-mid);
+  font-size: var(--nl-type-fine); color: var(--nl-mid);
   font-style: italic;
 }
 
@@ -884,12 +909,13 @@ img { display: block; max-width: 100%; }
 }
 .nl-split-copy h3 {
   font-family: var(--nl-font-serif); font-weight: 400;
+  /* 36px kept raw: sits in the --nl-type-h3 (26) to --nl-type-h2 (48) gap; no step fits. */
   font-size: 36px; line-height: 1.1; letter-spacing: -0.02em;
   color: var(--nl-charcoal); margin-bottom: 18px;
 }
 .nl-split-copy h3 em { font-style: italic; color: var(--nl-sage); }
 .nl-split-copy p {
-  font-size: 17px; color: var(--nl-mid); line-height: 1.65;
+  font-size: var(--nl-type-body); color: var(--nl-mid); line-height: 1.65;
   margin-bottom: 14px;
 }
 
@@ -899,6 +925,7 @@ img { display: block; max-width: 100%; }
   max-width: 760px;
   padding: 0 24px;
   font-family: var(--nl-font-serif); font-style: italic;
+  /* 32px kept raw: sits in the --nl-type-h3 (26) to --nl-type-h2 (48) gap; no step fits. */
   font-size: 32px; line-height: 1.3;
   color: var(--nl-charcoal); letter-spacing: -0.015em;
   text-align: center;
@@ -908,13 +935,14 @@ img { display: block; max-width: 100%; }
 .nl-pull-attr {
   display: block; margin-top: 18px;
   font-family: var(--nl-font-sans); font-style: normal;
-  font-size: 12px; color: var(--nl-mid);
+  font-size: var(--nl-type-fine); color: var(--nl-mid);
   letter-spacing: 0.1em; text-transform: uppercase;
 }
 
 /* ===== CLOSER (about) ===== */
+/* 32px kept raw: sits in the --nl-type-h3 (26) to --nl-type-h2 (48) gap; no step fits. */
 .nl-closer-h { font-size: 32px; margin-bottom: 18px; }
-.nl-closer-body { font-size: 17px; }
+.nl-closer-body { font-size: var(--nl-type-body); }
 .nl-closer-actions {
   margin-top: 28px;
   display: flex; gap: 12px; flex-wrap: wrap;
@@ -930,18 +958,19 @@ img { display: block; max-width: 100%; }
 .nl-404-inner { max-width: 640px; margin: 0 auto; text-align: center; }
 .nl-404-num {
   font-family: var(--nl-font-serif); font-weight: 700;
+  /* 88px kept raw: display numeral, sized to its block, not on the text scale. */
   font-size: 88px; color: var(--nl-terracotta);
   line-height: 1; letter-spacing: -0.03em;
   margin-bottom: 18px;
 }
 .nl-404-h {
   font-family: var(--nl-font-serif); font-weight: 400;
-  font-size: 40px; line-height: 1.1; letter-spacing: -0.025em;
+  font-size: var(--nl-type-h2); line-height: 1.1; letter-spacing: -0.025em;
   color: var(--nl-charcoal); margin-bottom: 18px;
 }
 .nl-404-h em { font-style: italic; color: var(--nl-sage); }
 .nl-404-body {
-  font-size: 17px; color: var(--nl-mid); line-height: 1.6;
+  font-size: var(--nl-type-body); color: var(--nl-mid); line-height: 1.6;
   margin-bottom: 28px; max-width: 520px; margin-left: auto; margin-right: auto;
 }
 .nl-404-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
@@ -958,12 +987,13 @@ img { display: block; max-width: 100%; }
 }
 .nl-form-h1 {
   font-family: var(--nl-font-serif); font-weight: 400;
+  /* 38px kept raw: form-page headline sits between --nl-type-h2 (48) and --nl-type-h1 (60). */
   font-size: 38px; line-height: 1.1; letter-spacing: -0.02em;
   color: var(--nl-charcoal); margin-bottom: 16px;
 }
 .nl-form-h1 em { font-style: italic; color: var(--nl-sage); }
 .nl-form-lede {
-  font-size: 17px; color: var(--nl-mid); line-height: 1.6;
+  font-size: var(--nl-type-body); color: var(--nl-mid); line-height: 1.6;
   margin-bottom: 32px;
 }
 .nl-form-card {
@@ -980,13 +1010,13 @@ img { display: block; max-width: 100%; }
 }
 .nl-label {
   display: block;
-  font-family: var(--nl-font-sans); font-size: 13px; font-weight: 500;
+  font-family: var(--nl-font-sans); font-size: var(--nl-type-fine); font-weight: 500;
   color: var(--nl-charcoal); margin-bottom: 6px;
 }
 .nl-label-opt { color: var(--nl-mid); font-weight: 400; }
 .nl-input, .nl-select, .nl-textarea {
   width: 100%;
-  font-family: var(--nl-font-sans); font-size: 15px;
+  font-family: var(--nl-font-sans); font-size: var(--nl-type-small);
   color: var(--nl-charcoal);
   background: white;
   border: 1px solid var(--nl-border);
@@ -1009,7 +1039,7 @@ img { display: block; max-width: 100%; }
   border-color: var(--nl-terracotta);
 }
 .nl-field-help {
-  font-size: 12px; color: var(--nl-mid); margin-top: 5px; line-height: 1.5;
+  font-size: var(--nl-type-fine); color: var(--nl-mid); margin-top: 5px; line-height: 1.5;
 }
 
 /* Honeypot: hidden from people, visible to bots that fill every field. */
@@ -1019,7 +1049,7 @@ img { display: block; max-width: 100%; }
 }
 
 .nl-form-fine {
-  font-size: 12px; color: var(--nl-mid); line-height: 1.5;
+  font-size: var(--nl-type-fine); color: var(--nl-mid); line-height: 1.5;
   margin-top: 14px;
 }
 .nl-form-fine a { color: var(--nl-mid); }
@@ -1034,6 +1064,7 @@ img { display: block; max-width: 100%; }
 /* Confirmation page */
 .nl-thanks { text-align: center; }
 .nl-thanks-mark {
+  /* 44px kept raw: glyph sized to its badge, not on the text scale. */
   font-family: var(--nl-font-serif); font-size: 44px;
   color: var(--nl-sage); margin-bottom: 12px;
 }
@@ -1041,7 +1072,7 @@ img { display: block; max-width: 100%; }
 /* Sourced footnote under a hero stat block. */
 .nl-hero-note {
   margin-top: 20px;
-  font-size: 13px; line-height: 1.6; color: var(--nl-mid);
+  font-size: var(--nl-type-fine); line-height: 1.6; color: var(--nl-mid);
   max-width: 560px;
 }
 .nl-hero-note a { color: var(--nl-sage); text-decoration: underline; text-underline-offset: 3px; }
@@ -1060,11 +1091,11 @@ img { display: block; max-width: 100%; }
 }
 .nl-faq-q {
   font-family: var(--nl-font-serif); font-weight: 400;
-  font-size: 21px; line-height: 1.3; letter-spacing: -0.01em;
+  font-size: var(--nl-type-lede); line-height: 1.3; letter-spacing: -0.01em;
   color: var(--nl-charcoal); margin-bottom: 10px;
 }
 .nl-faq-a {
-  font-size: 16px; line-height: 1.7; color: var(--nl-mid);
+  font-size: var(--nl-type-body); line-height: 1.7; color: var(--nl-mid);
 }
 .nl-faq-a a { color: var(--nl-sage); text-decoration: underline; text-underline-offset: 3px; }
 
@@ -1076,12 +1107,12 @@ img { display: block; max-width: 100%; }
 
 .nl-blog-h1 {
   font-family: var(--nl-font-serif); font-weight: 400;
-  font-size: 52px; line-height: 1.05; letter-spacing: -0.03em;
+  font-size: var(--nl-type-h1); line-height: 1.05; letter-spacing: -0.03em;
   color: var(--nl-charcoal); margin-bottom: 14px;
 }
 .nl-blog-h1 em { font-style: italic; color: var(--nl-sage); }
 .nl-blog-lede {
-  font-size: 18px; color: var(--nl-mid); line-height: 1.65;
+  font-size: var(--nl-type-lede); color: var(--nl-mid); line-height: 1.65;
   margin-bottom: 48px;
 }
 
@@ -1091,31 +1122,33 @@ img { display: block; max-width: 100%; }
 .nl-blog-item { background: var(--nl-linen); padding: 26px 0; display: block; }
 .nl-blog-item:hover .nl-blog-item-h { color: var(--nl-sage); }
 .nl-blog-item-meta {
-  font-size: 12px; color: var(--nl-mid); letter-spacing: 0.04em;
+  font-size: var(--nl-type-fine); color: var(--nl-mid); letter-spacing: 0.04em;
   text-transform: uppercase; margin-bottom: 8px;
 }
 .nl-blog-item-h {
   font-family: var(--nl-font-serif); font-weight: 400;
-  font-size: 26px; line-height: 1.2; letter-spacing: -0.02em;
+  font-size: var(--nl-type-h3); line-height: 1.2; letter-spacing: -0.02em;
   color: var(--nl-charcoal); margin-bottom: 8px;
   transition: color 0.15s ease;
 }
-.nl-blog-item-body { font-size: 16px; color: var(--nl-mid); line-height: 1.6; }
+.nl-blog-item-body { font-size: var(--nl-type-body); color: var(--nl-mid); line-height: 1.6; }
 
 /* Article */
 .nl-post-meta {
-  font-size: 13px; color: var(--nl-mid);
+  font-size: var(--nl-type-fine); color: var(--nl-mid);
   margin-bottom: 40px; letter-spacing: 0.02em;
 }
-.nl-post-body { font-size: 18px; line-height: 1.75; color: var(--nl-charcoal); }
+.nl-post-body { font-size: var(--nl-type-body); line-height: 1.75; color: var(--nl-charcoal); }
 .nl-post-body > * + * { margin-top: 24px; }
 .nl-post-body h2 {
   font-family: var(--nl-font-serif); font-weight: 400;
+  /* 30px kept raw: sits in the --nl-type-h3 (26) to --nl-type-h2 (48) gap; no step fits. */
   font-size: 30px; line-height: 1.2; letter-spacing: -0.02em;
   margin-top: 48px;
 }
 .nl-post-body h3 {
   font-family: var(--nl-font-sans); font-weight: 500;
+  /* 19px kept raw: small heading; the only close step is --nl-type-lede, which is not a heading step. */
   font-size: 19px; margin-top: 36px;
 }
 .nl-post-body a { color: var(--nl-sage); text-decoration: underline; text-underline-offset: 3px; }
@@ -1125,11 +1158,11 @@ img { display: block; max-width: 100%; }
 .nl-post-body blockquote {
   border-left: 2px solid var(--nl-sage);
   padding-left: 20px; font-family: var(--nl-font-serif);
-  font-size: 21px; line-height: 1.5; color: var(--nl-charcoal);
+  font-size: var(--nl-type-lede); line-height: 1.5; color: var(--nl-charcoal);
 }
 .nl-post-body figcaption,
 .nl-post-note { font-size: var(--nl-type-small); color: var(--nl-mid); }
-.nl-post-body table { width: 100%; border-collapse: collapse; font-size: 16px; }
+.nl-post-body table { width: 100%; border-collapse: collapse; font-size: var(--nl-type-body); }
 .nl-post-body th, .nl-post-body td {
   text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--nl-border);
 }
@@ -1142,7 +1175,7 @@ img { display: block; max-width: 100%; }
   font-size: var(--nl-type-small); color: var(--nl-mid); line-height: 1.6;
 }
 .nl-post-sources h2 {
-  font-family: var(--nl-font-sans); font-size: 12px; font-weight: 500;
+  font-family: var(--nl-font-sans); font-size: var(--nl-type-eyebrow); font-weight: 500;
   letter-spacing: 0.1em; text-transform: uppercase; color: var(--nl-sage);
   margin-bottom: 12px;
 }
@@ -1155,16 +1188,15 @@ img { display: block; max-width: 100%; }
   border-radius: var(--nl-radius-l);
 }
 .nl-post-cta-h {
+  /* 20px kept raw: small heading; the only close step is --nl-type-lede, which is not a heading step. */
   font-family: var(--nl-font-serif); font-size: 20px;
   color: var(--nl-charcoal); margin-bottom: 8px; letter-spacing: -0.01em;
 }
-.nl-post-cta p { font-size: 15px; color: var(--nl-mid); margin-bottom: 18px; }
+.nl-post-cta p { font-size: var(--nl-type-small); color: var(--nl-mid); margin-bottom: 18px; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 880px) {
   .nl-hero-inner, .nl-section-cta-inner { grid-template-columns: 1fr; gap: 40px; }
-  .nl-hero-h1 { font-size: 40px; }
-  .nl-h2 { font-size: 28px; }
   .nl-stats, .nl-steps, .nl-ins-grid { grid-template-columns: 1fr 1fr; }
   .nl-footer-inner { grid-template-columns: 1fr; gap: 32px; }
   .nl-nav-links { gap: 14px; }
@@ -1175,14 +1207,12 @@ img { display: block; max-width: 100%; }
   .nl-nav-links { gap: 10px; }
   .nl-btn-sm { padding: 9px 13px; }
 
-  .nl-home-h1 { font-size: 44px; }
   .nl-home-photo { height: 240px; }
   .nl-vert-card-img { height: 180px; }
-  .nl-partner-h1, .nl-about-h1 { font-size: 40px; }
-  .nl-section .nl-h2 { font-size: 32px; }
+  /* 56px kept raw: display numeral, sized to its block, not on the text scale. */
   .nl-prob-num { font-size: 56px; }
-  .nl-email-cta-h { font-size: 34px; }
   .nl-split { grid-template-columns: 1fr; gap: 32px; }
+  /* 24px kept raw: sits in the --nl-type-h3 (26) to --nl-type-h2 (48) gap; no step fits. */
   .nl-pull { font-size: 24px; }
   .nl-vert-grid { grid-template-columns: 1fr; }
   .nl-prob-grid { grid-template-columns: 1fr; }
@@ -1198,16 +1228,16 @@ img { display: block; max-width: 100%; }
     padding: 0 10px;
   }
   .nl-founder { grid-template-columns: 1fr; }
+  /* 36px kept raw: see base rule. */
   .nl-founder-portrait { width: 120px; height: 120px; font-size: 36px; }
   .nl-privacy-toc ol { grid-template-columns: 1fr; }
+  /* 64px kept raw: display numeral, sized to its block, not on the text scale. */
   .nl-404-num { font-size: 64px; }
-  .nl-404-h { font-size: 28px; }
   .nl-form-page { padding: 40px 24px 56px; }
+  /* 30px kept raw: see base rule. */
   .nl-form-h1 { font-size: 30px; }
   .nl-blog { padding: 48px 24px 56px; }
-  .nl-blog-h1 { font-size: 34px; }
-  .nl-blog-item-h { font-size: 22px; }
-  .nl-post-body { font-size: 17px; }
+  /* 26px kept raw: sits in the --nl-type-h3 (26) to --nl-type-h2 (48) gap; no step fits. */
   .nl-post-body h2 { font-size: 26px; }
   .nl-field-row { grid-template-columns: 1fr; gap: 0; }
 }
@@ -1266,7 +1296,7 @@ img { display: block; max-width: 100%; }
 }
 .nl-founder-moment-copy .nl-eyebrow { margin-bottom: 10px; }
 .nl-founder-moment .nl-founder-name {
-  font-family: var(--nl-font-serif); font-size: 24px;
+  font-family: var(--nl-font-serif);
   color: var(--nl-charcoal); letter-spacing: -0.01em;
 }
 .nl-founder-moment .nl-founder-role {
@@ -1293,7 +1323,7 @@ img { display: block; max-width: 100%; }
 .nl-rail-claims { display: flex; flex-direction: column; gap: 18px; }
 .nl-rail-claim { padding-top: 14px; border-top: 1px solid var(--nl-border); }
 .nl-rail-claim-h {
-  font-family: var(--nl-font-serif); font-size: 16px;
+  font-family: var(--nl-font-serif); font-size: var(--nl-type-body);
   color: var(--nl-charcoal); margin-bottom: 5px;
 }
 .nl-rail-claim-b { font-size: var(--nl-type-fine); color: var(--nl-mid); line-height: 1.6; }
@@ -1309,7 +1339,7 @@ img { display: block; max-width: 100%; }
   filter: saturate(0.85) contrast(0.96) brightness(1.02) sepia(0.04);
 }
 .nl-rail-quote {
-  font-family: var(--nl-font-serif); font-size: 15px; line-height: 1.5;
+  font-family: var(--nl-font-serif); font-size: var(--nl-type-small); line-height: 1.5;
   color: var(--nl-charcoal);
 }
 .nl-rail-attr { font-size: var(--nl-type-fine); color: var(--nl-mid); margin-top: 6px; }
