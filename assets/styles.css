@@ -1004,6 +1004,9 @@ img { display: block; max-width: 100%; }
 .nl-form-lede {
   font-size: var(--nl-type-body); color: var(--nl-mid); line-height: 1.6;
   margin-bottom: 32px;
+  /* Caps the reading measure so the lede does not run the full width of the wide
+     variant below. No-op on the two form pages that have no rail. */
+  max-width: 620px;
 }
 .nl-form-card {
   background: var(--nl-cream);
@@ -1249,6 +1252,17 @@ img { display: block; max-width: 100%; }
   /* 26px kept raw: sits in the --nl-type-h3 (26) to --nl-type-h2 (48) gap; no step fits. */
   .nl-post-body h2 { font-size: 26px; }
   .nl-field-row { grid-template-columns: 1fr; gap: 0; }
+}
+
+/* The 4.1 rail added a 300px column plus a 40px gap inside .nl-form-inner, which
+   was sized at 620px for a single column and never widened. That left the form
+   itself 222px wide on desktop, narrower than the same form on a 375px phone, and
+   paired fields at 103px. 960px is the site's standard container (nav, footer,
+   sections), so the card's left edge now lines up with the wordmark above it.
+   Scoped to min-width 881px: below that the rail stacks above the form and 620px
+   is the correct measure for a single column. */
+@media (min-width: 881px) {
+  .nl-form-inner--wide { max-width: 960px; }
 }
 
 /* Section 6: the one intermediate step. Without it the site went from full
