@@ -16,7 +16,7 @@ By the end you will know what to handle first, what can wait, and which decision
 
 ## Start with the bathroom, because that is where the risk is
 
-The first year is not about big renovations. It is about removing the most likely cause of the event everyone is trying to prevent. Falls are the leading cause of injury for older adults, and the bathroom is one of the highest-risk rooms in the house (<a href="https://www.cdc.gov/falls/data-research/index.html">U.S. Centers for Disease Control and Prevention</a>). Grab bars are the cheapest, fastest intervention that meaningfully lowers that risk, which is why they come first.
+The first year is not about big renovations. It is about removing the most likely cause of the event everyone is trying to prevent. Falls are the leading cause of injury for adults ages 65 and older, and about one in four report falling every year (<a href="https://www.cdc.gov/falls/data-research/index.html">U.S. Centers for Disease Control and Prevention</a>). Grab bars in the bathroom are the cheapest, fastest intervention that meaningfully lowers that risk, which is why they come first.
 
 The question that trips families up is who pays. That answer depends entirely on what coverage your parent has, and it is not what most people assume: <a href="does-medicare-advantage-cover-grab-bars-2026.html">Original Medicare will not pay for grab bars, though some Medicare Advantage plans may</a>, and <a href="how-va-hisa-grant-covers-grab-bars-2026.html">a veteran parent may qualify for the VA's HISA grant</a>. Sort the coverage question before you pay out of pocket.
 
