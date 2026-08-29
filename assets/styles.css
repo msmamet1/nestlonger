@@ -1150,6 +1150,12 @@ img { display: block; max-width: 100%; }
   font-size: var(--nl-type-fine); color: var(--nl-mid);
   margin-bottom: 40px; letter-spacing: 0.02em;
 }
+/* Lead image, when a post declares one. Intrinsic 1200x630 keeps the aspect
+   ratio and reserves space; max-width holds it to the post's measure. */
+.nl-post-hero {
+  display: block; width: 100%; height: auto;
+  margin: 0 0 40px; border-radius: 10px; border: 1px solid var(--nl-border);
+}
 .nl-post-body { font-size: var(--nl-type-body); line-height: 1.75; color: var(--nl-charcoal); }
 .nl-post-body > * + * { margin-top: 24px; }
 .nl-post-body h2 {
@@ -1185,6 +1191,7 @@ img { display: block; max-width: 100%; }
   margin-top: 56px; padding-top: 24px;
   border-top: 1px solid var(--nl-border);
   font-size: var(--nl-type-small); color: var(--nl-mid); line-height: 1.6;
+  overflow-wrap: break-word;
 }
 .nl-post-sources h2 {
   font-family: var(--nl-font-sans); font-size: var(--nl-type-eyebrow); font-weight: 500;
@@ -1192,6 +1199,17 @@ img { display: block; max-width: 100%; }
   margin-bottom: 12px;
 }
 .nl-post-sources ol { padding-left: 20px; }
+
+/* Optional FAQ on a post: same nl-faq-* kit as the vertical pages, wrapped so
+   the heading and top rule match the Sources and Related blocks below it. */
+.nl-post-faq { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--nl-border); }
+.nl-post-faq > h2,
+.nl-post-related > h2 {
+  font-family: var(--nl-font-sans); font-size: var(--nl-type-eyebrow); font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--nl-sage);
+  margin-bottom: 20px;
+}
+.nl-post-related { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--nl-border); }
 
 .nl-post-cta {
   margin-top: 56px; padding: 28px;

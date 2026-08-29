@@ -1,7 +1,13 @@
-# Regenerates the two files that must match the repo but have to be run by hand:
-# sitemap.xml (tools/build-sitemap.py) and the ?v= CSS fingerprint stamped into
-# every page (tools/fingerprint-css.py). If either script changed a tracked file,
-# this commits the result back to main and pushes.
+# Regenerates the files that must match the repo but have to be run by hand:
+# the rendered blog posts, index list and llms.txt from blog/_posts/*.md
+# (tools/build-blog.py), sitemap.xml (tools/build-sitemap.py), and the ?v= CSS
+# fingerprint stamped into every page (tools/fingerprint-css.py). If any script
+# changed a tracked file, this commits the result back to main and pushes.
+#
+# The publishing agent commits blog/_posts/<slug>.md and nothing else; this
+# workflow renders it and commits the post HTML, the index, the sitemap and
+# llms.txt back within its existing window. Blog post HTML is not edge-cached, so
+# no Cloudflare purge is needed for a post.
 #
 # Loop prevention is structural, not a convention: a push made with the workflow's
 # own GITHUB_TOKEN does not trigger further workflow runs. Do not swap in a personal
@@ -35,38 +41,48 @@ jobs:
         with:
           python-version: '3.x'
 
-      # Neither script has a dependency beyond the standard library, so there is
-      # no requirements file to install. Order is not load-bearing today — sitemap
-      # generation does not touch HTML — but fixing it here means it cannot become
-      # load-bearing by accident later. No `|| true`: fingerprint-css.py exits
-      # non-zero when a page is still on a stale hash after its own pass, and that
-      # is a real defect that must fail the job.
+      # build-blog.py needs the `markdown` package; the other two are stdlib only.
+      - name: Install dependencies
+        run: pip install markdown
+
+      # Order is load-bearing: build-blog.py renders blog/_posts/*.md into
+      # blog/<slug>.html and rewrites the index list and llms.txt, so it must run
+      # before build-sitemap.py (which discovers the rendered posts) and before
+      # fingerprint-css.py (which stamps the freshly written post HTML). A
+      # build-blog.py failure fails the job rather than committing a partial
+      # result. No `|| true`: fingerprint-css.py also exits non-zero when a page is
+      # still on a stale hash after its own pass, and that is a real defect that
+      # must fail the job.
       - name: Regenerate
         run: |
+          python3 tools/build-blog.py
           python3 tools/build-sitemap.py
           python3 tools/fingerprint-css.py
 
-      # Scoped to the paths the two scripts own, so an unrelated stray file in the
-      # working tree can neither trigger a commit nor ride along in one.
+      # Scoped to the paths the scripts own, so an unrelated stray file in the
+      # working tree can neither trigger a commit nor ride along in one. llms.txt
+      # is included because build-blog.py rewrites its blog section.
       - name: Detect drift
         id: drift
         run: |
-          if [ -z "$(git status --porcelain -- sitemap.xml '*.html')" ]; then
-            echo "No drift. sitemap.xml and the CSS fingerprint already match the repo."
+          if [ -z "$(git status --porcelain -- sitemap.xml llms.txt '*.html')" ]; then
+            echo "No drift. Blog output, sitemap.xml, llms.txt and the CSS fingerprint already match the repo."
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             echo "Drift detected in:"
-            git status --porcelain -- sitemap.xml '*.html'
+            git status --porcelain -- sitemap.xml llms.txt '*.html'
             {
               echo "changed=true"
               echo "paths<<PATHS_EOF"
-              git status --porcelain -- sitemap.xml '*.html' | awk '{print $NF}'
+              git status --porcelain -- sitemap.xml llms.txt '*.html' | awk '{print $NF}'
               echo "PATHS_EOF"
             } >> "$GITHUB_OUTPUT"
           fi
 
-      # Stage sitemap.xml and *.html explicitly rather than `git add -A`, so an
-      # unrelated stray file in the working tree can never ride along.
+      # Stage sitemap.xml, llms.txt and *.html explicitly rather than `git add -A`,
+      # so an unrelated stray file in the working tree can never ride along. A
+      # deleted post (its source .md removed) is staged too: `git add <pathspec>`
+      # records removals of tracked files that match.
       - name: Commit and push
         if: steps.drift.outputs.changed == 'true'
         env:
@@ -74,7 +90,7 @@ jobs:
         run: |
           git config user.name  'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- sitemap.xml '*.html'
+          git add -- sitemap.xml llms.txt '*.html'
           git commit -m 'chore: regenerate sitemap and CSS fingerprint' -m "$PATHS"
 
           # One rebase, one retry, then fail. Never force push.

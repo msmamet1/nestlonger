@@ -7,8 +7,10 @@ Run after adding, renaming, or removing any page:
 
 Pages are discovered, not listed by hand, so a new blog post cannot be
 forgotten. Anything carrying <meta name="robots" content="noindex"> is skipped
-automatically, which is why 404.html, thanks.html and blog/_template.html stay
-out without needing to be special-cased.
+automatically, which is why 404.html, thanks.html and any future-dated blog draft
+stay out without needing to be special-cased. Blog post source lives in
+blog/_posts/*.md (skipped via SKIP_DIRS) and is rendered to blog/<slug>.html by
+tools/build-blog.py before this script runs.
 """
 
 import re
@@ -18,8 +20,10 @@ from pathlib import Path
 SITE = "https://www.nestlonger.com"
 ROOT = Path(__file__).resolve().parent.parent
 
-# Directories never worth crawling.
-SKIP_DIRS = {".git", "assets", "tools", "worker", "node_modules", ".github"}
+# Directories never worth crawling. blog/_posts holds the markdown SOURCE for
+# posts (build-blog.py renders it to blog/<slug>.html); the leading underscore is
+# convention, this entry makes the exclusion explicit.
+SKIP_DIRS = {".git", "assets", "tools", "worker", "node_modules", ".github", "_posts"}
 
 # changefreq / priority by path. First match wins; the rest fall through
 # to the default.
@@ -40,6 +44,14 @@ NOINDEX = re.compile(
     r'<meta[^>]+name=["\']robots["\'][^>]*content=["\'][^"\']*noindex', re.I
 )
 
+# article:modified_time on a blog post is the one honest lastmod source on this
+# site. Only blog posts carry it, so only they get a <lastmod>; a fabricated
+# lastmod on the other pages would be worse than none.
+MODIFIED = re.compile(
+    r'<meta[^>]+property=["\']article:modified_time["\'][^>]*content=["\']([^"\']+)', re.I
+)
+BLOG_POST = re.compile(r"^blog/(?!index\.html$).+\.html$")
+
 
 def discover():
     pages = []
@@ -54,11 +66,19 @@ def discover():
     return pages
 
 
+def lastmod_for(rel):
+    if not BLOG_POST.match(rel):
+        return None
+    m = MODIFIED.search((ROOT / rel).read_text(encoding="utf-8", errors="ignore"))
+    return m.group(1) if m else None
+
+
 def entry(rel):
+    lastmod = lastmod_for(rel)
     for pattern, freq, prio, override in RULES:
         if re.match(pattern, rel):
-            return (override or f"/{rel}"), freq, prio
-    return f"/{rel}", *DEFAULT
+            return (override or f"/{rel}"), freq, prio, lastmod
+    return f"/{rel}", *DEFAULT, lastmod
 
 
 def main():
@@ -75,21 +95,22 @@ def main():
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     ]
-    for loc, freq, prio in entries:
-        lines += [
-            "  <url>",
-            f"    <loc>{SITE}{loc}</loc>",
-            f"    <changefreq>{freq}</changefreq>",
-            f"    <priority>{prio}</priority>",
-            "  </url>",
-        ]
+    for loc, freq, prio, lastmod in entries:
+        lines.append("  <url>")
+        lines.append(f"    <loc>{SITE}{loc}</loc>")
+        if lastmod:
+            lines.append(f"    <lastmod>{lastmod}</lastmod>")
+        lines.append(f"    <changefreq>{freq}</changefreq>")
+        lines.append(f"    <priority>{prio}</priority>")
+        lines.append("  </url>")
     lines += ["</urlset>", ""]
 
     out = ROOT / "sitemap.xml"
     out.write_text("\n".join(lines), encoding="utf-8")
     print(f"\n  wrote {out.relative_to(ROOT)} with {len(entries)} URLs:")
-    for loc, _, prio in entries:
-        print(f"    {prio}  {loc}")
+    for loc, _, prio, lastmod in entries:
+        stamp = f"  (lastmod {lastmod})" if lastmod else ""
+        print(f"    {prio}  {loc}{stamp}")
 
 
 if __name__ == "__main__":

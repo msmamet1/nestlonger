@@ -154,7 +154,7 @@ This rule exists because three consecutive specs each removed the same class of 
 4. Set canonical, OG, and Twitter meta to the `https://www.nestlonger.com/…` absolute URL
 5. Reference the shared schema `@id`s rather than redeclaring the Organization
 
-Blog posts start from `blog/_template.html`; the full checklist is in README, "Adding a blog post". The template carries a `noindex` tag that **must be deleted** in a real post — it is what keeps the template itself out of the sitemap and search results.
+Blog posts are generated from markdown, not hand-authored HTML. Commit one file, `blog/_posts/<slug>.md` (YAML front matter plus a markdown body), and nothing else; on push, CI runs `tools/build-blog.py` to render `blog/<slug>.html` from `tools/blog-post.tmpl.html`, rewrite the post list and Blog JSON-LD on `blog/index.html`, and update the blog section of `llms.txt`, then the sitemap and fingerprint scripts run and the bot commits the result. The full field table and the validation rules are in README, "Adding a blog post". A future-dated post renders with `noindex` and stays out of the index, `llms.txt`, and the sitemap until its date passes, so drafts can be committed ahead of time. Preview locally with `pip install markdown` then `python3 tools/build-blog.py`.
 
 ## SEO artifacts
 

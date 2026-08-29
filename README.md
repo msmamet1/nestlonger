@@ -102,22 +102,70 @@ raw.
 
 ## Adding a blog post
 
-Posts are hand-authored HTML in `blog/`. There is no build step and no CMS.
+A post is **one markdown file**: `blog/_posts/<slug>.md`, YAML front matter plus a
+markdown body. You commit that file and nothing else. On push to `main`, CI runs
+`tools/build-blog.py`, which renders `blog/<slug>.html` from
+`tools/blog-post.tmpl.html`, rewrites the post list and Blog JSON-LD on
+`blog/index.html`, and updates the blog section of `llms.txt`; then the sitemap and
+CSS fingerprint scripts run, and the bot commits the result back. Nothing about the
+HTML, the index, the sitemap, or `llms.txt` is touched by hand.
 
-1. `cp blog/_template.html blog/<your-slug>.html`
-2. Replace every `{{ ... }}` placeholder, and **delete the `noindex` meta tag** —
-   it exists to keep the template itself out of search results.
-3. Add a listing entry at the top of the list in `blog/index.html` (a commented-out
-   example block is there to copy).
-4. Regenerate the sitemap: `python3 tools/build-sitemap.py`
-5. Commit and push.
+To preview locally before pushing: `pip install markdown` once, then
+`python3 tools/build-blog.py` and open the generated `blog/<slug>.html`.
 
-The generator discovers pages from the filesystem rather than a hand-maintained
-list, and skips anything carrying a `noindex` meta tag — so a post cannot be left
-out of the sitemap by forgetting to add it, and drafts stay out by keeping the tag.
+### Front matter
 
-Two editorial rules carried over from `llms.txt`, which tells AI crawlers this site
-attributes its claims:
+The slug is the filename. Fields are required unless marked optional.
+
+| Field | Rule |
+| --- | --- |
+| `title` | Under 110 characters. Becomes `<title>`, `og:title`, the `headline`, and the breadcrumb name. |
+| `description` | 140–158 characters. Becomes the meta description, `og:description`, `twitter:description`, and the BlogPosting `description`. |
+| `date` | `YYYY-MM-DD`. The published date, visible and in the schema. |
+| `updated` | `YYYY-MM-DD`, optional; defaults to `date`. Drives `dateModified` and the sitemap `<lastmod>`. |
+| `category` | Must be one of the `CATEGORIES` at the top of `tools/build-blog.py` (`Grab bars`, `ADUs`, `Paying for it`, `Planning ahead`). An unknown value fails the build. |
+| `image` | Optional. A filename under `assets/images/`, 1200×630 webp. Defaults to the site-wide OG image when absent. |
+| `image_alt` | Required **only** when `image` is set. The image's alt text. |
+| `sources` | Optional list of `{name, url, retrieved}`. Rendered as the Sources block and carried into the BlogPosting `citation`. |
+| `faq` | Optional list of `{q, a}`. Rendered as a visible FAQ block and as `FAQPage` JSON-LD with identical text. Omit the key and neither appears. |
+
+Example:
+
+```markdown
+---
+title: What grab bar installation actually costs
+description: A plain-language walkthrough of what a bathroom grab bar job runs, what drives the price, and how to arrange it without guesswork or a sales pitch.
+date: 2026-09-15
+category: Grab bars
+sources:
+  - name: Cochrane systematic review, 2023
+    url: https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD013258.pub2/full
+    retrieved: 2026-09-15
+faq:
+  - q: How long does a typical installation take?
+    a: About two hours per bathroom for a standard job.
+---
+
+Lead with the outcome for the adult child doing the arranging.
+
+## A section heading
+
+Body copy, with a [link to a vertical page](../grab-bars.html) so crawl equity
+reaches it.
+```
+
+The build **fails** (committing nothing) on a missing required field, a description
+out of range, a title over 110 characters, an unknown category, a malformed date, a
+slug that is not `[a-z0-9-]+`, an `image` without `image_alt`, or an empty `faq`
+question or answer. It **warns** (but does not block) on a body sentence that pairs a
+number with no link, as a nudge toward the rule below.
+
+A post whose `date` is in the future is rendered with `noindex` and left out of the
+index list, `llms.txt`, and the sitemap, so a draft can be committed ahead of its
+date and goes live on the first CI run after it.
+
+Two editorial rules, enforced by the author, not the script — `llms.txt` tells AI
+crawlers this site attributes its claims:
 
 - **Every statistic gets an inline, named, linkable source.** No unsourced numbers.
 - **Link to at least one vertical page** (`grab-bars.html`, `adus.html`) from each
