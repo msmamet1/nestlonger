@@ -1,0 +1,47 @@
+# Verifies the LIVE site matches what was just committed to main, so a broken or
+# non-propagated deploy fails visibly instead of being noticed by hand later.
+#
+# Runs on a GitHub-hosted runner, which has full internet egress — unlike the
+# Claude Code cloud sandbox this repo is often edited from, whose "trusted
+# network access" policy blocks outbound web, so the agent that ships a change
+# cannot open the page it shipped. Moving the live check here makes it automatic
+# and independent of any session's network access.
+#
+# Chained off "Generated files" rather than triggered directly on push, so it
+# runs AFTER that workflow's bot commit (sitemap / fingerprint / rendered posts)
+# has landed on main — otherwise it would race the regeneration and check a
+# half-updated tip. tools/verify-live.py polls for the committed CSS fingerprint
+# first, so a slow GitHub Pages publish is waited out, not failed.
+name: Verify live deploy
+
+on:
+  workflow_run:
+    workflows: ["Generated files"]
+    types: [completed]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    # On a workflow_run trigger, only bother if the regeneration succeeded; a
+    # manual dispatch always runs.
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      # Check out the current tip of main (which includes any bot regen commit),
+      # not the workflow_run's head, so the expected state matches what is live.
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Verify live site
+        run: python3 tools/verify-live.py

@@ -174,6 +174,28 @@ crawlers this site attributes its claims:
 Voice, palette, and the "Never Say" list live in the brand guide in
 `pga/ventures/nestlonger`, not this repo.
 
+## Verifying a deploy
+
+A deploy is only done when it is true against the live site, not the repo. That
+check is automated: **`.github/workflows/verify-live.yml`** runs
+`tools/verify-live.py` on a GitHub runner after every push to `main` (chained off
+the "Generated files" workflow, so it sees the bot's regenerated commit too). It
+polls the live homepage until it serves the CSS fingerprint that was just
+committed — waiting out the GitHub Pages publish — then asserts the blog index,
+the "Blog" nav link, the stylesheet, `sitemap.xml`, `llms.txt`, and every
+published post are live and correctly (non-)indexed. A bad or non-propagated
+deploy turns the check red.
+
+Runners have full internet egress, so this works even when the change was shipped
+from an environment with no outbound web access (the Claude Code cloud sandbox's
+"trusted network access" policy blocks arbitrary sites). To run the same checks
+by hand from any machine with web access:
+
+```bash
+python3 tools/verify-live.py                    # checks https://www.nestlonger.com
+SITE=https://www.nestlonger.com python3 tools/verify-live.py
+```
+
 ## Analytics
 
 Google Analytics 4 (`G-D2CB1LRG5P`) is wired into every page including 404.
