@@ -17,11 +17,32 @@ GitHub Actions runners DO have full internet egress. So this script runs in CI
 visibly, if the live site does not reflect the committed HEAD. It is also
 runnable by hand from any machine with web access.
 
+Waiting out the publish
+-----------------------
+A GitHub Pages publish that has not finished yet looks exactly like a broken one
+on the first request: the page 404s, or serves its previous bytes. So every
+expect-200 check is retried until it passes or a single shared propagation
+budget runs out, rather than being failed on first look.
+
+The budget is shared across the whole run, not per check, so a genuinely broken
+deploy still fails in about one budget rather than one budget per failing check.
+The trade is deliberate: a real failure is reported up to VERIFY_POLL_ATTEMPTS *
+VERIFY_POLL_SLEEP later than it could be, because on a deploy verifier a false
+failure costs more than a slow true one.
+
+This used to gate on one thing only — the homepage serving the committed CSS
+fingerprint — and then assert everything else immediately. That is a sound proxy
+when a change touches the stylesheet and no proxy at all when it does not. Five
+consecutive blog posts each failed this workflow that way on 2026-08-29: the
+fingerprint was byte-identical across all of them because none touched
+assets/styles.css, so the gate was satisfied on attempt 1 by the PREVIOUS
+deploy, waited zero seconds, and checked a post GitHub Pages had not published
+yet. Gate on what actually changed, or on everything; not on a stand-in.
+
 What it checks
 --------------
 - The homepage references the CSS fingerprint that is committed right now, which
-  proves the HTML the pipeline produced is actually being served. It polls for
-  this first, so a slow GitHub Pages publish is waited out rather than failed.
+  proves the HTML the pipeline produced is actually being served.
 - The homepage and every content page carry the "Blog" nav link.
 - /blog/ returns 200, is not noindexed, and shows the Blog nav.
 - The live stylesheet at the committed ?v= hash returns 200 and contains the
@@ -48,8 +69,10 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE = os.environ.get("SITE", "https://www.nestlonger.com").rstrip("/")
 
 # How long to wait for a GitHub Pages publish to propagate before giving up.
+# Shared across every check in the run, not spent per check.
 POLL_ATTEMPTS = int(os.environ.get("VERIFY_POLL_ATTEMPTS", "24"))
 POLL_SLEEP = int(os.environ.get("VERIFY_POLL_SLEEP", "15"))  # seconds
+POLL_BUDGET = POLL_ATTEMPTS * POLL_SLEEP
 
 NOINDEX = re.compile(
     r'<meta[^>]+name=["\']robots["\'][^>]*content=["\'][^"\']*noindex', re.I
@@ -105,20 +128,18 @@ def repo_published_posts():
     return published, drafts
 
 
-def wait_for_deploy(fp):
-    """Poll the homepage until it references the committed fingerprint."""
-    for i in range(1, POLL_ATTEMPTS + 1):
-        status, body, _ = fetch("/index.html")
-        if status == 200 and f"styles.css?v={fp}" in body:
-            print(f"  homepage is serving the committed fingerprint {fp} "
-                  f"(attempt {i})")
-            return True
-        live = CSSV.search(body)
-        print(f"  attempt {i}/{POLL_ATTEMPTS}: homepage status {status}, "
-              f"live fingerprint {live.group(1) if live else 'none'} "
-              f"(want {fp}) — waiting {POLL_SLEEP}s")
+def settle(probe, deadline):
+    """Call probe() until it reports ok, or the shared deadline passes.
+
+    probe returns (ok, detail). Returns (ok, detail, attempts) from the last
+    call, so a check that had to wait says so in its output."""
+    attempts = 0
+    while True:
+        attempts += 1
+        ok, detail = probe()
+        if ok or time.monotonic() >= deadline:
+            return ok, detail, attempts
         time.sleep(POLL_SLEEP)
-    return False
 
 
 def main():
@@ -127,65 +148,92 @@ def main():
     print(f"Verifying {SITE}")
     print(f"  committed fingerprint: {fp}")
     print(f"  published posts: {published or '(none)'}")
-    print(f"  future-dated drafts (expected noindex live): {drafts or '(none)'}\n")
+    print(f"  future-dated drafts (expected noindex live): {drafts or '(none)'}")
+    print(f"  propagation budget: {POLL_BUDGET}s, shared across all checks\n")
 
-    if not wait_for_deploy(fp):
-        sys.exit(
-            f"\nFAILED: {SITE}/ never served fingerprint {fp} after "
-            f"{POLL_ATTEMPTS * POLL_SLEEP}s. The deploy did not propagate."
-        )
-
+    deadline = time.monotonic() + POLL_BUDGET
     failures = []
 
-    def check(name, ok, detail=""):
-        print(f"  [{'PASS' if ok else 'FAIL'}] {name}" + (f" — {detail}" if detail else ""))
+    def check(name, probe):
+        ok, detail, attempts = settle(probe, deadline)
+        waited = f" (settled after {attempts} attempts)" if attempts > 1 else ""
+        print(f"  [{'PASS' if ok else 'FAIL'}] {name}{waited}"
+              + (f" — {detail}" if detail else ""))
         if not ok:
             failures.append(name)
 
+    # The homepage is serving the HTML this pipeline produced. Checked first
+    # because it is the cheapest signal that the publish landed at all, but no
+    # longer the only thing waited on.
+    def probe_home():
+        status, body, _ = fetch("/index.html")
+        live = CSSV.search(body)
+        return (status == 200 and f"styles.css?v={fp}" in body,
+                f"status={status} live={live.group(1) if live else 'none'} want={fp}")
+    check(f"index.html: serving committed fingerprint {fp}", probe_home)
+
     # Homepage + content pages carry the Blog nav link.
+    def probe_page(page):
+        def p():
+            status, body, _ = fetch(f"/{page}")
+            has_blog = re.search(r'<a href="/?blog/">Blog</a>', body) is not None
+            return status == 200 and has_blog, f"status={status} blogNav={has_blog}"
+        return p
     for page in CONTENT_PAGES:
-        status, body, _ = fetch(f"/{page}")
-        has_blog = re.search(r'<a href="/?blog/">Blog</a>', body) is not None
-        check(f"{page}: 200 and Blog nav present",
-              status == 200 and has_blog,
-              f"status={status} blogNav={has_blog}")
+        check(f"{page}: 200 and Blog nav present", probe_page(page))
 
     # Blog index: 200, not noindex, Blog nav.
-    status, body, _ = fetch("/blog/")
-    check("/blog/: 200, not noindex, Blog nav",
-          status == 200 and not NOINDEX.search(body) and ">Blog</a>" in body,
-          f"status={status} noindex={bool(NOINDEX.search(body))}")
+    def probe_blog_index():
+        status, body, _ = fetch("/blog/")
+        return (status == 200 and not NOINDEX.search(body) and ">Blog</a>" in body,
+                f"status={status} noindex={bool(NOINDEX.search(body))}")
+    check("/blog/: 200, not noindex, Blog nav", probe_blog_index)
 
     # The committed stylesheet is actually deployed.
-    status, css, _ = fetch(f"/assets/styles.css?v={fp}")
-    css_ok = status == 200 and ".nl-post-hero" in css and ".nl-post-faq" in css
-    # Belt and suspenders: the live bytes hash to the committed fingerprint.
-    local_fp = hashlib.sha256((ROOT / "assets" / "styles.css").read_bytes()).hexdigest()[:10]
-    live_fp = hashlib.sha256(css.encode("utf-8")).hexdigest()[:10] if status == 200 else "n/a"
-    check(f"styles.css?v={fp}: 200 and new rules present",
-          css_ok, f"status={status} liveHash={live_fp} repoHash={local_fp}")
+    local_fp = hashlib.sha256(
+        (ROOT / "assets" / "styles.css").read_bytes()).hexdigest()[:10]
+
+    def probe_css():
+        status, css, _ = fetch(f"/assets/styles.css?v={fp}")
+        live_fp = (hashlib.sha256(css.encode("utf-8")).hexdigest()[:10]
+                   if status == 200 else "n/a")
+        ok = status == 200 and ".nl-post-hero" in css and ".nl-post-faq" in css
+        return ok, f"status={status} liveHash={live_fp} repoHash={local_fp}"
+    check(f"styles.css?v={fp}: 200 and new rules present", probe_css)
 
     # SEO artifacts.
-    status, body, _ = fetch("/sitemap.xml")
-    check("sitemap.xml: 200 and lists /blog/",
-          status == 200 and "/blog/" in body, f"status={status}")
-    status, body, _ = fetch("/llms.txt")
-    check("llms.txt: 200 and mentions the blog",
-          status == 200 and "Notes on aging at home" in body, f"status={status}")
+    def probe_sitemap():
+        status, body, _ = fetch("/sitemap.xml")
+        return status == 200 and "/blog/" in body, f"status={status}"
+    check("sitemap.xml: 200 and lists /blog/", probe_sitemap)
 
-    # Published posts must be live and indexable.
+    def probe_llms():
+        status, body, _ = fetch("/llms.txt")
+        return (status == 200 and "Notes on aging at home" in body,
+                f"status={status}")
+    check("llms.txt: 200 and mentions the blog", probe_llms)
+
+    # Published posts must be live and indexable. This is the check the old
+    # single-gate version raced: a post committed seconds ago 404s until Pages
+    # publishes it.
+    def probe_post(slug):
+        def p():
+            status, body, _ = fetch(f"/blog/{slug}.html")
+            return (status == 200 and not NOINDEX.search(body),
+                    f"status={status} noindex={bool(NOINDEX.search(body))}")
+        return p
     for slug in published:
-        status, body, _ = fetch(f"/blog/{slug}.html")
-        check(f"blog/{slug}.html: 200 and not noindex",
-              status == 200 and not NOINDEX.search(body),
-              f"status={status} noindex={bool(NOINDEX.search(body))}")
+        check(f"blog/{slug}.html: 200 and not noindex", probe_post(slug))
 
     # Drafts, if live at all, must stay noindex (they may 404 before their date).
+    def probe_draft(slug):
+        def p():
+            status, body, _ = fetch(f"/blog/{slug}.html")
+            ok = status == 404 or (status == 200 and bool(NOINDEX.search(body)))
+            return ok, f"status={status} noindex={bool(NOINDEX.search(body))}"
+        return p
     for slug in drafts:
-        status, body, _ = fetch(f"/blog/{slug}.html")
-        ok = status == 404 or (status == 200 and bool(NOINDEX.search(body)))
-        check(f"blog/{slug}.html (draft): 404 or noindex",
-              ok, f"status={status} noindex={bool(NOINDEX.search(body))}")
+        check(f"blog/{slug}.html (draft): 404 or noindex", probe_draft(slug))
 
     print()
     if failures:
