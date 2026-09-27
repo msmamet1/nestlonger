@@ -222,10 +222,12 @@
   <script>
     // Carry the entry point through as a hidden field so leads can be routed by
     // vertical, the same way the old data-source attribute worked. Degrades to
-    // "site" with JavaScript off - the form still submits either way.
+    // "site" with JavaScript off - the form still submits either way. The value is
+    // <surface> or <surface>/<post-slug> (README, "Lead capture"); anything outside
+    // [a-z0-9/_-] or over 120 characters is dropped and stays "site".
     (function() {
       var src = new URLSearchParams(window.location.search).get('src');
-      if (src) document.getElementById('nl-source').value = src.slice(0, 40);
+      if (src && /^[a-z0-9\/_-]{1,120}$/.test(src)) document.getElementById('nl-source').value = src;
     })();
   </script>
   <script>

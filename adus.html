@@ -416,6 +416,18 @@
   </footer>
 
   <script>
+    // A blog post links here with ?from=<post-slug>. Carry it into every Get
+    // matched link as src=<surface>/<post-slug> so the lead is credited to the
+    // post. With JavaScript off, or no valid from, the links are left untouched.
+    (function() {
+      var from = new URLSearchParams(window.location.search).get('from');
+      if (!from || !/^[a-z0-9-]+$/.test(from)) return;
+      document.querySelectorAll('a[href^="get-matched.html?src="]').forEach(function(a) {
+        a.setAttribute('href', a.getAttribute('href') + '/' + from);
+      });
+    })();
+  </script>
+  <script>
     // 5.5 entrance treatment and 5.6 nav shadow. Both are additive: with
     // JavaScript off, content is fully visible and the nav simply never gains
     // its scrolled shadow. 5.7: skipped entirely when reduced motion is asked for.

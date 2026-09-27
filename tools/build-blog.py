@@ -240,6 +240,25 @@ def render_body(body):
     return md.convert(body)
 
 
+# A post's links to a product page carry ?from=<slug>, which the product page folds
+# into its Get matched links so a lead is credited to the post that sent it (README,
+# "Lead capture"). Applied here so the content owner keeps writing plain links.
+PRODUCT_LINK_RE = re.compile(
+    r'href="(\.\./(?:grab-bars|adus)\.html)(\?[^"#]*)?(#[^"]*)?"'
+)
+
+
+def tag_product_links(fragment, slug):
+    """Append from=<slug> to every ../grab-bars.html or ../adus.html link. A link
+    that already carries from= is left alone, so a re-run changes nothing."""
+    def sub(m):
+        path, query, frag = m.group(1), m.group(2) or "", m.group(3) or ""
+        if "from=" not in query:
+            query = f"{query}&from={slug}" if query else f"?from={slug}"
+        return f'href="{path}{query}{frag}"'
+    return PRODUCT_LINK_RE.sub(sub, fragment)
+
+
 def image_block(meta):
     if not meta.get("image"):
         return ""
@@ -390,10 +409,12 @@ def render_post(post, template, published):
         "@@DATE_HUMAN@@": post["date_human"],
         "@@JSONLD@@": build_jsonld(post),
         "@@IMAGE_BLOCK@@": image_block(meta).rstrip("\n"),
-        "@@BODY@@": post["body_html"],
+        "@@BODY@@": tag_product_links(post["body_html"], post["slug"]),
         "@@SOURCES_BLOCK@@": sources_block(meta).rstrip("\n"),
         "@@FAQ_BLOCK@@": faq_block(meta).rstrip("\n"),
-        "@@RELATED_BLOCK@@": related_block(post, published).rstrip("\n"),
+        "@@RELATED_BLOCK@@": tag_product_links(
+            related_block(post, published), post["slug"]
+        ).rstrip("\n"),
     }
     out = template
     for token, value in tokens.items():

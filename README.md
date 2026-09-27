@@ -55,6 +55,26 @@ into a hidden `source` field, preserving the per-vertical routing the old Tally
 `data-source` attribute provided. With JavaScript disabled the field falls back to
 `site` and the form still submits.
 
+The `source` value is `<surface>` or `<surface>/<post-slug>`, so a lead can be traced to
+the blog post that produced it. A post's Get matched links and its newsletter form send
+`blog/<slug>`. A post's links to `grab-bars.html` or `adus.html` carry `?from=<slug>`,
+added by `tools/build-blog.py` at render time, and an inline script on those two pages
+turns their Get matched links into `src=grab-bars/<slug>` or `src=adus/<slug>`. A product
+page reached any other way still sends plain `grab-bars` or `adus`, as does a post-to-product
+visit with JavaScript off. `get-matched.html` accepts up to 120 characters of
+`[a-z0-9/_-]` and falls back to `site` for anything else. The Worker stores the value as
+given. Leads by surface and post:
+
+```sql
+SELECT
+  CASE WHEN instr(source, '/') > 0 THEN substr(source, 1, instr(source, '/') - 1) ELSE source END AS surface,
+  CASE WHEN instr(source, '/') > 0 THEN substr(source, instr(source, '/') + 1) ELSE NULL END AS post,
+  COUNT(*) AS n
+FROM leads GROUP BY surface, post ORDER BY n DESC;
+```
+
+Run the same query against `subscribers` for newsletter signups.
+
 Spam is handled by a `website` honeypot field, hidden via `.nl-hp`, plus per-IP rate
 limiting in the Worker. No CAPTCHA — Turnstile would reintroduce the third-party script
 this setup exists to remove.
