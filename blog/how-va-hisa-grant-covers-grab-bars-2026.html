@@ -275,6 +275,22 @@
   </footer>
 
   <script>
+    // Funnel measurement: a click from this post to a product page is a GA4
+    // post_product_click, tagged with the post and the product. Does nothing
+    // without gtag, and never holds up the navigation.
+    (function () {
+      document.addEventListener('click', function (ev) {
+        var a = ev.target.closest && ev.target.closest('a[href]');
+        if (!a || typeof gtag !== 'function') return;
+        var m = a.pathname.match(/\/(grab-bars|adus)\.html$/);
+        if (!m) return;
+        gtag('event', 'post_product_click', {
+          post_slug: 'how-va-hisa-grant-covers-grab-bars-2026', product: m[1], transport_type: 'beacon'
+        });
+      });
+    })();
+  </script>
+  <script>
     // 5.5 entrance treatment and 5.6 nav shadow. Both are additive: with
     // JavaScript off, content is fully visible and the nav simply never gains
     // its scrolled shadow. 5.7: skipped entirely when reduced motion is asked for.

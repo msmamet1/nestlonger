@@ -75,6 +75,15 @@ FROM leads GROUP BY surface, post ORDER BY n DESC;
 
 Run the same query against `subscribers` for newsletter signups.
 
+Four GA4 events trace a reader from post to form, all sent with the existing
+`G-D2CB1LRG5P` tag and no other script. `post_product_click` (`post_slug`, `product`)
+fires on a post, from `tools/blog-post.tmpl.html`, when a link to `grab-bars.html` or
+`adus.html` is clicked. `product_cta_click` (`product`, `post_slug`, `none` when the
+visitor did not arrive from a post) fires on `grab-bars.html` and `adus.html` when a
+Get matched link is clicked. `generate_lead` and `sign_up` (`form_type`) fire on
+`thanks.html` from the `type` the Worker puts on its redirect. None carries anything a
+visitor typed.
+
 Spam is handled by a `website` honeypot field, hidden via `.nl-hp`, plus per-IP rate
 limiting in the Worker. No CAPTCHA — Turnstile would reintroduce the third-party script
 this setup exists to remove.

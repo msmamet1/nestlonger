@@ -428,6 +428,22 @@
     })();
   </script>
   <script>
+    // Funnel measurement: a Get matched click here is a GA4 product_cta_click,
+    // tagged with the post the reader came from (the validated from), or none.
+    // Does nothing without gtag, and never holds up the navigation.
+    (function () {
+      var from = new URLSearchParams(window.location.search).get('from');
+      var post = from && /^[a-z0-9-]+$/.test(from) ? from : 'none';
+      document.addEventListener('click', function (ev) {
+        var a = ev.target.closest && ev.target.closest('a[href^="get-matched.html"]');
+        if (!a || typeof gtag !== 'function') return;
+        gtag('event', 'product_cta_click', {
+          product: 'adus', post_slug: post, transport_type: 'beacon'
+        });
+      });
+    })();
+  </script>
+  <script>
     // 5.5 entrance treatment and 5.6 nav shadow. Both are additive: with
     // JavaScript off, content is fully visible and the nav simply never gains
     // its scrolled shadow. 5.7: skipped entirely when reduced motion is asked for.
