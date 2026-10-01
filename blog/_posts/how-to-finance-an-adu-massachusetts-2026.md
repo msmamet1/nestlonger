@@ -21,7 +21,7 @@ faq:
     a: "Yes for the MassHousing loan. Homeowners must have all plans, permits, and pre-development materials in hand and be ready to move forward with construction before applying, and a project started before closing is not eligible. This is why sorting the town's permit process comes before financing."
 ---
 
-Massachusetts now has two state loan programs built specifically for adding an accessory dwelling unit, and which one fits depends on who the unit is for. If you are building it so an aging parent can live on your property, one of them lends at zero interest. If you are building a larger detached unit, the other lends far more. Most families' answer is one, the other, or both stacked.
+Massachusetts now has two state loan programs built specifically for adding an accessory dwelling unit, and which one fits depends on who the unit is for. If you are building it so an aging parent can live on your property, one of them lends at zero interest. If you are building a larger detached unit, the other lends far more. The answer is one, the other, or both stacked.
 
 ## The MassHousing ADU loan: the larger option
 
@@ -37,7 +37,7 @@ The trade-off between the two is straightforward. HMLP is the better money - zer
 
 ## How the two fit together
 
-For a family building an ADU so a parent can age in place, the sequence usually looks like this. If the whole project fits inside $50,000 - often true for an internal conversion of existing space - HMLP alone may cover it at zero interest. If it is a larger detached build, HMLP can cover the first $50,000 on the best possible terms and the MassHousing loan can cover the rest, or the MassHousing loan can carry the whole thing if the HMLP eligibility basis does not apply.
+For a family building an ADU so a parent can age in place, the sequence looks like this. If the whole project fits inside $50,000, HMLP alone may cover it at zero interest. If it is a larger detached build, HMLP can cover the first $50,000 on the best possible terms and the MassHousing loan can cover the rest, or the MassHousing loan can carry the whole thing if the HMLP eligibility basis does not apply.
 
 Either way, the move that has to come first is not choosing a lender. It is getting the town's permit and your plans in hand, because the MassHousing loan will not close without them, and knowing your real construction number is what tells you which program, or which combination, you actually need.
 
