@@ -51,9 +51,6 @@ The site is proxied through Cloudflare, which caches static assets for **4 hours
 without a purge, visitors and you keep getting the old file, and the change looks like
 it silently failed to deploy.
 
-This has already bitten once: a stylesheet edit deployed correctly but Cloudflare served
-the previous version for the next several hours.
-
 Purge after every change to `assets/**` — via the Cloudflare MCP:
 
 ```js
@@ -78,7 +75,7 @@ A task is done when every acceptance criterion is verifiably true against the li
 
 Matthew works in a local checkout that has diverged from `origin/main` before. Pull and rebase before starting, and say so when you finish.
 
-Specs live in `msmamet1/pga` at `ventures/nestlonger/specs/`, written by the engagement manager and executed here. Open both repos in one VS Code workspace rather than copying specs into this one, since everything tracked here is served publicly. Completion notes, research inputs, and measurement baselines are written back to pga.
+Specs live in `msmamet1/pga` at `ventures/nestlonger/product/specs/`, written by the engagement manager and executed here. Open both repos in one VS Code workspace rather than copying specs into this one, since everything tracked here is served publicly. Completion notes, research inputs, and measurement baselines are written back to pga.
 
 ## Architecture
 
@@ -96,13 +93,13 @@ Specs live in `msmamet1/pga` at `ventures/nestlonger/specs/`, written by the eng
 
 This only works because **the zone is proxied through Cloudflare** — the Worker intercepts `/api/*` before the request reaches GitHub Pages. If the proxy is ever switched to DNS-only, every form silently breaks.
 
-The per-vertical routing that Tally's `data-source` used to provide now rides on `?src=` in the CTA href; four lines of inline script on `get-matched.html` copy it into a hidden `source` field, falling back to `site` without JS. Sources in use: `homepage`, `grab-bars`, `adus`, `about`, `privacy`, `404`, plus `newsletter`.
+Per-vertical routing rides on `?src=` in the CTA href; four lines of inline script on `get-matched.html` copy it into a hidden `source` field, falling back to `site` without JS. Sources in use: `homepage`, `grab-bars`, `adus`, `about`, `privacy`, `404`, `blog` (blog index) and `blog/<slug>` (each post, set by `tools/blog-post.tmpl.html`), plus `newsletter`.
 
 Spam protection is a `website` honeypot plus per-IP rate limiting in the Worker — deliberately no CAPTCHA, since Turnstile would reintroduce a third-party script.
 
-⚠️ **Cloudflare Bot Fight Mode must stay off.** It was enabled until 2026-08-11. Free-plan Bot Fight Mode has no verified-crawler exemption, and it would block form POSTs to the Worker, so it stays off. It was previously blamed for the site's near-zero search traffic. That is false. Search Console shows Googlebot smartphone fetched `grab-bars.html` successfully on 8 August 2026 and indexed it, with crawl allowed and indexing allowed, three days before the mode was disabled. The 0 organic keywords and 3 impressions over 3.5 months is a ranking problem, not an access problem, which is an ordinary result for a three-month-old domain with thin content and a spam-only link profile. Full write-up in `pga/ventures/nestlonger/2026-08-11-crawlability-root-cause.md`.
+⚠️ **Cloudflare Bot Fight Mode must stay off.** Free-plan Bot Fight Mode has no verified-crawler exemption, and it would block form POSTs to the Worker. It is not the cause of low search traffic: Search Console showed Googlebot fetching and indexing pages while it was on, so treat low search traffic as a ranking and content problem, not an access problem.
 
-Two further Cloudflare settings were corrected on 2026-08-11 and must not regress.
+Two further Cloudflare settings must stay as follows.
 
 **AI Scrapers and Crawlers (`ai_bots_protection`) must stay `disabled`.** When set to `block` it disallowed ClaudeBot, GPTBot, Google-Extended, CCBot, meta-externalagent, Amazonbot, Applebot-Extended, and Bytespider. Answer-engine citation is the primary traffic strategy for this site, so blocking those agents defeats the plan.
 
@@ -112,7 +109,7 @@ Disabling the AI crawler block also removed Cloudflare's `Content-Signal` direct
 
 **Analytics**: GA4 `G-D2CB1LRG5P`, inline on every page including 404.
 
-**Styling** is one consolidated `assets/styles.css` (~900 lines), organized by `/* ===== SECTION ===== */` comments — design tokens first, then the shared UI kit (nav, buttons, sections, stats, steps, footer), then page-specific blocks (`HOMEPAGE`, `PARTNER PAGE`, `ABOUT PAGE`, `PRIVACY PAGE`, `404`), with `RESPONSIVE` last. Everything is driven by `--nl-*` custom properties in `:root` (colors, semantic aliases, type, spacing, radius, borders, shadows) — use the existing tokens rather than introducing raw hex values or new one-off variables. Google Fonts arrive via `@import` at the top of the stylesheet, not via `<link>` tags in the HTML.
+**Styling** is one consolidated `assets/styles.css`, organized by `/* ===== SECTION ===== */` comments — design tokens first, then the shared UI kit (nav, buttons, sections, stats, steps, footer), then page-specific blocks (`HOMEPAGE`, `PARTNER PAGE`, `ABOUT PAGE`, `PRIVACY PAGE`, `404`, `FORMS`, `FAQ`, `BLOG`), then `RESPONSIVE`, `MOTION`, `HERO ACTIONS`, `FOUNDER MOMENT` and `CONVERSION PAGE RAIL`. Everything is driven by `--nl-*` custom properties in `:root` (colors, semantic aliases, type, spacing, radius, borders, shadows) — use the existing tokens rather than introducing raw hex values or new one-off variables. Google Fonts arrive via `@import` at the top of the stylesheet, not via `<link>` tags in the HTML.
 
 Class names are all `nl-` prefixed and semantic (`nl-vert-card`, `nl-prob-cell`, `nl-trustsig-grid`). There is no utility-class system.
 
