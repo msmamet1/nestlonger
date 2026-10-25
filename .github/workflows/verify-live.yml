@@ -35,7 +35,7 @@ jobs:
     steps:
       # Check out the current tip of main (which includes any bot regen commit),
       # not the workflow_run's head, so the expected state matches what is live.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: main
 
